@@ -11,12 +11,15 @@ output:
     self_contained: false
     date_prefix: true # adds date for sorting
     draft: true
-    
 ---
 
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r pressure, echo=FALSE, fig.cap="Image source: Cubankite, Africa Studio, Dean Drobot - Shutterstock.", out.width = '100%'}
+knitr::include_graphics("causalimpactanalysis_files/makeitrain.jpg")
 ```
 
 
@@ -55,7 +58,7 @@ The below code stub generates fictitious data for our example. Please note that 
 
 
 
-```{r ca_setup, echo=TRUE}
+```{r ca_setup}
 # load libraries
 
 library(tidyverse) # workhorse
@@ -135,11 +138,8 @@ We now have our employee absence data for both the UK and our control countries 
 
 We begin by specifying the pre and post campaign periods. With this established we are able to perform the causal impact analysis and then both visualise results and provide a statistical summary of the model.
 
-The graphical visualisation of the model results is provided below. The top panel of the visualisation shows a blue confidence interval, in which we would expect our time series data to remain in the absence of the campaign. The second panel displays the difference between situation normal (i.e., no campaign), which is depicted by the the zero value line in the graph, and what happened in reality. In our example we see the pointwise values occur both above and below the zero line. The third panel provides a perspective on the cumulative benefit of the campaign. The visualisation adds the pointwise contributions from the second panel, showing the benefit was minimal and only realised at the end of the post intervention period. None of these visualisation panels inspire confidence in our campaign!
 
-
-
-```{r uk_only_model, include=TRUE}
+```{r uk_only_model, layout="l-body-outset"}
 
 # establish when the intervention occurred
 pre.period <- as.POSIXct(c("2018-01-01", "2018-09-30"))
@@ -152,18 +152,25 @@ impact_uk_only <- CausalImpact::CausalImpact(data         = uk_data,
                                               post.period = post.period)
 
 
-# get a graphical summary of the impact
+# get a graphical summary of the UK only-causal impact model
 graphics::plot(impact_uk_only) %>% 
     plotly::plotly_build()
 
+```
+
+
+The graphical visualisation of the model provides three key perspectives of the model. The top panel of the visualisation shows a blue confidence interval, in which we would expect our time series data to remain in the absence of the campaign. The second panel displays the difference between situation normal (i.e., no campaign), which is depicted by the the zero value line in the graph, and what happened in reality. In our example we see the pointwise values occur both above and below the zero line. The third panel provides a perspective on the cumulative benefit of the campaign. The visualisation adds the pointwise contributions from the second panel, showing the benefit was minimal and only realised at the end of the post intervention period. None of these visualisation panels inspire confidence in our campaign!
+
+
+```{r uk_only_model_summary}
 
 # get a summary &/or report of the model
-base::summary(impact_uk_only) # summary version
+base::summary(impact_uk_only) # summary results
 
 # plain text walk through of result - not run
-# base::summary(impact_uk_only, "report") 
-
+# base::summary(impact_uk_only, "report") # summary report
 ```
+
 
 The summary results do not paint a compelling picture for our campaign either. I will call out a few key results and couple this with text lifted directly from the Summary Report (not included in this article due to its length, but a very useful explanation for Causal Impact Analysis users). The summary indicates that during the post-intervention period we had an actual average of 107 employees on leave per day. In the absence of the campaign we would have expected to have an average 106 employees on leave per day. This expectation is based on a time series model generated using pre-campaign UK data.
 
@@ -174,7 +181,7 @@ Our 95% confidence interval tells us we would need the number to fall above 107 
 
 Let's repeat the process, though this time including the data from the control countries (i.e., Italy, Sweden, Spain, and Germany. With our data, and pre and post campaign periods already established we can proceed directly to modelling and examining the output of the model.
 
-```{r all_countries_model, include=TRUE}
+```{r all_countries_model, layout="l-body-outset"}
 
 # perform the causal impact analysis with all data
 impact_all_data <- CausalImpact::CausalImpact(data = all_country_data, 
@@ -186,16 +193,19 @@ impact_all_data <- CausalImpact::CausalImpact(data = all_country_data,
 graphics::plot(impact_all_data) %>% 
     plotly::plotly_build()
 
-
-# get a summary &/or report of the model
-base::summary(impact_all_data) # summary version
-# plain text walkthrough of result - not run
-# base::summary(impact_all_data, "report") 
-
 ```
 
 
 This time the visualisation of the model results are more compelling! The top panel shows a blue line which is our baseline. The baseline indicates where we would expect UK data to be in the absence of the campaign (based on both the control countries and UK data). The actual data appears to exceed the baseline. The second panel, depicting the difference between no campaign (i.e., the zero line) and the actual data indicated the campaign had a positive impact. The third panel suggests that the cumulative benefit of the campaign, based on the pointwise contributions from the second panel, is considerable. The campaign appears to be working, but let's get a statistical perspective.
+
+```{r all_countries_model_summary}
+
+# get a summary &/or report of the model
+base::summary(impact_all_data) # summary results
+# plain text walkthrough of result - not run
+# base::summary(impact_all_data, "report") # summary report
+```
+
 
 The results of the model suggest that the campaign had a positive impact that is statistically significant! Our actual average of 107 employees being on leave each day is above that of the model prediction, which was 100. In addition, our actual average is well above our 95% Confidence Interval of 101. Finally the probability that this result was due to chance alone is 0.001, and we have achieved a 99.8997% probability that the campaign had a causal effect (i.e., worth betting on!).
 
@@ -205,17 +215,17 @@ Comparing the two models (i.e., UK data only vs. UK data and control countries) 
 
 # 4. Quantifying The Financial Impact Of The Campaign
 
-Based on the period we analysed (i.e., 1/10/2018 - 31/12/2018) our second model indicates that under normal circumstances we would have expected 100 employees on average to take leave each day, while the campaign seems to have catalysed a daily average of 107 employees. The cumulative benefit of this campaign is an additional 437 UK employees taking leave during the post campaign period (i.e., subtracting our cumulative prediction (6599) from our cumulative actual (7036)).
+Based on the period we analysed (i.e., 1/10/2018 - 31/12/2018) our second model indicates that under normal circumstances we would have expected 100 employees on average to take leave each day, while the campaign seems to have catalysed a daily average of 107 employees. The cumulative benefit of this campaign is an additional **437 UK employees taking leave during the post campaign period** (i.e., subtracting our cumulative prediction (6599) from our cumulative actual (7036)).
 
-If the average daily cost of an UK employee is $300 GBP we could simply determine the financial benefit of the campaign by multiplying 437 by our average daily cost of an employee (i.e., $300 GBP). The gross estimated financial benefit of the campaign would be $131,100 GBP, which can be narrowed to a net financial benefit of $101,100 GBP, after subtracting our campaign costs of $30,000 GBP. Not bad HR!
+If the average daily cost of an UK employee is $300 GBP we could simply determine the financial benefit of the campaign by multiplying 437 by our average daily cost of an employee (i.e., $300 GBP). The gross estimated financial benefit of the campaign would be **$131,100 GBP**, which can be narrowed to a net financial benefit of **$101,100 GBP**, after subtracting our campaign costs of $30,000 GBP. Not bad HR!
 
 
 ## Hmmm Interesting But... Now What?
 
 In using Causal Impact Analysis, we can both:
 
-1. measure the ROI (Return-on-Investment) of such behavioural campaigns (e.g. marketing campaign), especially when we are not sure if the campaign was the only single source of the impact; and
-2. potentially use Causal Impact Analysis to get feedback on impact quickly so that adjustments can be made in the moment, as opposed to when campaign momentum has been lost.
+1. measure the **ROI (Return-on-Investment)** of such behavioural campaigns (e.g. marketing campaign), especially when we are not sure if the campaign was the only single source of the impact; and
+2. potentially use **Causal Impact Analysis** to get feedback on impact quickly so that adjustments can be made in the moment, as opposed to when campaign momentum has been lost.
 
 In addition, when tied with outcome metrics (e.g., average cost of unused leave) we can quantify the impact of interventions to demonstrate ROI to internal stakeholders. Causal Impact Analysis can be employed in a variety of settings—HR, Marketing, Communications, Finance, etc. The current article is intended to both provide a simple overview of the process of applying Causal Impact Analysis, and act as catalyst to future innovative applications in the People Analytics domain. Happy measuring!
 
