@@ -6,10 +6,19 @@ author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
 date: 12-30-2020
+categories:
+  - Causal Impact Analysis
+  - Impact Measurement
+  - Plotly
+  - R
 output:
   distill::distill_article:
     self_contained: false
     date_prefix: true # adds date for sorting
+    toc: true
+    toc_depth: 3
+    highlight: rstudio
+    highlight_downlit: true
     draft: false
     
 ---
@@ -43,7 +52,7 @@ Let’s use the HR example above–-does a marketing campaign launched in the UK
 3. builds a time-series model to try and predict how employee absences in the UK should have evolved without the campaign. The time series model can be built using either: a) only UK absence data, or b), using both UK data and the control time series (i.e., comparable countries).
 
 
-## Enough Theory More Practice!
+# Enough Theory More Practice!
 
 The following code provides a walkthrough of Causal Impact Analysis using R. The example context described above (i.e., quantifying the impact of a marketing campaign launched in the UK intended to get employees to reduce leave balances), will be played out below using fictitious data. The code plays out in the following way:
 
@@ -54,7 +63,7 @@ The following code provides a walkthrough of Causal Impact Analysis using R. The
 
 
 
-# 1. Create Time Series Data
+## 1. Create Time Series Data
 The below code stub generates fictitious data for our example. Please note that you can replicate this example, however, the data generated may be different, which in turn may lead to different outcomes (i.e., both visualisations, summary statistics and benefit quantified).
 
 
@@ -135,7 +144,7 @@ all_country_data <- data_tbl %>%
 We now have our employee absence data for both the UK and our control countries of Italy, Sweden, Spain and Germany. Let's begin by assessing the impact of the campaign when looking at the UK data in isolation.
 
 
-# 2. Perform Causal Impact Analysis Using UK Data & Review Results
+## 2. Perform Causal Impact Analysis Using UK Data & Review Results
 
 We begin by specifying the pre and post campaign periods. With this established we are able to perform the causal impact analysis and then both visualise results and provide a statistical summary of the model.
 
@@ -178,7 +187,7 @@ The summary results do not paint a compelling picture for our campaign either. I
 Our 95% confidence interval tells us we would need the number to fall above 107 (or below 105 in case the campaign had an adverse impact) to be considered to have had an impact. The summary report goes into considerably more detail, and includes the following "although the intervention appears to have caused a positive effect, this effect is not statistically significant when considering the entire post-intervention period as a whole." This interpretation is confirmed by our Posterior tail-area probability of p = 0.146. This means that the positive effect noted in the results may be by chance and is not considered statistically significant. 
 
 
-# 3. Perform Causal Impact Analysis Using UK And Control Data & Review Results
+## 3. Perform Causal Impact Analysis Using UK And Control Data & Review Results
 
 Let's repeat the process, though this time including the data from the control countries (i.e., Italy, Sweden, Spain, and Germany. With our data, and pre and post campaign periods already established we can proceed directly to modelling and examining the output of the model.
 
@@ -214,14 +223,14 @@ Comparing the two models (i.e., UK data only vs. UK data and control countries) 
 
 
 
-# 4. Quantifying The Financial Impact Of The Campaign
+## 4. Quantifying The Financial Impact Of The Campaign
 
 Based on the period we analysed (i.e., 1/10/2018 - 31/12/2018) our second model indicates that under normal circumstances we would have expected 100 employees on average to take leave each day, while the campaign seems to have catalysed a daily average of 107 employees. The cumulative benefit of this campaign is an additional **439 UK employees taking leave during the post campaign period** (i.e., subtracting our cumulative prediction (6599) from our cumulative actual (7036)).
 
 If the average daily cost of an UK employee is $300 GBP we could simply determine the financial benefit of the campaign by multiplying 439 by our average daily cost of an employee (i.e., $300 GBP). The estimated **gross financial benefit of the campaign would be $131,700 GBP**, which can be narrowed to a **net financial benefit of $101,700 GBP**, after subtracting our campaign costs of $30,000 GBP. Not bad HR!
 
 
-## Hmmm Interesting But... Now What?
+# Hmmm Interesting But... Now What?
 
 In using Causal Impact Analysis, we can both:
 

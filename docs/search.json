@@ -6,14 +6,14 @@
       "description": "Example text holder",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-30T23:15:09+11:00"
+      "last_modified": "2020-12-31T10:01:20+11:00"
     },
     {
       "path": "index.html",
       "title": "People Analaytics Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-30T23:15:09+11:00"
+      "last_modified": "2020-12-31T10:01:20+11:00"
     }
   ],
   "collections": ["posts/posts.json"]
