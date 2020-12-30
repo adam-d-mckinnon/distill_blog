@@ -10,7 +10,8 @@ output:
   distill::distill_article:
     self_contained: false
     date_prefix: true # adds date for sorting
-    draft: true
+    draft: false
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -54,7 +55,7 @@ The following code provides a walkthrough of Causal Impact Analysis using R. The
 
 
 # 1. Create Time Series Data
-The below code stub generates fictitious data for our example. Please note that you can replicate this example, however, the data generated will be different, which in turn may lead to different outcomes (i.e., both visualisations, summary statistics and benefit quantified).
+The below code stub generates fictitious data for our example. Please note that you can replicate this example, however, the data generated may be different, which in turn may lead to different outcomes (i.e., both visualisations, summary statistics and benefit quantified).
 
 
 
@@ -69,7 +70,7 @@ library(CausalImpact) # our method of interest
 library(plotly) # making graphs attractive and interactive
 
 
-set.seed(2021)
+set.seed(1)
 
 # create a date sequence
 # takes default timezone setting from machine
@@ -139,7 +140,7 @@ We now have our employee absence data for both the UK and our control countries 
 We begin by specifying the pre and post campaign periods. With this established we are able to perform the causal impact analysis and then both visualise results and provide a statistical summary of the model.
 
 
-```{r uk_only_model, layout="l-body-outset"}
+```{r uk_only_model, layout="l-page", fig.width=6, fig.height=6}
 
 # establish when the intervention occurred
 pre.period <- as.POSIXct(c("2018-01-01", "2018-09-30"))
@@ -181,7 +182,7 @@ Our 95% confidence interval tells us we would need the number to fall above 107 
 
 Let's repeat the process, though this time including the data from the control countries (i.e., Italy, Sweden, Spain, and Germany. With our data, and pre and post campaign periods already established we can proceed directly to modelling and examining the output of the model.
 
-```{r all_countries_model, layout="l-body-outset"}
+```{r all_countries_model, layout="l-page", fig.width=6, fig.height=6}
 
 # perform the causal impact analysis with all data
 impact_all_data <- CausalImpact::CausalImpact(data = all_country_data, 
@@ -215,17 +216,17 @@ Comparing the two models (i.e., UK data only vs. UK data and control countries) 
 
 # 4. Quantifying The Financial Impact Of The Campaign
 
-Based on the period we analysed (i.e., 1/10/2018 - 31/12/2018) our second model indicates that under normal circumstances we would have expected 100 employees on average to take leave each day, while the campaign seems to have catalysed a daily average of 107 employees. The cumulative benefit of this campaign is an additional **437 UK employees taking leave during the post campaign period** (i.e., subtracting our cumulative prediction (6599) from our cumulative actual (7036)).
+Based on the period we analysed (i.e., 1/10/2018 - 31/12/2018) our second model indicates that under normal circumstances we would have expected 100 employees on average to take leave each day, while the campaign seems to have catalysed a daily average of 107 employees. The cumulative benefit of this campaign is an additional **439 UK employees taking leave during the post campaign period** (i.e., subtracting our cumulative prediction (6599) from our cumulative actual (7036)).
 
-If the average daily cost of an UK employee is $300 GBP we could simply determine the financial benefit of the campaign by multiplying 437 by our average daily cost of an employee (i.e., $300 GBP). The gross estimated financial benefit of the campaign would be **$131,100 GBP**, which can be narrowed to a net financial benefit of **$101,100 GBP**, after subtracting our campaign costs of $30,000 GBP. Not bad HR!
+If the average daily cost of an UK employee is $300 GBP we could simply determine the financial benefit of the campaign by multiplying 439 by our average daily cost of an employee (i.e., $300 GBP). The estimated **gross financial benefit of the campaign would be $131,700 GBP**, which can be narrowed to a **net financial benefit of $101,700 GBP**, after subtracting our campaign costs of $30,000 GBP. Not bad HR!
 
 
 ## Hmmm Interesting But... Now What?
 
 In using Causal Impact Analysis, we can both:
 
-1. measure the **ROI (Return-on-Investment)** of such behavioural campaigns (e.g. marketing campaign), especially when we are not sure if the campaign was the only single source of the impact; and
-2. potentially use **Causal Impact Analysis** to get feedback on impact quickly so that adjustments can be made in the moment, as opposed to when campaign momentum has been lost.
+1. **measure the ROI (Return-on-Investment) of behavioural campaigns** (e.g. marketing campaign), especially when we are not sure if the campaign was the only single source of the impact; and
+2. potentially **use Causal Impact Analysis to get feedback on impact quickly so that adjustments can be made in the moment**, as opposed to when campaign momentum has been lost.
 
 In addition, when tied with outcome metrics (e.g., average cost of unused leave) we can quantify the impact of interventions to demonstrate ROI to internal stakeholders. Causal Impact Analysis can be employed in a variety of settings—HR, Marketing, Communications, Finance, etc. The current article is intended to both provide a simple overview of the process of applying Causal Impact Analysis, and act as catalyst to future innovative applications in the People Analytics domain. Happy measuring!
 
