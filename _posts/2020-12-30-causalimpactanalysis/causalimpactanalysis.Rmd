@@ -1,0 +1,26 @@
+---
+title: "causal_impact_analysis"
+description: |
+  A How To article on the use of Causal Impact Analysis for People Analytics Practitioners.
+author:
+  - name: Adam McKinnon
+    url: https://example.com/norajones
+date: 12-30-2020
+output:
+  distill::distill_article:
+    self_contained: false
+    date_prefix: true # adds date for sorting
+    draft: true
+    
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web.
+
+Learn more about using Distill at <https://rstudio.github.io/distill>.
+
+
