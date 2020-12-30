@@ -2,18 +2,18 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "title": "Adam McKinnon",
+      "description": "Example text holder",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-30T22:40:34+11:00"
+      "last_modified": "2020-12-30T23:15:09+11:00"
     },
     {
       "path": "index.html",
-      "title": "My Blog",
+      "title": "People Analaytics Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-30T22:40:34+11:00"
+      "last_modified": "2020-12-30T23:15:09+11:00"
     }
   ],
   "collections": ["posts/posts.json"]

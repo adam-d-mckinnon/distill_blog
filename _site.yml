@@ -1,7 +1,6 @@
 name: "distill_blog"
-title: "Adam McKinnon"
-description: |
-  My Blog
+title: "ADAM D MCKINNON"
+description: "People Analytics 'How TO' Blog"
 output_dir: "docs"
 navbar:
   right:
