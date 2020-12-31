@@ -4,7 +4,7 @@ description: |
   Welcome to my new blog, My Blog. I hope you enjoy 
   reading my experiements with R in the domain of People Analytics!
 author:
-  - name: Adam McKinnon 
+  - name: Adam D McKinnon 
     url: "https://www.adam-d-mckinnon.com/"
 date: 12-30-2010
 output:

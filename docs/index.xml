@@ -36,6 +36,21 @@
       <media:content url="https://www.adam-d-mckinnon.com/posts/2020-10-10-forecastpeopleanalytics/forecasting-market-icon.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
+      <title>A People Analytics Tutorial on Unsupervised Machine Learning - Cluster Analysis in R</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <dc:creator>Monica Ashton</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2020-08-04-clusteranalysis</link>
+      <description>A "How To" article on the use of Cluster Analysis to understand phenomenon within Organisations.</description>
+      <category>Cluster Analysis</category>
+      <category>Gowers Distance</category>
+      <category>TSNE</category>
+      <category>Plotly</category>
+      <category>R</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2020-08-04-clusteranalysis</guid>
+      <pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2020-08-04-clusteranalysis/clustering_image.png" medium="image" type="image/png" width="1170" height="400"/>
+    </item>
+    <item>
       <title>People Analytics 'How To' Blog</title>
       <dc:creator>Adam McKinnon</dc:creator>
       <link>https://www.adam-d-mckinnon.com/posts/welcome</link>
