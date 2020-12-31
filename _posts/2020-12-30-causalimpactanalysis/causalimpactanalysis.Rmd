@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r pressure, echo=FALSE, fig.cap="Image source: Cubankite, Africa Studio, Dean Drobot - Shutterstock.", out.width = '100%'}
+```{r image_header, echo=FALSE, fig.cap="Image source: Cubankite, Africa Studio, Dean Drobot - Shutterstock.", out.width = '100%'}
 knitr::include_graphics("causalimpactanalysis_files/makeitrain.jpg")
 ```
 
