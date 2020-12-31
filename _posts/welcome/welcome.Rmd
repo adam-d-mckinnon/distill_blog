@@ -5,7 +5,7 @@ description: |
   reading what we have to say!
 author:
   - name: Adam McKinnon 
-    url: https://example.com/norajones
+    url: "https://www.adam-d-mckinnon.com/"
     affiliation: Spacely Sprockets
     affiliation_url: https://example.com/spacelysprokets
 date: 12-30-2020

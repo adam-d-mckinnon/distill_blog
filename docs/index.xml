@@ -29,5 +29,20 @@ reading what we have to say!</description>
       <guid>https://www.adam-d-mckinnon.com/posts/welcome</guid>
       <pubDate>Wed, 30 Dec 2020 00:00:00 +0000</pubDate>
     </item>
+    <item>
+      <title>What is the Forecast for People Analytics?</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <dc:creator>Monica Ashton</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2020-10-10-forecastpeopleanalytics</link>
+      <description>An article on the use of Google Trends and the new TimeTK and ModelTime Libraries in R.</description>
+      <category>Forecasting</category>
+      <category>TimeTK</category>
+      <category>ModelTime</category>
+      <category>Plotly</category>
+      <category>R</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2020-10-10-forecastpeopleanalytics</guid>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2020-10-10-forecastpeopleanalytics/forecasting-market-icon.jpg" medium="image" type="image/jpeg"/>
+    </item>
   </channel>
 </rss>
