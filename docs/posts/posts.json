@@ -51,7 +51,7 @@
   {
     "path": "posts/welcome/",
     "title": "People Analytics 'How To' Blog",
-    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
+    "description": "Welcome to my new blog, My Blog. I hope you enjoy \nreading my experiements with R in the domain of People Analytics!",
     "author": [
       {
         "name": "Adam McKinnon",
@@ -62,7 +62,7 @@
     "categories": [],
     "contents": "\n\n\n\n",
     "preview": {},
-    "last_modified": "2020-12-31T12:23:56+11:00",
+    "last_modified": "2020-12-31T12:26:40+11:00",
     "input_file": "welcome.utf8.md"
   }
 ]

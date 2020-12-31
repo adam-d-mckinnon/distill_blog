@@ -1,8 +1,8 @@
 ---
 title: "People Analytics 'How To' Blog"
 description: |
-  Welcome to our new blog, My Blog. We hope you enjoy 
-  reading what we have to say!
+  Welcome to my new blog, My Blog. I hope you enjoy 
+  reading my experiements with R in the domain of People Analytics!
 author:
   - name: Adam McKinnon 
     url: "https://www.adam-d-mckinnon.com/"
