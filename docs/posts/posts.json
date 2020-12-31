@@ -22,23 +22,6 @@
     "input_file": {}
   },
   {
-    "path": "posts/welcome/",
-    "title": "People Analytics 'How To' Blog",
-    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
-    "author": [
-      {
-        "name": "Adam McKinnon",
-        "url": "https://www.adam-d-mckinnon.com/"
-      }
-    ],
-    "date": "2020-12-30",
-    "categories": [],
-    "contents": "\n\n\n\n",
-    "preview": {},
-    "last_modified": "2020-12-31T12:22:04+11:00",
-    "input_file": {}
-  },
-  {
     "path": "posts/2020-10-10-forecastpeopleanalytics/",
     "title": "What is the Forecast for People Analytics?",
     "description": "An article on the use of Google Trends and the new TimeTK and ModelTime Libraries in R.",
@@ -64,5 +47,22 @@
     "preview": "posts/2020-10-10-forecastpeopleanalytics/forecasting-market-icon.jpg",
     "last_modified": "2020-12-31T12:08:04+11:00",
     "input_file": {}
+  },
+  {
+    "path": "posts/welcome/",
+    "title": "People Analytics 'How To' Blog",
+    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
+    "author": [
+      {
+        "name": "Adam McKinnon",
+        "url": "https://www.adam-d-mckinnon.com/"
+      }
+    ],
+    "date": "2010-12-30",
+    "categories": [],
+    "contents": "\n\n\n\n",
+    "preview": {},
+    "last_modified": "2020-12-31T12:23:56+11:00",
+    "input_file": "welcome.utf8.md"
   }
 ]

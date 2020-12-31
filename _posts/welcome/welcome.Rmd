@@ -6,9 +6,7 @@ description: |
 author:
   - name: Adam McKinnon 
     url: "https://www.adam-d-mckinnon.com/"
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
-date: 12-30-2020
+date: 12-30-2010
 output:
   distill::distill_article:
     self_contained: false
