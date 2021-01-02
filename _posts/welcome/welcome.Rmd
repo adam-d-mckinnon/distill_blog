@@ -1,14 +1,14 @@
 ---
 title: "A Beginner’s Guide to Machine Learning for HR Practitioners"
 description: |
-  Welcome to my new blog, My Blog. I hope you enjoy 
-  reading my experiements with R in the domain of People Analytics!
+  An introductory article intended demistify Machine Learning (ML), an important subset of AI, for HR Professionals.
 author:
   - name: Adam D McKinnon 
     url: "https://www.adam-d-mckinnon.com/"
   - name: Monica Ashton 
 date: 06-19-2010
 categories:
+  - Artificial Intelligence
   - Machine Learning
   - HR
 output: 
@@ -17,7 +17,7 @@ output:
     date_prefix: true # adds date for sorting
     toc: true
     toc_depth: 3
-    draft: true
+    draft: false
 ---
 
 ```{r setup, include=FALSE}
@@ -57,7 +57,7 @@ When it comes to ML there are basically three broad types:
 
 3. Supervised Learning.
 
-## What is Reinforcement Learning?
+### 1. What is Reinforcement Learning?
 
 Reinforcement Learning is probably best known through IBM’s Deep Blue computer, a “robot” that learned how to play chess and beat the human world champion. 
 
@@ -66,14 +66,14 @@ Reinforcement Learning is a type of technique that enables an algorithm to learn
 Examples of reinforcement learning applied in HR are a bit lean, though are most prevalent in areas such as education (i.e., applying content based on the progress of the student), finance and investment (i.e., advanced forecasting), supply chain operations (i.e., robots fulfilling orders in a warehouse), traffic flow optimization, and healthcare (i.e., accurate classification of biopsy images).
 
 
-## What is Supervised Learning?
+### 2. What is Supervised Learning?
 The most common forms of ML across industries, and specifically the HR domain, are Supervised Learning, followed by Unsupervised Learning. 
 
 In Supervised Learning, we try to predict an outcome, such as whether an employee will leave the company, the risk of an employee being injured, or the ideal starting salary of a new employee. 
 
 To make predictions we need different input variables (i.e., variables are called “Features” by data scientists). Our input features are only limited to our imagination (i.e., what we think will be important), what data we can get our hands-on, or what data we can create (e.g., by knowing where someone works and where they live we can create a variable focused on employee commute distance).
 
-### An example: Supervised Learning informing Employee Turnover
+# An example: Supervised Learning informing Employee Turnover
 
 Let’s examine a more detailed example of Supervised Learning—predicting who will leave an organization. Imagine that 1 in 5 new recruits leaves an organization in their first 12 months of tenure. To prevent such turnover, we could build a supervised learning model that predicts the likelihood of new starters leaving, so that our HR and managerial colleagues could intervene. 
 
@@ -95,7 +95,8 @@ knitr::include_graphics("welcome_files/Variable Importance Plot - Article Used.p
 A supervised learning model used to predict employee turnover among new starters has the potential to reduce notable costs, including financial (e.g., separation, vacancy, recruitment, training, and replacement) reputational (e.g., eroding an EVP and/or reducing candidate appeal) and productivity-related (e.g., on average organizations invest between four weeks and three months training new employees). Some of these costs can be readily quantified so that we can identify organizational savings based on prevented turnover (e.g., preventing 2 in 10 resignations saves $xxx). 
 
 
-## What is Unsupervised Learning?
+### 3. What is Unsupervised Learning?
+
 
 Unlike Supervised Learning where we are trying to predict an outcome, Unsupervised Learning analyzes many variables simultaneously to identify similarities, patterns or relationships in the data. Unsupervised Learning is more about understanding what’s in the data. The two most common uses of unsupervised learning are focused on:
 
@@ -103,7 +104,7 @@ Unlike Supervised Learning where we are trying to predict an outcome, Unsupervis
 
 * Association mining: identifies sets of variables that often occur together in your dataset. For example, identifying injury patterns among workers at specific sites.
 
-### An example: Unsupervised Learning informing Employee Turnover
+# An example: Unsupervised Learning informing Employee Turnover
 
 Cluster Analysis, the most famous form of unsupervised learning, can also help us better understand employee attrition. This approach can help group employees based on similar features (e.g., location, tenure, nationality, education level, age, performance level, etc.). 
 
@@ -120,6 +121,9 @@ Once grouped into clusters, the next step is to determine the risk of turnover f
 
 This last insight is of considerable practical significance, as it may help us tailor interventions that target specific employee clusters, thereby delivering maximum impact (i.e., retaining employees and reducing turnover costs) and return on our investment (i.e. for every $ spent we generated $xxx in savings from reduced turnover). 
 
+
+
 ## Conclusion
+
 We have begun to open the black box that is AI, providing a simple overview of ML. We looked at three broad types of ML—reinforcement, supervised and unsupervised—and examined some simple applications of each, where possible related to Human Resources. It is our genuine belief that through greater knowledge of what is possible with ML, HRBP’s and organizational decision-makers will both expect more, and be willing to do more, in this technological domain. Our next piece will explain the step-by-step process for performing Supervised ML—making discussions with People Analytics teams more tangible and less abstract!
 
