@@ -36,12 +36,12 @@ knitr::opts_chunk$set(
 ```
 
 
-```{r image_header, echo=FALSE, fig.cap="Image source: Clustering: scikit-learn.org", out.width = "100%"}
+```{r header, echo=FALSE, fig.cap="Image source: Clustering: scikit-learn.org", out.width = "100%"}
 knitr::include_graphics("clustering_image.png")
 ```
 
 
-We recently published an article titled [**"A Beginner's Guide to Machine Learning for HR Practitioners"**](https://www.linkedin.com/pulse/beginners-guide-machine-learning-hr-practitioners-adam-mckinnon/) where we touched on the three broad types of Machine Learning (ML); reinforcement, supervised, and unsupervised learning. In this follow-up article we will explore unsupervised ML in more depth. We will demonstrate how we use cluster analysis, a form of unsupervised ML, to identify similarities, patterns, and relationships in datasets intelligently (like humans – but faster or more accurately). We have included some practical code written in R. Let’s get started!
+We recently published an article titled [**"A Beginner's Guide to Machine Learning for HR Practitioners"**](https://www.adam-d-mckinnon.com/posts/welcome/) where we touched on the three broad types of Machine Learning (ML); reinforcement, supervised, and unsupervised learning. In this follow-up article we will explore unsupervised ML in more depth. We will demonstrate how we use cluster analysis, a form of unsupervised ML, to identify similarities, patterns, and relationships in datasets intelligently (like humans – but faster or more accurately). We have included some practical code written in R. Let’s get started!
 
 
 ## Cluster Analysis in HR
