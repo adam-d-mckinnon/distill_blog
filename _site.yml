@@ -1,6 +1,7 @@
 name: "distill_blog"
 title: "ADAM D MCKINNON"
 description: "People Analytics 'How TO' Blog"
+favicon: site_images/icon.png
 output_dir: "docs"
 navbar:
   right:
