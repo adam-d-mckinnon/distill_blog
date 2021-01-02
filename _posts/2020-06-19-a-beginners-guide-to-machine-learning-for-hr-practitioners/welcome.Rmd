@@ -6,7 +6,7 @@ author:
   - name: Adam D McKinnon 
     url: "https://www.adam-d-mckinnon.com/"
   - name: Monica Ashton 
-date: 06-19-2010
+date: 06-19-2020
 categories:
   - Artificial Intelligence
   - Machine Learning

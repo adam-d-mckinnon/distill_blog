@@ -5,6 +5,11 @@
     <link>https://www.adam-d-mckinnon.com/</link>
     <atom:link href="https://www.adam-d-mckinnon.com/index.xml" rel="self" type="application/rss+xml"/>
     <description>People Analytics 'How TO' Blog</description>
+    <image>
+      <title>ADAM D MCKINNON</title>
+      <url>https://www.adam-d-mckinnon.com/site_images/icon.png</url>
+      <link>https://www.adam-d-mckinnon.com/</link>
+    </image>
     <generator>Distill</generator>
     <lastBuildDate>Wed, 30 Dec 2020 00:00:00 +0000</lastBuildDate>
     <item>
@@ -54,14 +59,14 @@
       <title>A Beginner’s Guide to Machine Learning for HR Practitioners</title>
       <dc:creator>Adam D McKinnon</dc:creator>
       <dc:creator>Monica Ashton</dc:creator>
-      <link>https://www.adam-d-mckinnon.com/posts/welcome</link>
+      <link>https://www.adam-d-mckinnon.com/posts/2020-06-19-a-beginners-guide-to-machine-learning-for-hr-practitioners</link>
       <description>An introductory article intended to demistify Machine Learning (ML)--an important subset of AI--for HR Professionals.</description>
       <category>Artificial Intelligence</category>
       <category>Machine Learning</category>
       <category>HR</category>
-      <guid>https://www.adam-d-mckinnon.com/posts/welcome</guid>
-      <pubDate>Sat, 19 Jun 2010 00:00:00 +0000</pubDate>
-      <media:content url="https://www.adam-d-mckinnon.com/posts/welcome/welcome_files/pietro-jeng-n6B49lTx7NM-unsplash.jpg" medium="image" type="image/jpeg"/>
+      <guid>https://www.adam-d-mckinnon.com/posts/2020-06-19-a-beginners-guide-to-machine-learning-for-hr-practitioners</guid>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2020-06-19-a-beginners-guide-to-machine-learning-for-hr-practitioners/welcome_files/pietro-jeng-n6B49lTx7NM-unsplash.jpg" medium="image" type="image/jpeg"/>
     </item>
   </channel>
 </rss>
