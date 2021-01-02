@@ -37,7 +37,7 @@ knitr::opts_chunk$set(
 
 
 ```{r header, echo=FALSE, fig.cap="Image source: Clustering: scikit-learn.org", out.width = "100%"}
-knitr::include_graphics("clustering_image.png")
+knitr::include_graphics("sphx_glr_plot_cluster_comparison_0011.png")
 ```
 
 
@@ -387,4 +387,4 @@ In this instance, we have demonstrated the process for performing cluster analys
 
 
 ## Acknowledgments {.appendix}
-This article was first published on the Analytics In HR (AIHR) website under the title ["A Tutorial on People Analytics Using R – Clustering"](https://www.analyticsinhr.com/blog/people-analytics-r-clustering/?utm_source=linkedin&utm_medium=social&utm_campaign=blog&utm_content=ac-r-clustering)on July 13, 2020. The original version can be viewed here.
+This article was first published on the Analytics In HR (AIHR) website under the title ["A Tutorial on People Analytics Using R – Clustering"](https://www.analyticsinhr.com/blog/people-analytics-r-clustering/?utm_source=linkedin&utm_medium=social&utm_campaign=blog&utm_content=ac-r-clustering)on June 13, 2020. The original version can be viewed here.
