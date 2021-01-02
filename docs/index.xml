@@ -51,13 +51,17 @@
       <media:content url="https://www.adam-d-mckinnon.com/posts/2020-08-04-clusteranalysis/clustering_image.png" medium="image" type="image/png" width="1170" height="400"/>
     </item>
     <item>
-      <title>People Analytics 'How To' Blog</title>
-      <dc:creator>Adam McKinnon</dc:creator>
+      <title>A Beginner’s Guide to Machine Learning for HR Practitioners</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <dc:creator>Monica Ashton</dc:creator>
       <link>https://www.adam-d-mckinnon.com/posts/welcome</link>
       <description>Welcome to my new blog, My Blog. I hope you enjoy 
 reading my experiements with R in the domain of People Analytics!</description>
+      <category>Machine Learning</category>
+      <category>HR</category>
       <guid>https://www.adam-d-mckinnon.com/posts/welcome</guid>
-      <pubDate>Thu, 30 Dec 2010 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 19 Jun 2010 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/welcome/welcome_files/Which Department - Article Used.png" medium="image" type="image/png" width="786" height="514"/>
     </item>
   </channel>
 </rss>
