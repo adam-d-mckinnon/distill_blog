@@ -24,7 +24,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r image0, echo=FALSE, fig.cap="Image by Pietro Jeng on Unsplash.", out.width = "100%"}
+```{r image0, echo=FALSE, fig.cap="Image by Pietro Jeng on [Unsplash](https://unsplash.com/).", out.width = "100%"}
 knitr::include_graphics("welcome_files/pietro-jeng-n6B49lTx7NM-unsplash.jpg")
 ```
 

@@ -30,8 +30,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r image_header, echo=FALSE, out.width = '100%'}
-knitr::include_graphics("forecasting-market-icon.jpg")
+```{r image0, echo=FALSE, fig.cap="Photo by [Chris Liverani](https://unsplash.com/@chrisliverani) on [Unsplash](https://unsplash.com/).", out.width = "100%"}
+knitr::include_graphics("chris-liverani-dBI_My696Rk-unsplash.jpg")
+
 ```
 
 The last 9 months have, more than ever, emphasized the importance of knowing what is coming. In this article, we take a closer look at forecasting. Forecasting can be applied to a range of HR-related topics. We will specifically examine how forecasting models can be deployed in R, using an example analysis on the rise in popularity of “people analytics”.
