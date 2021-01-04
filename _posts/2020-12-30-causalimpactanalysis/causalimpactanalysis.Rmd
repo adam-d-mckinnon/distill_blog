@@ -1,5 +1,5 @@
 ---
-title: "Show Me The money! A People Analytics Guide to Measuring Impact Over Time"
+title: "Show Me The Money! A People Analytics Guide to Measuring Impact Over Time"
 description: |
   A "How To" article on the use of Causal Impact Analysis for People Analytics Practitioners.
 author:
