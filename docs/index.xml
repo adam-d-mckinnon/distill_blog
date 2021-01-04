@@ -68,5 +68,18 @@
       <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
       <media:content url="https://www.adam-d-mckinnon.com/posts/2020-06-19-a-beginners-guide-to-machine-learning-for-hr-practitioners/welcome_files/pietro-jeng-n6B49lTx7NM-unsplash.jpg" medium="image" type="image/jpeg"/>
     </item>
+    <item>
+      <title>4 key insights on the HR Tech landscape… analysis from London Unleash 2019</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <dc:creator>Leandra Griep</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2020-03-16-hrtechanalysis</link>
+      <description>In this article we take a data-driven look at HR Technology, using network analysis. Specifically, we objectively examine the question “which technologies and vendors are influential in the HR Tech landscape?” Anecdotal predictions regarding the future are common, but can we derive an understanding of HR technologies through data and analytics?</description>
+      <category>HR Tech</category>
+      <category>Network Analysis</category>
+      <category>Kenelyze</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2020-03-16-hrtechanalysis</guid>
+      <pubDate>Mon, 16 Mar 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2020-03-16-hrtechanalysis/hrtechanalysis_files/jj-ying-8bghKxNU1j0-unsplash.jpg" medium="image" type="image/jpeg"/>
+    </item>
   </channel>
 </rss>
