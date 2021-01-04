@@ -5,7 +5,7 @@ description: |
 author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
-date: 01-05-2020
+date: 01-05-2021
 categories:
   - Causal Impact Analysis
   - Impact Measurement

@@ -11,7 +11,20 @@
       <link>https://www.adam-d-mckinnon.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Show Me The money! A People Analytics Guide to Measuring Impact Over Time</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2020-12-30-causalimpactanalysis</link>
+      <description>A "How To" article on the use of Causal Impact Analysis for People Analytics Practitioners.</description>
+      <category>Causal Impact Analysis</category>
+      <category>Impact Measurement</category>
+      <category>Plotly</category>
+      <category>R</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2020-12-30-causalimpactanalysis</guid>
+      <pubDate>Tue, 05 Jan 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2020-12-30-causalimpactanalysis/causalimpactanalysis_files/makeitrain.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>The Value of Measuring Employee Skill Data</title>
       <dc:creator>Adam D McKinnon</dc:creator>
@@ -79,19 +92,6 @@
       <guid>https://www.adam-d-mckinnon.com/posts/2020-03-16-hrtechanalysis</guid>
       <pubDate>Mon, 16 Mar 2020 00:00:00 +0000</pubDate>
       <media:content url="https://www.adam-d-mckinnon.com/posts/2020-03-16-hrtechanalysis/hrtechanalysis_files/jj-ying-8bghKxNU1j0-unsplash.jpg" medium="image" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>Show Me The money! A People Analytics Guide to Measuring Impact Over Time</title>
-      <dc:creator>Adam D McKinnon</dc:creator>
-      <link>https://www.adam-d-mckinnon.com/posts/2020-12-30-causalimpactanalysis</link>
-      <description>A "How To" article on the use of Causal Impact Analysis for People Analytics Practitioners.</description>
-      <category>Causal Impact Analysis</category>
-      <category>Impact Measurement</category>
-      <category>Plotly</category>
-      <category>R</category>
-      <guid>https://www.adam-d-mckinnon.com/posts/2020-12-30-causalimpactanalysis</guid>
-      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://www.adam-d-mckinnon.com/posts/2020-12-30-causalimpactanalysis/causalimpactanalysis_files/makeitrain.jpg" medium="image" type="image/jpeg"/>
     </item>
   </channel>
 </rss>
