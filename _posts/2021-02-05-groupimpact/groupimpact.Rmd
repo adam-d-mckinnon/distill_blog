@@ -1,0 +1,47 @@
+---
+title: "A People Analytics Guide to Measuring Impact Between Groups"
+description: |
+  A "How To" article on the use of <METHOD> for People Analytics Practitioners.
+author:
+  - name: Adam D McKinnon
+    url: https://adam-d-mckinnon.com/
+date: 01-05-2021
+categories:
+  - Impact Measurement
+  - Plotly
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    date_prefix: true # adds date for sorting
+    toc: true
+    toc_depth: 3
+    highlight: rstudio
+    highlight_downlit: true
+    draft: true
+    
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  R.options = list(width = 70)
+)
+
+```
+
+
+
+```{r header, echo=FALSE, fig.cap="Image source: Cubankite, Africa Studio, Dean Drobot - Shutterstock.", out.width = '100%'}
+knitr::include_graphics("causalimpactanalysis_files/makeitrain.jpg")
+```
+
+
+
+
+
+

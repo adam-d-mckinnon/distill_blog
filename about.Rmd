@@ -1,9 +1,19 @@
 ---
-title: "Adam McKinnon"
-description: |
-  Example text holder
+title: "Adam D McKinnon"
+description: Welcome to my People Analytics blog
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+
+<center>
+```{r header, echo=FALSE}
+knitr::include_graphics("site_images/icon.png")
+
+```
+</center>
+
+
+This is my personal blog, coming to you from Melbourne, Australia. I write about the growing field of People Analytics, mostly through the application of the R language. On this site, you can find my posts which provide both a philosophical perspective regarding advancements in people analytics, along with practical "How To" projects applying different methods (*please learn from my mistakes!*).

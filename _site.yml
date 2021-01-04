@@ -21,4 +21,3 @@ collections:
     authors_metadata: true # include author details on the left of the home page
     feed_items_max: false # no limit on the number of posts presented
     share: [twitter, linkedin]
-    disqus: 
