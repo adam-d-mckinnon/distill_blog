@@ -5,7 +5,7 @@ description: |
 author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
-date: 12-30-2020
+date: 01-05-2020
 categories:
   - Causal Impact Analysis
   - Impact Measurement
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r image_header, echo=FALSE, fig.cap="Image source: Cubankite, Africa Studio, Dean Drobot - Shutterstock.", out.width = '100%'}
+```{r header, echo=FALSE, fig.cap="Image source: Cubankite, Africa Studio, Dean Drobot - Shutterstock.", out.width = '100%'}
 knitr::include_graphics("causalimpactanalysis_files/makeitrain.jpg")
 ```
 
@@ -237,5 +237,8 @@ In using Causal Impact Analysis, we can both:
 1. **measure the ROI (Return-on-Investment) of behavioural campaigns** (e.g. marketing campaign), especially when we are not sure if the campaign was the only single source of the impact; and
 2. potentially **use Causal Impact Analysis to get feedback on impact quickly so that adjustments can be made in the moment**, as opposed to when campaign momentum has been lost.
 
-In addition, when tied with outcome metrics (e.g., average cost of unused leave) we can quantify the impact of interventions to demonstrate ROI to internal stakeholders. Causal Impact Analysis can be employed in a variety of settings—HR, Marketing, Communications, Finance, etc. The current article is intended to both provide a simple overview of the process of applying Causal Impact Analysis, and act as catalyst to future innovative applications in the People Analytics domain. Happy measuring!
+In addition, when tied with outcome metrics (e.g., average cost of unused leave) we can quantify the impact of interventions to demonstrate ROI to internal stakeholders. Causal Impact Analysis can be employed in a variety of settings—HR, Marketing, Communications, Finance, etc. The current article is intended to both provide a simple overview of the process of applying Causal Impact Analysis, and act as catalyst to future innovative applications in the People Analytics domain. 
+
+
+**Happy measuring!**
 
