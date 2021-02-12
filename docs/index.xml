@@ -20,6 +20,8 @@
       <description>A "How To" article on the measurment of differences between groups in HR settings.</description>
       <category>Impact Measurement</category>
       <category>t-test</category>
+      <category>rstatix</category>
+      <category>ggpubr</category>
       <category>Plotly</category>
       <category>R</category>
       <guid>https://www.adam-d-mckinnon.com/posts/2021-02-05-groupimpact</guid>

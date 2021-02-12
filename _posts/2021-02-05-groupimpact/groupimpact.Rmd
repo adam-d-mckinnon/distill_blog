@@ -11,6 +11,8 @@ date: 02-12-2021 #month-day-year format
 categories:
   - Impact Measurement
   - t-test
+  - rstatix
+  - ggpubr
   - Plotly
   - R
 output:
