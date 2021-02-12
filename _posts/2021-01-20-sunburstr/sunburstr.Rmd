@@ -2,6 +2,7 @@
 title: "A Touch Of The Sun"
 description: |
   Applying Sunburst Visualisation in R to Synthesize Complex Relationships.
+draft: true
 author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
@@ -10,7 +11,7 @@ categories:
   - Visualisation
   - SunburstR
   - R
-draft: true
+
 output:
   distill::distill_article:
     self_contained: false
