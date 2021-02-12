@@ -5,11 +5,12 @@ description: |
 author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
-date: 01-20-2021
+date: 02-05-2021
 categories:
   - Visualisation
   - SunburstR
   - R
+draft: true
 output:
   distill::distill_article:
     self_contained: false
@@ -18,7 +19,7 @@ output:
     toc_depth: 2
     highlight: rstudio
     highlight_downlit: true
-    draft: true
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -67,17 +68,14 @@ tree <- d3_nest(shorter_data_tbl, value_cols = "n")
   
 ```
 
-```{r}
-
-display.brewer.all()
-display.brewer.pal(n = 6, name = "Set2")
-
-
-
-```
 
 
 ```{r}
+
+
+# display.brewer.all()
+# display.brewer.pal(n = 6, name = "Set2")
+
 
 hex_colours <- brewer.pal(n = 6, name = "Set1") 
 

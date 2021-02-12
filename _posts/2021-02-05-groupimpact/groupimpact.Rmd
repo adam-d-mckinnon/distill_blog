@@ -7,7 +7,7 @@ author:
     url: https://adam-d-mckinnon.com/
   - name: Sambit Das
     url: https://www.linkedin.com/in/sambit-das-362bb71/
-date: 02-15-2021 #month-day-year format
+date: 02-12-2021 #month-day-year format
 categories:
   - Impact Measurement
   - t-test
