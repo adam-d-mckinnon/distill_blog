@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Measuring Impact in HR: A Practical Demonstration</title>
+
+  <meta property="description" itemprop="description" content="A &quot;How To&quot; article on the measurment of differences between groups in HR settings."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-02-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-02-15"/>
+  <meta name="article:author" content="Adam D McKinnon"/>
+  <meta name="article:author" content="Sambit Das"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Measuring Impact in HR: A Practical Demonstration"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="A &quot;How To&quot; article on the measurment of differences between groups in HR settings."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Measuring Impact in HR: A Practical Demonstration"/>
+  <meta property="twitter:description" content="A &quot;How To&quot; article on the measurment of differences between groups in HR settings."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["Measuring Impact in HR: A Practical Demonstration"]},{"type":"character","attributes":{},"value":["A \"How To\" article on the measurment of differences between groups in HR settings.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Adam D McKinnon"]},{"type":"character","attributes":{},"value":["https://adam-d-mckinnon.com/"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Sambit Das"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/sambit-das-362bb71/"]}]}]},{"type":"character","attributes":{},"value":["02-15-2021"]},{"type":"character","attributes":{},"value":["Impact Measurement","t-test","Plotly","R"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["code_folding","df_print","self_contained","date_prefix","toc","toc_depth","toc_float","highlight","highlight_downlit","draft"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["paged"]},{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["rstudio"]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["groupimpact_files/anchor-4.2.2/anchor.min.js","groupimpact_files/bowser-1.9.3/bowser.min.js","groupimpact_files/cost of training.xlsx","groupimpact_files/crosstalk-1.1.0.1/css/crosstalk.css","groupimpact_files/crosstalk-1.1.0.1/js/crosstalk.js","groupimpact_files/crosstalk-1.1.0.1/js/crosstalk.js.map","groupimpact_files/crosstalk-1.1.0.1/js/crosstalk.min.js","groupimpact_files/crosstalk-1.1.0.1/js/crosstalk.min.js.map","groupimpact_files/distill-2.2.21/template.v2.js","groupimpact_files/figure-html5/training_step2-1.png","groupimpact_files/header-attrs-2.5/header-attrs.js","groupimpact_files/htmlwidgets-1.5.2/htmlwidgets.js","groupimpact_files/jquery-1.11.3/jquery-AUTHORS.txt","groupimpact_files/jquery-1.11.3/jquery.js","groupimpact_files/jquery-1.11.3/jquery.min.js","groupimpact_files/jquery-1.11.3/jquery.min.map","groupimpact_files/patricia-serna-zPZ9vqqDNBA-unsplash.jpg","groupimpact_files/plotly-binding-4.9.2.1/plotly.js","groupimpact_files/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css","groupimpact_files/plotly-main-1.52.2/plotly-latest.min.js","groupimpact_files/rupixen-com-iSs4_hV7j2A-unsplash.jpg","groupimpact_files/training_costs_2.png","groupimpact_files/training_costs_3.png","groupimpact_files/training_costs.png","groupimpact_files/training_data.xlsx","groupimpact_files/typedarray-0.1/typedarray.min.js","groupimpact_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="groupimpact_files/header-attrs-2.5/header-attrs.js"></script>
+  <script src="groupimpact_files/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+  <script src="groupimpact_files/plotly-binding-4.9.2.1/plotly.js"></script>
+  <script src="groupimpact_files/typedarray-0.1/typedarray.min.js"></script>
+  <script src="groupimpact_files/jquery-1.11.3/jquery.min.js"></script>
+  <link href="groupimpact_files/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+  <script src="groupimpact_files/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+  <link href="groupimpact_files/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+  <script src="groupimpact_files/plotly-main-1.52.2/plotly-latest.min.js"></script>
+  <script src="groupimpact_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="groupimpact_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="groupimpact_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="groupimpact_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Measuring Impact in HR: A Practical Demonstration","description":"A \"How To\" article on the measurment of differences between groups in HR settings.","authors":[{"author":"Adam D McKinnon","authorURL":"https://adam-d-mckinnon.com/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""},{"author":"Sambit Das","authorURL":"https://www.linkedin.com/in/sambit-das-362bb71/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-02-15T00:00:00.000+00:00","citationText":"McKinnon & Das, 2021"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Measuring Impact in HR: A Practical Demonstration</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">Impact Measurement</div>
+<div class="dt=tag">t-test</div>
+<div class="dt=tag">Plotly</div>
+<div class="dt=tag">R</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>A “How To” article on the measurment of differences between groups in HR settings.</p></p>
+</div>
+
+<div class="d-byline">
+  Adam D McKinnon <a href="https://adam-d-mckinnon.com/" class="uri">https://adam-d-mckinnon.com/</a> 
+  
+,   Sambit Das <a href="https://www.linkedin.com/in/sambit-das-362bb71/" class="uri">https://www.linkedin.com/in/sambit-das-362bb71/</a> 
+  
+<br/>02-15-2021
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#differences-in-training-outcomes">Differences in Training Outcomes</a></li>
+<li><a href="#workflow">Workflow</a>
+<ul>
+<li><a href="#ingesting-data">1. Ingesting Data</a>
+<ul>
+<li><a href="#interpretation">Interpretation</a></li>
+</ul></li>
+<li><a href="#analysing-data">2. Analysing Data</a>
+<ul>
+<li><a href="#step-1.">Step 1.</a></li>
+<li><a href="#interpretation-1">Interpretation</a></li>
+<li><a href="#interpretation-2">Interpretation</a></li>
+</ul></li>
+<li><a href="#visualising-results">3. Visualising Results</a>
+<ul>
+<li><a href="#interpretation-3">Interpretation</a></li>
+</ul></li>
+<li><a href="#quantifying-benefit">4. Quantifying Benefit</a>
+<ul>
+<li><a href="#interpretation-4">Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#recommendation">Recommendation</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:header"></span>
+<img src="groupimpact_files/patricia-serna-zPZ9vqqDNBA-unsplash.jpg" alt="Photo by [patricia serna](https://unsplash.com/@sernarial) on [Unsplash](https://unsplash.com/)." width="100%" height="100%" />
+<p class="caption">
+Figure 1: Photo by <a href="https://unsplash.com/@sernarial">patricia serna</a> on <a href="https://unsplash.com/">Unsplash</a>.
+</p>
+</div>
+</div>
+<h1 id="differences-in-training-outcomes">Differences in Training Outcomes</h1>
+<p>The decision we are trying to inform here is: <strong>in which training format should we invest?</strong></p>
+<p>The context is simple. The organisation has introduced a new digital (i.e., online e-training) for new starters. The new digital training takes half a day to complete. The traditional model of training delivery was a full-day of face-to-face activity.</p>
+<p>The company wants to understand which training format to commit to in future. Enter People Analytics Team!</p>
+<h1 id="workflow">Workflow</h1>
+<p>The workflow is as follows:</p>
+<ol type="1">
+<li><p><strong>INGEST:</strong> We began by ingesting the end-of-course assessment data from the training (previously collected). The data was from a random selection of participants that have completed the training in one of the training formats (i.e., face-to-face or digital).</p></li>
+<li><p><strong>ANALYSE:</strong> From there we analysed the end-of-course assessment results. This was done using some basic descriptive statistics and a simple Independent Samples t-test. Prior to performing the t-test we completed an assessment of the t-test assumptions.</p></li>
+<li><p><strong>VISUALISE:</strong> We visualised the results obtained from the two training formats to make it easier for our audience to interpret and understand,</p></li>
+<li><p><strong>QUANTIFY:</strong> Finally, we quantified the benefits of the optimal approach.</p></li>
+</ol>
+<p>The R code for this analysis is presented below, following the workflow steps above. In addition, some guidance regarding the steps and interpretation of the outcomes are provided. We have used namepsacing throughout to illustrate which packages are being used for any given function call. While this helps to ensure the accuracy of our code, it also facilitates learning and ease of understanding for fellow practitioners.</p>
+<h2 id="ingesting-data">1. Ingesting Data</h2>
+<p>The first code chunk is fairly simple. We load our packages, read in our assessment results, clean the variable names, and finally take a simple look at the structure of the data to see what we are working with.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='co'># load the packages we will use for this workflow</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span> <span class='co'># workhorse</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span> <span class='co'># ingesting our data</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/sfirke/janitor'>janitor</a></span><span class='op'>)</span> <span class='co'># cleaning variable names</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rpkgs.datanovia.com/rstatix/'>rstatix</a></span><span class='op'>)</span> <span class='co'># performing t-tests</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rpkgs.datanovia.com/ggpubr/'>ggpubr</a></span><span class='op'>)</span> <span class='co'># simple boxplots</span>
+
+
+<span class='co'># Ingest our training assessment results</span>
+<span class='va'>assessment_results_tbl</span> <span class='op'>&lt;-</span> <span class='fu'>readxl</span><span class='fu'>::</span><span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_excel</a></span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"groupimpact_files/training_data.xlsx"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+                          <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span>
+
+
+<span class='co'># Get a feel for the data and its structure</span>
+<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='va'>assessment_results_tbl</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>## Rows: 27
+## Columns: 2
+## $ training &lt;chr&gt; &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, …
+## $ result   &lt;dbl&gt; 56, 50, 52, 44, 52, 47, 47, 53, 45, 48, 42, 51, 42…</code></pre>
+<div class="sourceCode">
+<pre><code><span class='va'>assessment_results_tbl</span>
+</code></pre>
+</div>
+<pre><code>## # A tibble: 27 x 2
+##    training result
+##    &lt;chr&gt;     &lt;dbl&gt;
+##  1 A            56
+##  2 A            50
+##  3 A            52
+##  4 A            44
+##  5 A            52
+##  6 A            47
+##  7 A            47
+##  8 A            53
+##  9 A            45
+## 10 A            48
+## # … with 17 more rows</code></pre>
+</div>
+<h3 id="interpretation">Interpretation</h3>
+<p>A key point to note is that in the <strong>“training”</strong> variable a response of “A” equates to the traditional face-to-face delivery mode, while “B” equates to the new digital learning format.</p>
+<h2 id="analysing-data">2. Analysing Data</h2>
+<p>The analysis comprised the following steps:</p>
+<ol type="1">
+<li><p>Firstly, we performed a quick exploration of the data by getting some summary statistics.</p></li>
+<li><p>Secondly, we performed our t-test to determine if statistically significant differences existed in assessment outcome scores achieved by the two training formats.</p></li>
+</ol>
+<p>These two steps are performed sequentially.</p>
+<h3 id="step-1.">Step 1.</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='co'># 2a. get some summary stats</span>
+<span class='va'>descriptive_stats_tbl</span> <span class='op'>&lt;-</span> <span class='va'>assessment_results_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>training</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>rstatix</span><span class='fu'>::</span><span class='fu'><a href='https://rpkgs.datanovia.com/rstatix/reference/get_summary_stats.html'>get_summary_stats</a></span><span class='op'>(</span><span class='va'>result</span>, type <span class='op'>=</span> <span class='st'>"mean_sd"</span><span class='op'>)</span>
+
+
+<span class='va'>descriptive_stats_tbl</span>
+</code></pre>
+</div>
+<pre><code>## # A tibble: 2 x 5
+##   training variable     n  mean    sd
+##   &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 A        result      15  47.7  4.42
+## 2 B        result      12  56.5  4.28</code></pre>
+</div>
+<h3 id="interpretation-1">Interpretation</h3>
+<p>Our descriptive statistics indicate an interesting outcome. It appears a notable difference exists between training formats in the mean score achieved on the assessment outcome, Training B (digital) seems to achieve on average a higher score (56.5) than Training A (face-to-face). However, the question remains–is this difference statistically significant?</p>
+<p>Before we can perform the t-test we must check several assumptions to ensure a t-test is appropriate. The assumptions are as follows:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Assumption</strong></th>
+<th><strong>Outcome</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. The data are continuous (not discrete).</td>
+<td>Our assessment outcomes scores are continuous - <strong>CHECK</strong></td>
+</tr>
+<tr class="even">
+<td>2. The data follow the normal probability distribution.</td>
+<td>We will test for normality using a Q-Q plot (Quantile-Quantile plot) and the Shapiro-Wilk’s test.</td>
+</tr>
+<tr class="odd">
+<td>3. The variances of the two populations are equal.</td>
+<td>We will test for equal variance using the Levene Test.</td>
+</tr>
+<tr class="even">
+<td>4. The two samples are independent.</td>
+<td>Our training participants could only participate in one type of training (i.e., face-to-face or digital) so our samples are independent - <strong>CHECK</strong></td>
+</tr>
+<tr class="odd">
+<td>5. Both samples are simple random samples from their respective populations.</td>
+<td>Our participant results were randomly selected for analysis - <strong>CHECK!</strong></td>
+</tr>
+</tbody>
+</table>
+<p>If the data is normally distributed and the variance across the two groups (e.g. Training Groups A &amp; B) are equal then a t-test can be used effectively. Let’s check the last two assumptions and then analyse the data!</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='co'># 2b. Normality Tests</span>
+<span class='fu'>ggpubr</span><span class='fu'>::</span><span class='fu'><a href='https://rpkgs.datanovia.com/ggpubr/reference/ggqqplot.html'>ggqqplot</a></span><span class='op'>(</span><span class='va'>assessment_results_tbl</span><span class='op'>$</span><span class='va'>result</span>,
+                 title <span class='op'>=</span> <span class='st'>"Normality Assessment"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/plotly_build.html'>plotly_build</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div id="htmlwidget-9e1a000371119698c3c9" style="width:100%;height:100%;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9e1a000371119698c3c9">{"x":{"data":[{"x":[-2.08535556603183,-1.59321881802305,-1.32495768889298,-1.12814364527876,-0.967421566101701,-0.828464648581135,-0.703921788828513,-0.589455797849779,-0.482248214837923,-0.380325641763631,-0.282216147062508,-0.186756121063737,-0.0929718485610738,0,0.0929718485610739,0.186756121063737,0.282216147062508,0.380325641763631,0.482248214837923,0.589455797849779,0.703921788828513,0.828464648581135,0.967421566101701,1.12814364527876,1.32495768889298,1.59321881802305,2.08535556603183],"y":[42,42,43,44,44,45,47,47,48,50,51,52,52,52,53,53,53,53,54,55,56,56,57,57,59,64,65],"text":["theoretical: -2.08535557<br />sample: 42<br />x: 42","theoretical: -1.59321882<br />sample: 42<br />x: 42","theoretical: -1.32495769<br />sample: 43<br />x: 43","theoretical: -1.12814365<br />sample: 44<br />x: 44","theoretical: -0.96742157<br />sample: 44<br />x: 44","theoretical: -0.82846465<br />sample: 45<br />x: 45","theoretical: -0.70392179<br />sample: 47<br />x: 47","theoretical: -0.58945580<br />sample: 47<br />x: 47","theoretical: -0.48224821<br />sample: 48<br />x: 48","theoretical: -0.38032564<br />sample: 50<br />x: 50","theoretical: -0.28221615<br />sample: 51<br />x: 51","theoretical: -0.18675612<br />sample: 52<br />x: 52","theoretical: -0.09297185<br />sample: 52<br />x: 52","theoretical:  0.00000000<br />sample: 52<br />x: 52","theoretical:  0.09297185<br />sample: 53<br />x: 53","theoretical:  0.18675612<br />sample: 53<br />x: 53","theoretical:  0.28221615<br />sample: 53<br />x: 53","theoretical:  0.38032564<br />sample: 53<br />x: 53","theoretical:  0.48224821<br />sample: 54<br />x: 54","theoretical:  0.58945580<br />sample: 55<br />x: 55","theoretical:  0.70392179<br />sample: 56<br />x: 56","theoretical:  0.82846465<br />sample: 56<br />x: 56","theoretical:  0.96742157<br />sample: 57<br />x: 57","theoretical:  1.12814365<br />sample: 57<br />x: 57","theoretical:  1.32495769<br />sample: 59<br />x: 59","theoretical:  1.59321882<br />sample: 64<br />x: 64","theoretical:  2.08535557<br />sample: 65<br />x: 65"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[-2.08535556603183,-1.59321881802305,-1.32495768889298,-1.12814364527876,-0.967421566101701,-0.828464648581135,-0.703921788828513,-0.589455797849779,-0.482248214837923,-0.380325641763631,-0.282216147062508,-0.186756121063737,-0.0929718485610738,0,0.0929718485610739,0.186756121063737,0.282216147062508,0.380325641763631,0.482248214837923,0.589455797849779,0.703921788828513,0.828464648581135,0.967421566101701,1.12814364527876,1.32495768889298,1.59321881802305,2.08535556603183],"y":[38.1100506485699,41.2110335447951,42.9013628618402,44.141499847046,45.1542192194367,46.0297950147556,46.8145469754708,47.5358039871869,48.2113253389465,48.8535455290084,49.4717392856348,50.0732385825135,50.6641788570253,51.25,51.8358211429747,52.4267614174865,53.0282607143652,53.6464544709916,54.2886746610536,54.9641960128131,55.6854530245292,56.4702049852444,57.3457807805633,58.358500152954,59.5986371381598,61.2889664552049,64.3899493514301],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[-2.08535556603183,-1.59321881802305,-1.32495768889298,-1.12814364527876,-0.967421566101701,-0.828464648581135,-0.703921788828513,-0.589455797849779,-0.482248214837923,-0.380325641763631,-0.282216147062508,-0.186756121063737,-0.0929718485610738,0,0.0929718485610739,0.186756121063737,0.282216147062508,0.380325641763631,0.482248214837923,0.589455797849779,0.703921788828513,0.828464648581135,0.967421566101701,1.12814364527876,1.32495768889298,1.59321881802305,2.08535556603183,2.08535556603183,2.08535556603183,1.59321881802305,1.32495768889298,1.12814364527876,0.967421566101701,0.828464648581135,0.703921788828513,0.589455797849779,0.482248214837923,0.380325641763631,0.282216147062508,0.186756121063737,0.0929718485610739,0,-0.0929718485610738,-0.186756121063737,-0.282216147062508,-0.380325641763631,-0.482248214837923,-0.589455797849779,-0.703921788828513,-0.828464648581135,-0.967421566101701,-1.12814364527876,-1.32495768889298,-1.59321881802305,-2.08535556603183,-2.08535556603183],"y":[31.0448613531787,36.3557281847318,38.7473888138278,40.3602188074258,41.6090860991283,42.6480073477773,43.5513950111512,44.3610983147921,45.1031767723232,45.79512917315,46.4494399520156,47.075495893053,47.6807070934095,48.2712111253076,48.8523493793589,49.4290187280261,50.0059613807459,50.5880381151333,51.1805260944303,51.7894903404182,52.4223010602096,53.0884173182661,53.800647660255,54.5772191133338,55.4446630901475,56.4336610951415,57.324760056039,57.324760056039,71.4551386468213,66.1442718152682,63.7526111861722,62.1397811925742,60.8909139008717,59.8519926522227,58.9486049888488,58.1389016852079,57.3968232276768,56.70487082685,56.0505600479844,55.424504106947,54.8192929065905,54.2287888746924,53.6476506206411,53.0709812719739,52.4940386192541,51.9119618848667,51.3194739055697,50.7105096595818,50.0776989397904,49.4115826817339,48.699352339745,47.9227808866662,47.0553369098525,46.0663389048585,45.175239943961,31.0448613531787],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(0,0,0,0.2)","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":48.079701120797,"r":7.97011207970112,"b":48.8169364881694,"l":43.8356164383562},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"title":{"text":"Normality Assessment","font":{"color":"rgba(0,0,0,1)","family":"","size":19.1282689912827},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-2.29389112263501,2.29389112263501],"tickmode":"array","ticktext":["-2","-1","0","1","2"],"tickvals":[-2,-1,0,1,2],"categoryorder":"array","categoryarray":["-2","-1","0","1","2"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Theoretical","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[29.0243474884966,73.4756525115034],"tickmode":"array","ticktext":["30","40","50","60","70"],"tickvals":[30,40,50,60,70],"categoryorder":"array","categoryarray":["30","40","50","60","70"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Sample","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":2.06156048675734,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"745f633cca":{"sample":{},"type":"scatter"},"7453c2bf9aa":{"sample":{}},"7456b1426c2":{"sample":{}}},"cur_data":"745f633cca","visdat":{"745f633cca":["function (y) ","x"],"7453c2bf9aa":["function (y) ","x"],"7456b1426c2":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode">
+<pre><code><span class='fu'>rstatix</span><span class='fu'>::</span><span class='fu'><a href='https://rpkgs.datanovia.com/rstatix/reference/shapiro_test.html'>shapiro_test</a></span><span class='op'>(</span><span class='va'>assessment_results_tbl</span><span class='op'>$</span><span class='va'>result</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>## # A tibble: 1 x 3
+##   variable                      statistic p.value
+##   &lt;chr&gt;                             &lt;dbl&gt;   &lt;dbl&gt;
+## 1 assessment_results_tbl$result     0.958   0.338</code></pre>
+<div class="sourceCode">
+<pre><code><span class='co'># 2c. Equal Variance - levene's test</span>
+<span class='fu'><a href='https://rpkgs.datanovia.com/rstatix/reference/levene_test.html'>levene_test</a></span><span class='op'>(</span><span class='va'>result</span> <span class='op'>~</span> <span class='va'>training</span>, data <span class='op'>=</span> <span class='va'>assessment_results_tbl</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>## # A tibble: 1 x 4
+##     df1   df2 statistic     p
+##   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1     1    25     0.242 0.627</code></pre>
+<div class="sourceCode">
+<pre><code><span class='co'># 2d. perform the t-test</span>
+<span class='op'>(</span><span class='va'>t_test_tbl</span> <span class='op'>&lt;-</span> <span class='va'>assessment_results_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>rstatix</span><span class='fu'>::</span><span class='fu'><a href='https://rpkgs.datanovia.com/rstatix/reference/t_test.html'>t_test</a></span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>result</span> <span class='op'>~</span> <span class='va'>training</span>, var.equal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>rstatix</span><span class='fu'>::</span><span class='fu'><a href='https://rpkgs.datanovia.com/rstatix/reference/add_significance.html'>add_significance</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>## # A tibble: 1 x 9
+##   .y.    group1 group2    n1    n2 statistic    df         p p.signif
+##   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;   
+## 1 result A      B         15    12     -5.20    25 0.0000223 ****</code></pre>
+</div>
+<h3 id="interpretation-2">Interpretation</h3>
+<p><strong>Normality</strong> Our QQ plot suggests that we can assume normality. The distribution of results are falling approximately along the reference line and within the bounds. However, the QQ plot can be sensitive to small sample sizes. To further validate normality we performed the Shapiro Wilk’s test. This test again suggests that the data are normally distributed, as the p-value (0.338) is greater than 0.05. We can assume normality!</p>
+<p><strong>Equal Variance</strong> We use the levene’s test to determine whether both the training methods have an approximately equal variance. Since our p-value (0.627) is greater than 0.05 we can assume that the variance in outcome assessments scores is not statistically significantly different for the two training methods. We can assume equal variance! All our assumptions are met and we can perform the t-test.</p>
+<p><strong>t-test</strong> The t-test indicates that the difference is highly significant (p-value = 0.0002); well below a cut-off of 0.01. This difference is extremely unlikely to be by chance alone and suggests that the digital training yields a better outcome, at least as defined by the assessment outcomes.</p>
+<h2 id="visualising-results">3. Visualising Results</h2>
+<p>Our next step is to visualise the differences achieved by the two training formats. The intent here is to ensure our stakeholders can clearly appreciate that a notable difference exists, and subsequently take an investment decision with confidence. To illustrate the difference observed, we opted to use a Box-Plot, which displays the distribution of scores in each group, coupled with some descriptive statistics. As with our QQ plot, we have used the Plotly package to make the plot interactive.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='co'># 3. visualise the results from the two training methods</span>
+
+<span class='va'>training_plot</span> <span class='op'>&lt;-</span> <span class='va'>assessment_results_tbl</span> <span class='op'>%&gt;%</span>  
+                 <span class='fu'>ggpubr</span><span class='fu'>::</span><span class='fu'><a href='https://rpkgs.datanovia.com/ggpubr/reference/ggboxplot.html'>ggboxplot</a></span><span class='op'>(</span>x     <span class='op'>=</span> <span class='st'>"training"</span>, 
+                                   y     <span class='op'>=</span> <span class='st'>"result"</span>,
+                                   fill  <span class='op'>=</span> <span class='st'>"training"</span>,
+                                   xlab  <span class='op'>=</span> <span class='st'>"Training Delivery Format"</span>,
+                                   ylab  <span class='op'>=</span> <span class='st'>"Assessment Result"</span><span class='op'>)</span> 
+<span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  family <span class='op'>=</span> <span class='st'>"arial"</span>,
+  size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>
+
+
+<span class='co'># make the graph interactive</span>
+<span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/plotly_build.html'>plotly_build</a></span><span class='op'>(</span><span class='va'>training_plot</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/layout.html'>layout</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"&lt;b&gt;Difference in Assessment Results by Training Delivery Format&lt;/b&gt;"</span>,
+                 font <span class='op'>=</span> <span class='va'>t</span>,
+                 showlegend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<div id="htmlwidget-001d1e8cd0c4c0991c3e" style="width:100%;height:100%;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-001d1e8cd0c4c0991c3e">{"x":{"data":[{"x":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"y":[56,50,52,44,52,47,47,53,45,48,42,51,42,43,44],"hoverinfo":"y","type":"box","fillcolor":"rgba(248,118,109,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(0,0,0,1)","width":1.88976377952756},"name":"A","legendgroup":"A","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[2,2,2,2,2,2,2,2,2,2,2,2],"y":[59,54,55,65,52,57,64,53,53,56,53,57],"hoverinfo":"y","type":"box","fillcolor":"rgba(0,191,196,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(0,0,0,1)","width":1.88976377952756},"name":"B","legendgroup":"B","showlegend":true,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":28.9514321295143,"r":7.97011207970112,"b":48.8169364881694,"l":43.8356164383562},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"arial","size":12},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["A","B"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["A","B"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Training Delivery Format","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[40.85,66.15],"tickmode":"array","ticktext":["45","50","55","60","65"],"tickvals":[45,50,55,60,65],"categoryorder":"array","categoryarray":["45","50","55","60","65"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Assessment Result","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":2.06156048675734,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"y":0.881889763779528},"annotations":[{"text":"training","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative","title":"<b>Difference in Assessment Results by Training Delivery Format<\/b>"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"745f660a10":{"fill":{},"x":{},"y":{},"type":"box"}},"cur_data":"745f660a10","visdat":{"745f660a10":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<h3 id="interpretation-3">Interpretation</h3>
+<p>Our visualisation seeks to clearly illustrate that employees who completed the digital training performed better on the end-of-course assessment. This may suggest that the digital training results in better knowledge retention (i.e., they are learning more).</p>
+<p>The line crossing each box on the boxplot indicates the median score of each training format. The median is the middle value achieved on the assessment results for each training format. There is a clear difference between the two groups when comparing these lines. This is worth calling out when delivering the results to stakeholders.</p>
+<h2 id="quantifying-benefit">4. Quantifying Benefit</h2>
+<p>There are two key ways in which we can further quantify the differences of the training formats:</p>
+<ol type="1">
+<li><p>The percentage change in performance. We have identified the gain is statistically significant and visualised the difference above. We can make this increase in performance more accessible to a broader audience by indicating the performance gain as a percentage.</p></li>
+<li><p>The cost difference of the delivery formats. By calculating the cost difference of delivering the training over a year or more for the two formats.</p></li>
+</ol>
+<p>On the basis of these two metrics we are in a better position to recommend a future course of action.</p>
+<p><strong>Performance Efficiency</strong></p>
+<p>Using the mean score from each training group we can calculate the % gain in performance. The code is presented in the code chunk below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='co'># 4. quantify the benefit  </span>
+<span class='co'># mean assessment score for f2f training</span>
+<span class='va'>train_A_mean</span> <span class='op'>&lt;-</span> <span class='va'>descriptive_stats_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>training</span> <span class='op'>==</span> <span class='st'>"A"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>mean</span><span class='op'>)</span>
+
+
+<span class='co'># mean assessment score for digital training</span>
+<span class='va'>train_B_mean</span> <span class='op'>&lt;-</span> <span class='va'>descriptive_stats_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>training</span> <span class='op'>==</span> <span class='st'>"B"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>mean</span><span class='op'>)</span>
+
+
+<span class='co'># calculate % increase in performance</span>
+<span class='op'>(</span><span class='va'>pct_increase</span> <span class='op'>=</span> <span class='op'>(</span><span class='op'>(</span><span class='va'>train_B_mean</span> <span class='op'>-</span> <span class='va'>train_A_mean</span><span class='op'>)</span><span class='op'>/</span> <span class='va'>train_A_mean</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>## [1] &quot;18%&quot;</code></pre>
+</div>
+<p><strong>Cost Efficiency</strong></p>
+<p>Below is an except from an excel spreadsheet in which we have detailed costs associated with both training formats.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:costs"></span>
+<img src="groupimpact_files/training_costs_3.png" alt="Cost of training offerings." width="100%" height="100%" />
+<p class="caption">
+Figure 2: Cost of training offerings.
+</p>
+</div>
+</div>
+<h3 id="interpretation-4">Interpretation</h3>
+<p>Our performance gains are straightforward–digital training results in end of course assessment scores that are 18% higher than traditional face-to-face delivery. This kind of result is accessible to all audiences, and is compelling! In addition, we are confident that the result is a function of the training delivery format based on the results of our t-test.</p>
+<p>Our simple cost assessment also creates a compelling picture of the financial savings associated with digital training. In one year we stand to create <strong>$8,400 in savings</strong> if we move to a digital format, and this increases to <strong>$21,800</strong> at the end of two years.</p>
+<h1 id="recommendation">Recommendation</h1>
+<p>Our recommendation is to invest in the Digital Training! Our rationale:</p>
+<ol type="1">
+<li><strong>Digital training is more effective!</strong> Digital training yields 18% better performance outcomes on the end of course assessment. This result is statistically significant, and more importantly practically significant, as it better sets up our new starters for success!</li>
+<li><strong>Digital training is cheaper!</strong> Digital training costs $21,800 less than face-to-face training over a 2 year period. In addition, in each year we have an indirect benefit of giving 110 employees a half day back to invest in other activities!</li>
+<li><strong>Digital training is more scaleable!</strong> Digital training can support an unlimited number of participants should recruitment numbers increase for any reason. The ability to accommodate increasing numbers of participants also has cost implications (i.e., face-to-face becomes more expensive), further reinforcing the cost benefit of the digital training approach.</li>
+<li><strong>Digital training is more flexible!</strong> Digital training is not limited by pandemic conditions, and affords employees with more flexibility, a message worth reinforcing early in the careers of new starters!</li>
+</ol>
+<p>Further time could be invested to speak with employees that recently completed the two training formats to validate the results identified and the recommendation provided.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The above case study provides a simple example of using People Analytics to inform a HR investment decision. We used R to analyse training results, determine whether statistically significant differences existed in outcome scores, visualised the results and then quantified the benefit of the respective training modes. Collectively, the analytic evidence suggested a clear investment decision, which could be augmented with user experience feedback. <strong>Happy measuring!</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

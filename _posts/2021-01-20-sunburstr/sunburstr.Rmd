@@ -1,0 +1,105 @@
+---
+title: "A Touch Of The Sun"
+description: |
+  Applying Sunburst Visualisation in R to Synthesize Complex Relationships.
+author:
+  - name: Adam D McKinnon
+    url: https://adam-d-mckinnon.com/
+date: 01-20-2021
+categories:
+  - Visualisation
+  - SunburstR
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    date_prefix: true # adds date for sorting
+    toc: true
+    toc_depth: 2
+    highlight: rstudio
+    highlight_downlit: true
+    draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web. 
+
+Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+
+
+```{r libraries, include=FALSE}
+
+library(tidyverse)
+library(readxl)
+library(sunburstR)
+library(d3r)
+library(RColorBrewer)
+
+```
+
+
+
+```{r data}
+
+original_tbl <- readxl::read_excel(path = "datasets_1067_1925_WA_Fn-UseC_-HR-Employee-Attrition.xlsx")
+
+```
+
+
+```{r}
+
+shorter_data_tbl <- original_tbl %>% 
+  dplyr::mutate(PerformanceRating = as.character(PerformanceRating)) %>% 
+  # dplyr::group_by(Department, EducationField, PerformanceRating) %>% 
+  
+  dplyr::group_by(Department, PerformanceRating) %>% 
+  dplyr::count() %>% 
+  dplyr::ungroup()
+
+
+  
+tree <- d3_nest(shorter_data_tbl, value_cols = "n")
+
+  
+```
+
+```{r}
+
+display.brewer.all()
+display.brewer.pal(n = 6, name = "Set2")
+
+
+
+```
+
+
+```{r}
+
+hex_colours <- brewer.pal(n = 6, name = "Set1") 
+
+
+sb_plot <- sunburst(tree, 
+                valueField = "n",
+                #percent = TRUE,
+                count = TRUE,
+                legend = TRUE,
+                width="100%", 
+                height=400,
+                colors = hex_colours)
+
+htmlwidgets::onRender(
+    sb_plot,
+    "
+    function(el, x) {
+    d3.selectAll('.sunburst-legend text').attr('font-size', '12px');
+    }
+    "
+)
+
+
+```
+

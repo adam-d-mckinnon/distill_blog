@@ -11,7 +11,32 @@
       <link>https://www.adam-d-mckinnon.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Measuring Impact in HR: A Practical Demonstration</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <dc:creator>Sambit Das</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2021-02-05-groupimpact</link>
+      <description>A "How To" article on the measurment of differences between groups in HR settings.</description>
+      <category>Impact Measurement</category>
+      <category>t-test</category>
+      <category>Plotly</category>
+      <category>R</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2021-02-05-groupimpact</guid>
+      <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2021-02-05-groupimpact/groupimpact_files/patricia-serna-zPZ9vqqDNBA-unsplash.jpg" medium="image" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>A Touch Of The Sun</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2021-01-20-sunburstr</link>
+      <description>Applying Sunburst Visualisation in R to Synthesize Complex Relationships.</description>
+      <category>Visualisation</category>
+      <category>SunburstR</category>
+      <category>R</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2021-01-20-sunburstr</guid>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Show Me The Money! A People Analytics Guide to Measuring Impact Over Time</title>
       <dc:creator>Adam D McKinnon</dc:creator>
