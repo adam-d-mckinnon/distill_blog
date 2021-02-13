@@ -29,17 +29,6 @@
       <media:content url="https://www.adam-d-mckinnon.com/posts/2021-02-05-groupimpact/groupimpact_files/patricia-serna-zPZ9vqqDNBA-unsplash.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
-      <title>A Touch Of The Sun</title>
-      <dc:creator>Adam D McKinnon</dc:creator>
-      <link>https://www.adam-d-mckinnon.com/posts/2021-01-20-sunburstr</link>
-      <description>Applying Sunburst Visualisation in R to Synthesize Complex Relationships.</description>
-      <category>Visualisation</category>
-      <category>SunburstR</category>
-      <category>R</category>
-      <guid>https://www.adam-d-mckinnon.com/posts/2021-01-20-sunburstr</guid>
-      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
       <title>Show Me The Money! A People Analytics Guide to Measuring Impact Over Time</title>
       <dc:creator>Adam D McKinnon</dc:creator>
       <link>https://www.adam-d-mckinnon.com/posts/2020-12-30-causalimpactanalysis</link>

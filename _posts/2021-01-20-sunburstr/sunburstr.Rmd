@@ -1,7 +1,7 @@
 ---
-title: "A Touch Of The Sun"
+title: "Capturing the Sun!"
 description: |
-  Applying Sunburst Visualisations in R to Synthesize Complex Relationships.
+  Exloring Visualisations: Applying the Sunburst Visualisation in R to Synthesize Complex Relationships.
 draft: true
 author:
   - name: Adam D McKinnon
@@ -24,81 +24,153 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  out.width = "100%",
+  out.height = "100%",
+  dpi = 300,
+  code_folding = TRUE,
+  R.options = list(width = 70))
+
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web. 
-
-Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
 
 
+```{r header, echo=FALSE, fig.cap="Photo by [Jude Beck](https://unsplash.com/@judebeck) on [Unsplash](https://unsplash.com/).", out.width = '100%'}
+knitr::include_graphics("sunburstr_files/jude-beck-Oc-mdtjJoeo-unsplash.jpg")
+```
 
-```{r libraries, include=FALSE}
 
-library(tidyverse)
+
+
+# Introduction
+
+Creative visualisations that help synthesize complex relationships into rapid understanding are priceless. As a consequence, I am always looking for new ways to convey meaning from data in accessible ways. To that end I thought I would have a play with Sunburst visualisations in R, using the sunburstR package. Below is a very quick walkthrough of my experience with this visualisation type. 
+
+
+
+```{r libraries, include=TRUE}
+
+library(dplyr)
 library(readxl)
-library(sunburstR)
 library(d3r)
 library(RColorBrewer)
+library(sunburstR)
 
 ```
 
 
+I've loaded five packages for this experiment. These packages are:
 
-```{r data}
 
+**Package** | **Requirement**
+--- | ---
+readxl | importing the data
+dplyr | data wrangling
+d3r | formatting the data for visualising as a sunburst
+RColorBrewer | palette (i.e., colour) selection in the visualisation
+sunburstR | creating the interactive sunburst visualisation
+
+Let's begin...
+
+# 1. Read
+
+```{r ingest}
+
+# import the dataset
 original_tbl <- readxl::read_excel(path = "datasets_1067_1925_WA_Fn-UseC_-HR-Employee-Attrition.xlsx")
 
+# do some basic formatting changes
+original_tbl <- original_tbl %>% 
+  dplyr::mutate(PerformanceRating = dplyr::case_when(PerformanceRating == 3 ~ "Achieving",
+                                                     PerformanceRating == 4 ~ "Excelling",
+                                                     TRUE ~ "Not Rated"),
+                Department = dplyr::case_when(Department == "Human Resources" ~ "HR",
+                                              Department == "Research & Development" ~ "R&D",
+                                              TRUE ~ Department)
+                )
+
 ```
 
+You'll note that I changed some of the response formats in the PerformanceRating and Department variables. This was to make the values shorter, so that they appeared better in the final visualisation. I added this step retrospectively, as I was finding that the text in the legend of the sunburst visualisation was too big and could not be read properly, despite altering the text size (more on this later). I felt this step was necessary for the visual appeal and understanding, and didn't detract from the final outcome.
 
-```{r}
+# 2. Format
 
+```{r format}
+
+# format the tibble for visualising - Step 1
 shorter_data_tbl <- original_tbl %>% 
   dplyr::mutate(PerformanceRating = as.character(PerformanceRating)) %>% 
-  # dplyr::group_by(Department, EducationField, PerformanceRating) %>% 
-  
+  #dplyr::group_by(Department, EducationField, PerformanceRating) %>% 
   dplyr::group_by(Department, PerformanceRating) %>% 
   dplyr::count() %>% 
   dplyr::ungroup()
 
 
-  
-tree <- d3_nest(shorter_data_tbl, value_cols = "n")
+# format the shorter_data_tbl (Step 1) for visualising - Step 2
+sunburst_tree <- d3r::d3_nest(shorter_data_tbl, value_cols = "n")
 
-  
+
 ```
 
+Two steps are present in the formatting of the data. The first is to get a count of the variables. The two successive rings in my sunburst diagram, starting from the inside and heading outwards, were intended to be Department and then Performance Rating. Consequently, I grouped the data in this order and then added a count of the grouped variables. The second step is to then get the data into a format suitable for visualising in a sunburst diagram. This can be achieved using the d3r package, specifically the d3_nest function. You simply pass the function the tibble previously created, which has my grouping variables in successive order, followed by the count. When calling the d3_nest function you need to specify which column has the values (i.e., count), the function does the rest. With the data formatted we are now ready to visualise. 
 
 
-```{r}
+# 3. Visualise
 
+```{r visualise}
+
+
+# I was fishing for a good colour palette for the data
 
 # display.brewer.all()
 # display.brewer.pal(n = 6, name = "Set2")
 
-
 hex_colours <- brewer.pal(n = 6, name = "Set1") 
 
 
-sb_plot <- sunburst(tree, 
-                valueField = "n",
-                #percent = TRUE,
-                count = TRUE,
-                legend = TRUE,
-                width="100%", 
-                height=400,
-                colors = hex_colours)
+# create the sunburst visualisation
+sb_plot <- sunburstR::sunburst(sunburst_tree,
+                               valueField = "n",
+                               count = TRUE, # adds both a count and proportion
+                               legend = TRUE,
+                               width="100%", 
+                               height=500,
+                               colors = hex_colours)
 
-htmlwidgets::onRender(
-    sb_plot,
-    "
-    function(el, x) {
-    d3.selectAll('.sunburst-legend text').attr('font-size', '12px');
-    }
-    "
+
+htmlwidgets::prependContent(
+   sb_plot,
+   htmltools::h2("Distribution of Performance Rating by Department"),
+   htmltools::tags$style("
+   .sunburst-legend {
+     font-style: bold;
+     font-size: 0.65em;
+   }
+   .sunburst .sunburst-explanation {
+     font-style: bold;
+     font-size: 1.25em;
+   }") 
 )
 
 
 ```
 
+I started by fishing around for a good colour palette to use on the visualisation. This was an interative process that involved some trial and error. In the end I settled upon the Set1 palette from the RColorBrewer package. The next step was to creae the sunburst visualisation using the sunburstR package. The function is very straightforward and the arguements are pretty self-explanatory. I now had a nice, interactive sunburst diagram!
+
+I did notice on the first round through this process that I wanted to add a heading and change the format of text on the legend, as some of the department names were too long (e.g., "Research and Development"). Unfortunately, sunburstR doesn't provide this functionality. However, upon exploring stackoverflow and GitHub it seemed that others had the same request and a workaround using the htmlwidgets and htmltools packages had been identified. As you can see from my code, I tinkered with some suggested work-arounds to create my own. Through a little subsequent trial and error I was able to decide upon some formatting that suited my taste.
+
+I really liked the interactivity of this visualisation. Highlighting my selection, by subduing the colours of other selections is attractive. This was coupled with the exlpanation at the top left of the visaulisation, and the count and proportion in the middle of the visualisation. In addition, I opted to include the interactive legend in the top right of the screen, which is toggled on and off through a checkbox selection. In hindsight, this inclusion probably wasn't necessary in light of the other explanations. All in all, a very clean, interactive, and visually appealing visualisation.  
+
+# Final Thoughts
+
+I really like the ease with which you can create a very clean and more importantly, **interactive** sunburst visualisation using the sunburstR package. I used fairly simple HR data to try out the sunburst visaulisation. However, I feel the visualisation format would further shine (no pun intended) with more complex data (i.e., more variable layers), as it could facilitate rapid identification of population differences. 
+
+There are a number of functions in the package that facilitate the creation and use of these visualisations in Shiny Apps, which is also very attractive. This strength is also illustrative of a weakness of this visualisation type--sunburst diagrams are really best suited to interactive mediums. This is not a visualisation that readily lends itself to common static mediums (e.g., pptx, docx, pdf). 
+
+I would welcome a little more flexibility in the package regarding the formatting of the visualisation, which I expect will likely be introduced in future updates. However, the current workarounds were sufficient for most tasks.
+
+Final thought--I would definitely use the sunburst diagram, and specifically the sunburstR package, again!
