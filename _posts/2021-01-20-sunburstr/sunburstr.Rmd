@@ -2,7 +2,7 @@
 title: "Capturing the Sun!"
 description: |
   Exloring Visualisations: Applying the Sunburst Visualisation in R to Synthesize Complex Relationships.
-draft: true
+draft: FALSE
 author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
