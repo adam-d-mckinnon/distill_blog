@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Going the Distance!</title>
+
+  <meta property="description" itemprop="description" content="A practical guide to measuring distance using Google Maps in R."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-06-06"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-06-06"/>
+  <meta name="article:author" content="Adam D McKinnon"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Going the Distance!"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="A practical guide to measuring distance using Google Maps in R."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Going the Distance!"/>
+  <meta property="twitter:description" content="A practical guide to measuring distance using Google Maps in R."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["Going the Distance!"]},{"type":"character","attributes":{},"value":["A practical guide to measuring distance using Google Maps in R.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Adam D McKinnon"]},{"type":"character","attributes":{},"value":["https://adam-d-mckinnon.com/"]}]}]},{"type":"character","attributes":{},"value":["06-06-2021"]},{"type":"character","attributes":{},"value":["Google Maps","googleway","echarts4r","R"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["df_print","self_contained","date_prefix","toc","toc_depth","toc_float","highlight","highlight_downlit","draft"]}},"value":[{"type":"character","attributes":{},"value":["paged"]},{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["rstudio"]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["goinggistance_files/anchor-4.2.2/anchor.min.js","goinggistance_files/bowser-1.9.3/bowser.min.js","goinggistance_files/core-js-2.5.3/LICENSE","goinggistance_files/core-js-2.5.3/package.json","goinggistance_files/core-js-2.5.3/shim.min.js","goinggistance_files/crosstalk-1.1.1/css/crosstalk.css","goinggistance_files/crosstalk-1.1.1/js/crosstalk.js","goinggistance_files/crosstalk-1.1.1/js/crosstalk.js.map","goinggistance_files/crosstalk-1.1.1/js/crosstalk.min.js","goinggistance_files/crosstalk-1.1.1/js/crosstalk.min.js.map","goinggistance_files/datatables-binding-0.18/datatables.js","goinggistance_files/datatables-css-0.0.0/datatables-crosstalk.css","goinggistance_files/distill-2.2.21/template.v2.js","goinggistance_files/dt-core-1.10.20/css/jquery.dataTables.extra.css","goinggistance_files/dt-core-1.10.20/css/jquery.dataTables.min.css","goinggistance_files/dt-core-1.10.20/js/jquery.dataTables.min.js","goinggistance_files/dt-ext-fixedcolumns-1.10.20/css/fixedColumns.dataTables.min.css","goinggistance_files/dt-ext-fixedcolumns-1.10.20/js/dataTables.fixedColumns.min.js","goinggistance_files/dt-ext-fixedheader-1.10.20/css/fixedHeader.dataTables.min.css","goinggistance_files/dt-ext-fixedheader-1.10.20/js/dataTables.fixedHeader.min.js","goinggistance_files/echarts4r-4.8.0/custom/renderers.js","goinggistance_files/echarts4r-4.8.0/custom/style.css","goinggistance_files/echarts4r-4.8.0/dataTool.min.js","goinggistance_files/echarts4r-4.8.0/echarts-en.min.js","goinggistance_files/echarts4r-4.8.0/echarts-gl.min.js","goinggistance_files/echarts4r-4.8.0/ecStat.min.js","goinggistance_files/echarts4r-4.8.0/plugins/echarts-graph-modularity.min.js","goinggistance_files/echarts4r-4.8.0/plugins/echarts-leaflet.js","goinggistance_files/echarts4r-4.8.0/plugins/echarts-liquidfill.min.js","goinggistance_files/echarts4r-4.8.0/plugins/echarts-wordcloud.min.js","goinggistance_files/echarts4r-4.8.0/themes/auritus.js","goinggistance_files/echarts4r-4.8.0/themes/azul.js","goinggistance_files/echarts4r-4.8.0/themes/bee-inspired.js","goinggistance_files/echarts4r-4.8.0/themes/blue.js","goinggistance_files/echarts4r-4.8.0/themes/caravan.js","goinggistance_files/echarts4r-4.8.0/themes/carp.js","goinggistance_files/echarts4r-4.8.0/themes/chalk.js","goinggistance_files/echarts4r-4.8.0/themes/cool.js","goinggistance_files/echarts4r-4.8.0/themes/dark-blue.js","goinggistance_files/echarts4r-4.8.0/themes/dark-bold.js","goinggistance_files/echarts4r-4.8.0/themes/dark-digerati.js","goinggistance_files/echarts4r-4.8.0/themes/dark-fresh-cut.js","goinggistance_files/echarts4r-4.8.0/themes/dark-mushroom.js","goinggistance_files/echarts4r-4.8.0/themes/dark.js","goinggistance_files/echarts4r-4.8.0/themes/eduardo.js","goinggistance_files/echarts4r-4.8.0/themes/essos.js","goinggistance_files/echarts4r-4.8.0/themes/forest.js","goinggistance_files/echarts4r-4.8.0/themes/fresh-cut.js","goinggistance_files/echarts4r-4.8.0/themes/fruit.js","goinggistance_files/echarts4r-4.8.0/themes/gray.js","goinggistance_files/echarts4r-4.8.0/themes/green.js","goinggistance_files/echarts4r-4.8.0/themes/halloween.js","goinggistance_files/echarts4r-4.8.0/themes/helianthus.js","goinggistance_files/echarts4r-4.8.0/themes/infographic.js","goinggistance_files/echarts4r-4.8.0/themes/inspired.js","goinggistance_files/echarts4r-4.8.0/themes/jazz.js","goinggistance_files/echarts4r-4.8.0/themes/london.js","goinggistance_files/echarts4r-4.8.0/themes/macarons.js","goinggistance_files/echarts4r-4.8.0/themes/macarons2.js","goinggistance_files/echarts4r-4.8.0/themes/mint.js","goinggistance_files/echarts4r-4.8.0/themes/purple-passion.js","goinggistance_files/echarts4r-4.8.0/themes/red-velvet.js","goinggistance_files/echarts4r-4.8.0/themes/red.js","goinggistance_files/echarts4r-4.8.0/themes/roma.js","goinggistance_files/echarts4r-4.8.0/themes/royal.js","goinggistance_files/echarts4r-4.8.0/themes/sakura.js","goinggistance_files/echarts4r-4.8.0/themes/shine.js","goinggistance_files/echarts4r-4.8.0/themes/tech-blue.js","goinggistance_files/echarts4r-4.8.0/themes/vintage.js","goinggistance_files/echarts4r-4.8.0/themes/walden.js","goinggistance_files/echarts4r-4.8.0/themes/wef.js","goinggistance_files/echarts4r-4.8.0/themes/weforum.js","goinggistance_files/echarts4r-4.8.0/themes/westeros.js","goinggistance_files/echarts4r-4.8.0/themes/wonderland.js","goinggistance_files/echarts4r-4.8.0/world.js","goinggistance_files/echarts4r-binding-0.4.0/echarts4r.js","goinggistance_files/emile-seguin-wf5ZJ2s-B7I-unsplash.jpg","goinggistance_files/header-attrs-2.7/header-attrs.js","goinggistance_files/htmlwidgets-1.5.3/htmlwidgets.js","goinggistance_files/jquery-1.11.3/jquery.min.js","goinggistance_files/jquery-3.5.1/jquery-AUTHORS.txt","goinggistance_files/jquery-3.5.1/jquery.js","goinggistance_files/jquery-3.5.1/jquery.min.js","goinggistance_files/jquery-3.5.1/jquery.min.map","goinggistance_files/pagedtable-1.1/css/pagedtable.css","goinggistance_files/pagedtable-1.1/js/pagedtable.js","goinggistance_files/popper-2.6.0/popper.min.js","goinggistance_files/react-16.12.0/AUTHORS","goinggistance_files/react-16.12.0/LICENSE.txt","goinggistance_files/react-16.12.0/react-dom.min.js","goinggistance_files/react-16.12.0/react.min.js","goinggistance_files/reactable-binding-0.2.3/reactable.js","goinggistance_files/reactwidget-1.0.0/react-tools.js","goinggistance_files/reactwidget-1.0.0/react-tools.js.map","goinggistance_files/tippy-6.2.7/tippy-bundle.umd.min.js","goinggistance_files/tippy-6.2.7/tippy-light-border.css","goinggistance_files/tippy-6.2.7/tippy.css","goinggistance_files/tippy-6.2.7/tippy.umd.min.js","goinggistance_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="goinggistance_files/header-attrs-2.7/header-attrs.js"></script>
+  <script src="goinggistance_files/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+  <script src="goinggistance_files/echarts4r-4.8.0/echarts-en.min.js"></script>
+  <script src="goinggistance_files/echarts4r-4.8.0/ecStat.min.js"></script>
+  <script src="goinggistance_files/echarts4r-4.8.0/dataTool.min.js"></script>
+  <script src="goinggistance_files/echarts4r-binding-0.4.0/echarts4r.js"></script>
+  <script src="goinggistance_files/core-js-2.5.3/shim.min.js"></script>
+  <script src="goinggistance_files/react-16.12.0/react.min.js"></script>
+  <script src="goinggistance_files/react-16.12.0/react-dom.min.js"></script>
+  <script src="goinggistance_files/reactwidget-1.0.0/react-tools.js"></script>
+  <script src="goinggistance_files/reactable-binding-0.2.3/reactable.js"></script>
+  <script src="goinggistance_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="goinggistance_files/popper-2.6.0/popper.min.js"></script>
+  <link href="goinggistance_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="goinggistance_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="goinggistance_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="goinggistance_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="goinggistance_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="goinggistance_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="goinggistance_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Going the Distance!","description":"A practical guide to measuring distance using Google Maps in R.","authors":[{"author":"Adam D McKinnon","authorURL":"https://adam-d-mckinnon.com/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-06-06T00:00:00.000+00:00","citationText":"McKinnon, 2021"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Going the Distance!</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">Google Maps</div>
+<div class="dt=tag">googleway</div>
+<div class="dt=tag">echarts4r</div>
+<div class="dt=tag">R</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>A practical guide to measuring distance using Google Maps in R.</p></p>
+</div>
+
+<div class="d-byline">
+  Adam D McKinnon <a href="https://adam-d-mckinnon.com/" class="uri">https://adam-d-mckinnon.com/</a> 
+  
+<br/>06-06-2021
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#intro">Intro</a>
+<ul>
+<li><a href="#calling-google-maps">1. Calling Google Maps</a></li>
+<li><a href="#unpacking-the-data">2. Unpacking the Data</a></li>
+<li><a href="#creating-insights">3. Creating Insights</a>
+<ul>
+<li><a href="#are-people-generally-better-off-travelling-to-the-new-office-location">1. Are people generally better off travelling to the new office location?</a></li>
+<li><a href="#which-individuals-will-have-shorter-or-longer-travel-times">2. Which individuals will have shorter or longer travel times?</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#conclusion">Conclusion:</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:header"></span>
+<img src="goinggistance_files/emile-seguin-wf5ZJ2s-B7I-unsplash.jpg" alt="Photo by [Émile Séguin](https://unsplash.com/@emileseguin) on [Unsplash](https://unsplash.com/)." width="100%" height="100%" />
+<p class="caption">
+Figure 1: Photo by <a href="https://unsplash.com/@emileseguin">Émile Séguin</a> on <a href="https://unsplash.com/">Unsplash</a>.
+</p>
+</div>
+</div>
+<h1 id="intro">Intro</h1>
+<p>Two years ago I sat in an elevated office in Germany discussing with a colleague the value of knowing someone’s commute distance to inform their voluntary departure risk. When we worked on generating this variable neither of us could do it! Our flight risk model progressed without this variable. Months later a pandemic hit and the conversation has since (understandably) been firmly ensconced in remote and hybrid models of working. However, many sectors remain sensitive to the need to interact in person. Hospitality, Tourism and to a varying extent Retail, are indicative of this requirement.</p>
+<p>It was therefore, interesting when two years later, a bit more experience under my belt (i.e., mistakes that I had learned from), I was again presented this challenge. The context was simple, a retail business was moving location and wanted to know which employees were likely to be adversely impacted. This information was to be used to inform communication efforts in advance of the move.</p>
+<p>The following provides a practical guide to measuring distances using Google Maps in R. The process involves the following steps:</p>
+<ol type="1">
+<li><p>Calling Google Maps,</p></li>
+<li><p>Unpacking the returned data,</p></li>
+<li><p>Generating insights.</p></li>
+</ol>
+<h2 id="calling-google-maps">1. Calling Google Maps</h2>
+<p>To use Google Maps you will need three things:</p>
+<ol type="i">
+<li><p><strong>Address data.</strong> We begin by loading some fictitious address data provided by the Victorian State Government – School addresses from 2015.</p></li>
+<li><p><strong>Workplace addresses</strong>, both an old workplace address and a new workplace address. For this example, I am using the following two addresses from Victoria, Australia:</p></li>
+</ol>
+<blockquote>
+<ol type="a">
+<li>Old workplace address: 154 High St, Ashburton VIC 3147, Australia (Ashburton Public Library); and</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" type="a">
+<li>New workplace address: Spring St, East Melbourne VIC 3002, Australia (Victorian Parliament Building).</li>
+</ol>
+</blockquote>
+<ol start="3" type="i">
+<li><strong>A Google Maps API key</strong>, which can be set up on the <a href="https://developers.google.com/maps">Google Maps Developer Site</a>. The Google Maps service has a free usage quota. To access Google Maps we will use the googleway library in R.</li>
+</ol>
+<p>With all three pieces ready, we will then call Google Maps using the googleway::google_distance function. We will do this for two modes of transit:</p>
+<ol type="1">
+<li><p>Public Transport (called “Transit”) &amp;</p></li>
+<li><p>Car.</p></li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Libraries</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/sfirke/janitor'>janitor</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://stringr.tidyverse.org'>stringr</a></span><span class='op'>)</span>
+
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>googleway</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://purrr.tidyverse.org'>purrr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-datatable.com'>data.table</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://echarts4r.john-coene.com/'>echarts4r</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://glin.github.io/reactable/'>reactable</a></span><span class='op'>)</span>
+
+
+
+<span class='co'># # Set API key ----</span>
+<span class='va'>key</span> <span class='op'>=</span> <span class='va'>my_api_key</span> <span class='co'># enter your API key here</span>
+  
+<span class='co'># Import Data ----</span>
+<span class='va'>original_locations_tbl</span> <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span>file <span class='op'>=</span>
+<span class='st'>"http://www.education.vic.gov.au/Documents/about/research/datavic/dv165-allschoolslocationlist2015.csv"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+                          <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span>
+
+
+
+<span class='co'># limit the address data to schools in the Greater Melbourne local government area's</span>
+<span class='va'>councils</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Bayside (C)"</span>, <span class='st'>"Port Phillip (C)"</span>, <span class='st'>"Stonnington (C)"</span>, <span class='st'>"Casey (C)"</span>, <span class='st'>"Melbourne (C)"</span>, 
+              <span class='st'>"Frankston (C)"</span>, <span class='st'>"Glen Eira (C)"</span>, <span class='st'>"Monash (C)"</span>, <span class='st'>"Yarra (C)"</span>, <span class='st'>"Moonee Valley (C)"</span><span class='op'>)</span>
+
+
+<span class='co'># create an address dataset</span>
+<span class='va'>addresses_tbl</span> <span class='op'>&lt;-</span> <span class='va'>original_locations_tbl</span> <span class='op'>%&gt;%</span> 
+  
+  <span class='co'># create and format the home address field, and create the old and new workplace addresses</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+    home_address <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>address_line_1</span>, <span class='st'>", "</span>, <span class='va'>address_town</span>, <span class='st'>" "</span>, <span class='va'>address_state</span>, <span class='st'>" "</span>,<span class='va'>address_postcode</span><span class='op'>)</span>,
+    old_work_address <span class='op'>=</span> <span class='st'>"154 High St, Ashburton VIC 3147"</span>,
+    new_work_address <span class='op'>=</span> <span class='st'>"Spring St, East Melbourne VIC 3002"</span>,
+    employee         <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Employee "</span>, <span class='fu'>row_number</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  
+    <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+  <span class='co'># only include addresses from areas around Melbourne</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>lga_name</span> <span class='op'>%in%</span> <span class='va'>councils</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+  <span class='co'># randomly select 100 records</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample_n.html'>sample_n</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>employee</span>, <span class='va'>home_address</span>, <span class='va'>old_work_address</span>, <span class='va'>new_work_address</span><span class='op'>)</span>
+  
+
+
+<span class='co'># check the dataset</span>
+<span class='co'># head(addresses_tbl)</span>
+
+
+<span class='co'># call Google Maps using googleway to calculate the distance and time for the old and new workplace locations</span>
+<span class='co'># the calculations are repeated for both public transport and car modes of transport</span>
+<span class='va'>commute_tbl</span> <span class='op'>&lt;-</span> <span class='va'>addresses_tbl</span> <span class='op'>%&gt;%</span>
+
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+        old_transit_calculations <span class='op'>=</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>map2</a></span><span class='op'>(</span>.x <span class='op'>=</span> <span class='va'>home_address</span>,
+                                               .y <span class='op'>=</span> <span class='va'>old_work_address</span>,
+                                               .f <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>googleway</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/googleway/man/google_distance.html'>google_distance</a></span><span class='op'>(</span>origins      <span class='op'>=</span> <span class='va'>.x</span>,
+                                                                                 destinations <span class='op'>=</span> <span class='va'>.y</span>,
+                                                                                 mode         <span class='op'>=</span> <span class='st'>"transit"</span>,
+                                                                                 key          <span class='op'>=</span> <span class='va'>key</span>,
+                                                                                 simplify     <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>,
+
+        new_transit_calculations <span class='op'>=</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>map2</a></span><span class='op'>(</span>.x <span class='op'>=</span> <span class='va'>home_address</span>,
+                                               .y <span class='op'>=</span> <span class='va'>new_work_address</span>,
+                                               .f <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>googleway</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/googleway/man/google_distance.html'>google_distance</a></span><span class='op'>(</span>origins      <span class='op'>=</span> <span class='va'>.x</span>,
+                                                                                 destinations <span class='op'>=</span> <span class='va'>.y</span>,
+                                                                                 mode         <span class='op'>=</span> <span class='st'>"transit"</span>,
+                                                                                 key          <span class='op'>=</span> <span class='va'>key</span>,
+                                                                                 simplify     <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>,
+
+        old_car_calculations     <span class='op'>=</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>map2</a></span><span class='op'>(</span>.x <span class='op'>=</span> <span class='va'>home_address</span>,
+                                               .y <span class='op'>=</span> <span class='va'>old_work_address</span>,
+                                               .f <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>googleway</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/googleway/man/google_distance.html'>google_distance</a></span><span class='op'>(</span>origins      <span class='op'>=</span> <span class='va'>.x</span>,
+                                                                                 destinations <span class='op'>=</span> <span class='va'>.y</span>,
+                                                                                 mode         <span class='op'>=</span> <span class='st'>"driving"</span>,
+                                                                                 key          <span class='op'>=</span> <span class='va'>key</span>,
+                                                                                 simplify     <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>,
+
+        new_car_calculations     <span class='op'>=</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>map2</a></span><span class='op'>(</span>.x <span class='op'>=</span> <span class='va'>home_address</span>,
+                                               .y <span class='op'>=</span> <span class='va'>new_work_address</span>,
+                                               .f <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>googleway</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/googleway/man/google_distance.html'>google_distance</a></span><span class='op'>(</span>origins      <span class='op'>=</span> <span class='va'>.x</span>,
+                                                                                 destinations <span class='op'>=</span> <span class='va'>.y</span>,
+                                                                                 mode         <span class='op'>=</span> <span class='st'>"driving"</span>,
+                                                                                 key          <span class='op'>=</span> <span class='va'>key</span>,
+                                                                                 simplify     <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+
+    <span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+</div>
+<h2 id="unpacking-the-data">2. Unpacking the Data</h2>
+<p>The data returned from the google_distance function is complicated! Consequently, it required some fiddling to unpack and format in a usable fashion. While the approach developed works, I strongly suspect it could be better. Searching online has yielded several alternatives. However, I decided to stay with my own and welcome suggested improvements.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># cleaning function for results</span>
+<span class='va'>results_cleaner</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>old_or_new</span>, <span class='va'>car_or_transit</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='co'># receive the data</span>
+    <span class='va'>data</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>elements</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html'>as.data.table</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#drop the first columns, which is our original field that is now "NA"</span>
+        <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select_all.html'>rename_all</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>old_or_new</span>, <span class='st'>"_"</span>, <span class='va'>car_or_transit</span>, <span class='st'>"_"</span>, <span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+
+
+<span class='co'># clean the final results for the old commute by public transport</span>
+<span class='va'>old_transit_commute_tbl</span> <span class='op'>&lt;-</span> <span class='va'>commute_tbl</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>old_transit_calculations</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>results_cleaner</span><span class='op'>(</span>old_or_new <span class='op'>=</span> <span class='st'>"old"</span>, car_or_transit <span class='op'>=</span> <span class='st'>"transit"</span><span class='op'>)</span>
+
+
+<span class='co'># clean the final results for the new commute by public transport</span>
+<span class='va'>new_transit_commute_tbl</span> <span class='op'>&lt;-</span> <span class='va'>commute_tbl</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>new_transit_calculations</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>results_cleaner</span><span class='op'>(</span>old_or_new <span class='op'>=</span> <span class='st'>"new"</span>, car_or_transit <span class='op'>=</span> <span class='st'>"transit"</span><span class='op'>)</span>
+
+<span class='co'># clean the final results for the old commute by car</span>
+<span class='va'>old_car_commute_tbl</span> <span class='op'>&lt;-</span> <span class='va'>commute_tbl</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>old_car_calculations</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>results_cleaner</span><span class='op'>(</span>old_or_new <span class='op'>=</span> <span class='st'>"old"</span>, car_or_transit <span class='op'>=</span> <span class='st'>"car"</span><span class='op'>)</span>
+
+
+<span class='co'># clean the final results for the old commute by car</span>
+<span class='va'>new_car_commute_tbl</span> <span class='op'>&lt;-</span> <span class='va'>commute_tbl</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>new_car_calculations</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>results_cleaner</span><span class='op'>(</span>old_or_new <span class='op'>=</span> <span class='st'>"new"</span>, car_or_transit <span class='op'>=</span> <span class='st'>"car"</span><span class='op'>)</span>
+
+
+
+
+<span class='co'># connect the original data with the new clean distance and time results</span>
+<span class='va'>total_commute_tbl</span> <span class='op'>&lt;-</span> <span class='va'>addresses_tbl</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>old_transit_commute_tbl</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># add the columns of the old commute by public transport</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>new_transit_commute_tbl</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># add the columns of the new commute by public transport</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>old_car_commute_tbl</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># add the columns of the old commute by car</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>new_car_commute_tbl</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># add the columns of the new commute by car</span>
+
+    <span class='co'># filter out any results that were not OK</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>old_transit_status</span> <span class='op'>==</span> <span class='st'>"OK"</span> <span class='op'>|</span> 
+                  <span class='va'>new_transit_status</span> <span class='op'>==</span> <span class='st'>"OK"</span> <span class='op'>|</span> 
+                  <span class='va'>old_car_status</span>     <span class='op'>==</span> <span class='st'>"OK"</span> <span class='op'>|</span> 
+                  <span class='va'>new_car_status</span>     <span class='op'>==</span> <span class='st'>"OK"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+</div>
+<h2 id="creating-insights">3. Creating Insights</h2>
+<p>The data returned from googleway provides both the travel distance between the two points, and time required to complete the trip for the selected mode of transit. From here it is important to gauge the following:</p>
+<h3 id="are-people-generally-better-off-travelling-to-the-new-office-location">1. Are people generally better off travelling to the new office location?</h3>
+<p>This can be examined by both distance and time. However, in a city a short trip can still take considerable time. Therefore, examining the difference in time taken for the shortest option (i.e., car or public transport) appears more realistic / accurate. If the time decreased by more than 5 minutes, an improvement in commute is assumed.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># calculate value in Minutes (default results are in seconds)</span>
+<span class='va'>scale_mins</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>x</span> <span class='op'>/</span> <span class='fl'>60</span> 
+  <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='op'>}</span> 
+
+<span class='co'># calculate value in Kilometres (default results are in metres)</span>
+<span class='va'>scale_kms</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>x</span> <span class='op'>/</span> <span class='fl'>1000</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>}</span> 
+
+
+<span class='va'>final_commute_details_tbl</span> <span class='op'>&lt;-</span> <span class='va'>total_commute_tbl</span> <span class='op'>%&gt;%</span> 
+  
+    <span class='co'># covert all duration variable values to minutes</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_at</a></span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='fu'>ends_with</span><span class='op'>(</span><span class='st'>"duration_value"</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>scale_mins</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+    <span class='co'># covert all distance variable values to kilometres</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_at</a></span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='fu'>ends_with</span><span class='op'>(</span><span class='st'>"distance_value"</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>scale_kms</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+    <span class='co'># calculate the difference in distance and time between the new and old locations</span>
+    <span class='co'># NOTE: calculations are based on new - old. Therefore, negative numbers indicate less distance and time, </span>
+    <span class='co'># whereas positive numbers indicate an increase in distance and time</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+        diff_transit_commute_distance <span class='op'>=</span> <span class='va'>new_transit_distance_value</span> <span class='op'>-</span> <span class='va'>old_transit_distance_value</span>,
+        diff_transit_commute_time     <span class='op'>=</span> <span class='va'>new_transit_duration_value</span> <span class='op'>-</span> <span class='va'>old_transit_duration_value</span>,
+        diff_car_commute_distance     <span class='op'>=</span> <span class='va'>new_car_distance_value</span> <span class='op'>-</span> <span class='va'>old_car_distance_value</span>,
+        diff_car_commute_time         <span class='op'>=</span> <span class='va'>new_car_duration_value</span> <span class='op'>-</span> <span class='va'>old_car_duration_value</span>,
+
+        <span class='co'># find the shortest time (i.e., transit or car) for both the old and new offices</span>
+        old_office_min_mins <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>old_transit_duration_value</span> <span class='op'>&lt;</span> <span class='va'>old_car_duration_value</span>, 
+                                           <span class='va'>old_transit_duration_value</span>, <span class='va'>old_car_duration_value</span><span class='op'>)</span>,
+        new_office_min_mins <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>new_transit_duration_value</span> <span class='op'>&lt;</span> <span class='va'>new_car_duration_value</span>, 
+                                           <span class='va'>new_transit_duration_value</span>, <span class='va'>new_car_duration_value</span><span class='op'>)</span>,
+        
+        <span class='co'># find the differences in the best commute times between the two locations</span>
+        new_office_best_commute_diff <span class='op'>=</span> <span class='va'>new_office_min_mins</span> <span class='op'>-</span> <span class='va'>old_office_min_mins</span>,
+        
+        <span class='co'># find which is the better commute for each person (new office, old office, or similar). This assumes </span>
+        <span class='co'># that a commute is better if the commute time is reduced by more than 5 minutes</span>
+        preferred_commute_location   <span class='op'>=</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>old_office_min_mins</span> <span class='op'>-</span> <span class='va'>new_office_min_mins</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='op'>-</span><span class='fl'>5</span> <span class='op'>~</span> <span class='st'>"Old Office"</span>,
+                                                        <span class='op'>(</span><span class='va'>new_office_min_mins</span> <span class='op'>-</span> <span class='va'>old_office_min_mins</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='op'>-</span><span class='fl'>5</span> <span class='op'>~</span> <span class='st'>"New Office"</span>,
+                                                        <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"Similar Commute"</span><span class='op'>)</span>,
+        
+        <span class='co'># determine the best mode of transport for the new location</span>
+        preferred_mode_transport     <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>new_transit_duration_value</span> <span class='op'>&lt;=</span> <span class='va'>new_car_duration_value</span>, <span class='st'>"Public Transport"</span>, <span class='st'>"Car"</span><span class='op'>)</span>
+                                        
+        <span class='op'>)</span>
+
+
+<span class='co'># visually represent the impact of the new location to travel time</span>
+<span class='va'>final_commute_details_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>preferred_commute_location</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>echarts4r</span><span class='fu'>::</span><span class='fu'><a href='http://echarts4r.john-coene.com/reference/init.html'>e_chart</a></span><span class='op'>(</span><span class='va'>preferred_commute_location</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>echarts4r</span><span class='fu'>::</span><span class='fu'><a href='http://echarts4r.john-coene.com/reference/e_bar.html'>e_bar</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>echarts4r</span><span class='fu'>::</span><span class='fu'><a href='http://echarts4r.john-coene.com/reference/e_labels.html'>e_labels</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"insideTop"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>echarts4r</span><span class='fu'>::</span><span class='fu'><a href='http://echarts4r.john-coene.com/reference/e_legend.html'>e_legend</a></span><span class='op'>(</span>show <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>echarts4r</span><span class='fu'>::</span><span class='fu'><a href='http://echarts4r.john-coene.com/reference/e_title.html'>e_title</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='st'>"Preferred Office Location Based on Travel Time"</span>,
+                     <span class='st'>"Preferred Location Is Defined by A Reduction In Travel Time Of More Than 5 Minutes"</span>,
+                     left <span class='op'>=</span> <span class='st'>"10%"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>echarts4r</span><span class='fu'>::</span><span class='fu'><a href='http://echarts4r.john-coene.com/reference/e-tooltip.html'>e_tooltip</a></span><span class='op'>(</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</details>
+<div id="htmlwidget-3f6c9db877b09d36364e" style="width:100%;height:500px;" class="echarts4r html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3f6c9db877b09d36364e">{"x":{"theme":"","tl":false,"draw":true,"renderer":"canvas","events":[],"buttons":[],"opts":{"yAxis":[{"show":true}],"xAxis":[{"data":["New Office","Old Office","Similar Commute"],"type":"category","boundaryGap":true}],"legend":{"data":["n"],"show":false,"type":"plain"},"series":[{"data":[{"value":["New Office"," 8"]},{"value":["Old Office","64"]},{"value":["Similar Commute","26"]}],"name":"n","type":"bar","yAxisIndex":0,"xAxisIndex":0,"coordinateSystem":"cartesian2d","label":{"show":true,"position":"insideTop"}}],"title":[{"left":"10%","text":"Preferred Office Location Based on Travel Time","subtext":"Preferred Location Is Defined by A Reduction In Travel Time Of More Than 5 Minutes"}],"tooltip":{"trigger":"item"}},"dispose":true},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>The visualisation above depicts how the location change will impact employee travel, and it appears the majority of individuals will be worse off when commuting to the new location.</p>
+<h3 id="which-individuals-will-have-shorter-or-longer-travel-times">2. Which individuals will have shorter or longer travel times?</h3>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>final_commute_details_tbl</span> <span class='op'>%&gt;%</span> 
+  
+  <span class='co'># select the preferred variables</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>employee</span>, <span class='va'>home_address</span>, <span class='va'>preferred_commute_location</span>, <span class='va'>new_office_best_commute_diff</span>,<span class='va'>preferred_mode_transport</span>, 
+                <span class='va'>new_transit_duration_value</span>, <span class='va'>diff_transit_commute_time</span>, <span class='va'>new_car_duration_value</span>, 
+                <span class='va'>diff_car_commute_time</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>new_office_best_commute_diff</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+  <span class='co'># rename the variables for more readable output</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>
+                Employee <span class='op'>=</span> <span class='va'>employee</span>,
+                `Home Address`<span class='op'>=</span> <span class='va'>home_address</span>,
+                `Preferred Office` <span class='op'>=</span> <span class='va'>preferred_commute_location</span>,
+                `Commute Change (Mins)` <span class='op'>=</span> <span class='va'>new_office_best_commute_diff</span>,
+                `Preferred Transport for New Office` <span class='op'>=</span> <span class='va'>preferred_mode_transport</span>,
+                `Time via Public Transport (Mins)` <span class='op'>=</span> <span class='va'>new_transit_duration_value</span>,
+                `Public Transport Time Saving (Mins)` <span class='op'>=</span> <span class='va'>diff_transit_commute_time</span>,
+                `Time via Car (Mins)` <span class='op'>=</span> <span class='va'>new_car_duration_value</span>,
+                `Car Time Saving (Mins)` <span class='op'>=</span> <span class='va'>diff_car_commute_time</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  
+  <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span>
+    <span class='co'># pagination and searching options</span>
+    showPageSizeOptions <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    pageSizeOptions <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span>, <span class='fl'>100</span><span class='op'>)</span>,
+    defaultPageSize <span class='op'>=</span> <span class='fl'>5</span>,
+    
+    <span class='co'># table formatting options</span>
+    outlined <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    borderless <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    striped <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    resizable <span class='op'>=</span> <span class='cn'>TRUE</span>,
+
+    <span class='co'># column width</span>
+    columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      Employee <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>,
+      `Home Address` <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>175</span><span class='op'>)</span>,
+      `Preferred Office` <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>,
+      `Commute Change (Mins)` <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>,
+      `Preferred Transport for New Office`  <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>,
+      `Time via Public Transport (Mins)`  <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>,
+      `Public Transport Time Saving (Mins)`  <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>,
+      `Time via Car (Mins)` <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>,
+      `Car Time Saving (Mins)`<span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>minWidth <span class='op'>=</span> <span class='fl'>150</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+    <span class='op'>)</span>,
+    
+    <span class='co'># theming changes    </span>
+    theme <span class='op'>=</span> <span class='fu'>reactable</span><span class='fu'>::</span><span class='fu'><a href='https://glin.github.io/reactable/reference/reactableTheme.html'>reactableTheme</a></span><span class='op'>(</span>
+      highlightColor <span class='op'>=</span> <span class='st'>"#f0f5f9"</span>,
+      cellPadding <span class='op'>=</span> <span class='st'>"8px 12px"</span>,
+      style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fontFamily <span class='op'>=</span> <span class='st'>"-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<div id="htmlwidget-1162095b7054e191abff" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1162095b7054e191abff">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Employee":["Employee 2179","Employee 1632","Employee 1704","Employee 1655","Employee 1555","Employee 2214","Employee 1601","Employee 640","Employee 1560","Employee 797","Employee 803","Employee 1848","Employee 711","Employee 2126","Employee 1795","Employee 644","Employee 461","Employee 674","Employee 2168","Employee 628","Employee 250","Employee 1544","Employee 328","Employee 1466","Employee 1672","Employee 1847","Employee 1557","Employee 442","Employee 1832","Employee 614","Employee 1612","Employee 688","Employee 1793","Employee 1162","Employee 1150","Employee 1987","Employee 1691","Employee 1048","Employee 774","Employee 1285","Employee 1767","Employee 2198","Employee 1953","Employee 2139","Employee 1951","Employee 1992","Employee 1505","Employee 1495","Employee 1422","Employee 2129","Employee 2042","Employee 1591","Employee 2087","Employee 861","Employee 2108","Employee 937","Employee 914","Employee 1482","Employee 1099","Employee 2097","Employee 785","Employee 1950","Employee 2103","Employee 606","Employee 1190","Employee 2110","Employee 1133","Employee 1029","Employee 895","Employee 1252","Employee 1403","Employee 1171","Employee 367","Employee 2093","Employee 2052","Employee 282","Employee 1738","Employee 1845","Employee 726","Employee 615","Employee 1773","Employee 1961","Employee 804","Employee 1860","Employee 666","Employee 1744","Employee 1142","Employee 806","Employee 1265","Employee 693","Employee 1457","Employee 1772","Employee 1326","Employee 1935","Employee 1139","Employee 899","Employee 954","Employee 300"],"Home Address":["Level 6, 152-168 Elizabeth Street, MELBOURNE VIC 3000","86 Anderson Street, SOUTH YARRA VIC 3141","37 Gower Street, KENSINGTON VIC 3031","31 Curran Street, MELBOURNE NORTH VIC 3051","8-14 Brougham Street, MELBOURNE NORTH VIC 3051","355 St Kilda Road, MELBOURNE VIC 3004","677 Punt Road, SOUTH YARRA VIC 3141","87 Wilson Street, Moonee Ponds VIC 3039","103 Wellington Street, FLEMINGTON VIC 3031","Clarendon St, Avondale Heights VIC 3034","Mascoma Street, Strathmore VIC 3041","6 Teague Street, NIDDRIE VIC 3042","Lloyd Street, Strathmore VIC 3041","301-319 Bank Street, MELBOURNE SOUTH VIC 3205","92 - 114 Woodland Street, STRATHMORE VIC 3041","Langs Rd, Ascot Vale VIC 3032","100 Montague Street, South Melbourne VIC 3205","1 Doone Street, Essendon VIC 3040","52 River Street, SOUTH YARRA VIC 3141","Scott Street, Elwood VIC 3184","2B Brighton Road, St Kilda VIC 3182","11 Westbury Street, ST KILDA EAST VIC 3183","Hornby Street, Windsor VIC 3181","Yarra Boulevard, Richmond VIC 3121","25 - 27 Chapel Street, ST KILDA VIC 3182","88 Hotham Street, ST KILDA EAST VIC 3183","187 Dandenong Road, WINDSOR VIC 3181","9-23 Densham Road, Armadale VIC 3143","10-12 King Street, ELSTERNWICK VIC 3185","66 Landcox Street, Brighton East VIC 3187","38 Huntingtower Road, ARMADALE VIC 3143","23 Brewer Road, Bentleigh VIC 3204","31 Moonga Road, TOORAK VIC 3142","20 Sherwood Road, Narre Warren South VIC 3805","Whites Lane, Glen Waverley VIC 3150","Scott Street, CRANBOURNE VIC 3977","1318 High Street, MALVERN VIC 3144","19-27 Northgateway, Langwarrin VIC 3910","Pearcedale Road, Cranbourne South VIC 3977","Manuka Road, Berwick VIC 3806","544 Balcombe Road, BLACK ROCK VIC 3193","1785 South Gippsland Hwy, CRANBOURNE VIC 3977","Kernot Ave, MULGRAVE VIC 3170","73 Ridgemont Drive, BERWICK VIC 3806","86-94 Austin Road, SEAFORD VIC 3198","583 Ferntree Gully Road, GLEN WAVERLEY VIC 3150","74-84 Frawley Road, Hallam VIC 3803","1 Wellington Road, Monash University VIC 3800","80 Warrandyte Road, Langwarrin VIC 3910","2 Ernst Wanke Road, NARRE WARREN NORTH VIC 3804","9 William Hovell Drive, ENDEAVOUR HILLS VIC 3802","842 Centre Road, BENTLEIGH EAST VIC 3165","42 Whalley Drive, WHEELERS HILL VIC 3150","25 Forster Avenue, Frankston North VIC 3200","120 Hallam Road, HAMPTON PARK VIC 3976","14 Naranga Crescent, Frankston VIC 3199","1-5 Ninevah Crescent, Wheelers Hill VIC 3150","Amberly Park Drive, Narre Warren Sth VIC 3805","79 - 93 Kurrajong Road, Narre Warren VIC 3805","6 Ellington Street, CAULFIELD SOUTH VIC 3162","Towerhill Road, Frankston VIC 3199","165 Mc Mahons Road, FRANKSTON VIC 3199","25 Broderick Road, CARRUM DOWNS VIC 3201","186 Balaclava Road, Caulfield North VIC 3161","70 Brookwater Parade, Lyndhurst VIC 3975","Cranbourne-Frankston Road, CRANBOURNE VIC 3977","22 Wells Road, Seaford VIC 3198","14-36 Lesdon Avenue, Cranbourne VIC 3977","Belar Avenue, Frankston VIC 3199","Robinsons Road, Frankston South VIC 3199","91 Police Road, Mulgrave VIC 3170","724 Glen Huntly Road, Caulfield South VIC 3162","Bakewell Street, Cranbourne VIC 3977","76 Mossgiel Park Drive, ENDEAVOUR HILLS VIC 3802","496 Princes Highway, NARRE WARREN VIC 3805","20 Warrigal Road, Oakleigh VIC 3166","2 Leila Road, ORMOND VIC 3204","16 Mary Street, CLAYTON VIC 3168","Abbotsford Avenue, Malvern East VIC 3145","79-99 Dalgetty Road, Beaumaris VIC 3193","Glenvale Road, GLEN IRIS VIC 3146","156 Bignell Road, BENTLEIGH EAST VIC 3165","Riley Street, Oakleigh South VIC 3167","113 Oak Street, BEAUMARIS VIC 3193","Brine Street, Hughesdale VIC 3166","Glen Orme Avenue, ORMOND VIC 3204","17 State Street, Oakleigh East VIC 3166","36 Solomon Street, Mount Waverley VIC 3149","Vivien St, Bentleigh East VIC 3165","253 Tucker Road, Ormond VIC 3204","13-21 O'Sullivan Road, Glen Waverley VIC 3150","3 Dalny Road, MURRUMBEENA VIC 3163","Capital Avenue, Glen Waverley VIC 3150","35 Charles Street, MOUNT WAVERLEY VIC 3149","774 High Street Road, Glen Waverley VIC 3150","55 Nottingham Street, Glen Waverley VIC 3150","Galahad Crescent, Glen Waverley VIC 3150","65-67 King Road, Harkaway VIC 3806"],"Preferred Office":["New Office","New Office","New Office","New Office","New Office","New Office","New Office","New Office","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Similar Commute","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Old Office","Similar Commute"],"Commute Change (Mins)":[-13,-8,-7,-7,-7,-7,-7,-6,-5,-5,-4,-4,-4,-4,-4,-4,-3,-3,-3,-3,-1,0,1,1,1,2,2,3,4,4,4,5,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,10,11,12,12,13,13,13,14,14,14,14,"NA"],"Preferred Transport for New Office":["Public Transport","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car","Car",null],"Time via Public Transport (Mins)":[7,21,31,26,21,21,17,39,34,48,63,57,58,27,44,49,22,65,18,39,36,31,34,23,30,38,30,36,44,50,36,63,37,95,89,116,38,104,101,80,66,129,61,82,88,85,81,56,106,156,81,66,69,311,63,106,69,93,90,43,87,317,104,45,110,88,82,118,101,99,100,43,121,85,116,34,38,36,53,78,46,61,67,72,43,40,48,54,374,61,46,39,97,47,74,61,88,"NA"],"Public Transport Time Saving (Mins)":[-53,-36,-42,-53,-54,-33,-40,-57,-43,-48,-42,-39,-42,-44,-42,-44,-49,-50,-38,-33,-33,-32,-21,-20,-37,-23,-30,-8,-31,-43,-6,-30,-3,-25,10,15,-14,-22,-25,-18,-43,-27,-21,-18,-30,9,-17,-32,-22,-264,-18,11,-17,175,-26,-21,-25,-26,-25,-53,-33,-26,-30,-17,13,-25,-27,14,-21,-33,-10,-32,15,-8,29,1,-44,-19,10,-47,14,1,12,-47,-7,-40,-30,1,-30,-31,3,-32,10,3,21,3,23,"NA"],"Time via Car (Mins)":[7,8,16,14,14,12,9,21,17,30,22,26,22,14,23,21,13,28,10,20,19,17,17,12,17,19,17,16,23,24,16,26,15,43,25,45,16,47,46,42,37,52,26,41,40,23,34,24,47,37,34,25,26,44,38,45,27,40,38,27,45,43,42,23,39,45,42,42,44,45,29,25,46,35,37,19,24,28,18,40,15,27,26,40,23,26,23,22,29,26,28,24,30,25,28,29,32,40],"Car Time Saving (Mins)":[-13,-8,-7,-7,-7,-7,-7,-6,-5,-5,-4,-4,-4,-4,-4,-4,-3,-3,-3,-3,-1,0,1,1,1,2,2,3,4,4,4,5,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,10,11,12,12,13,13,13,14,14,14,14,7]},"columns":[{"accessor":"Employee","name":"Employee","type":"character","minWidth":150},{"accessor":"Home Address","name":"Home Address","type":"character","minWidth":175},{"accessor":"Preferred Office","name":"Preferred Office","type":"character","minWidth":150,"align":"center"},{"accessor":"Commute Change (Mins)","name":"Commute Change (Mins)","type":"numeric","minWidth":150,"align":"center"},{"accessor":"Preferred Transport for New Office","name":"Preferred Transport for New Office","type":"character","minWidth":150,"align":"center"},{"accessor":"Time via Public Transport (Mins)","name":"Time via Public Transport (Mins)","type":"numeric","minWidth":150,"align":"center"},{"accessor":"Public Transport Time Saving (Mins)","name":"Public Transport Time Saving (Mins)","type":"numeric","minWidth":150,"align":"center"},{"accessor":"Time via Car (Mins)","name":"Time via Car (Mins)","type":"numeric","minWidth":150,"align":"center"},{"accessor":"Car Time Saving (Mins)","name":"Car Time Saving (Mins)","type":"numeric","minWidth":150,"align":"center"}],"resizable":true,"defaultPageSize":5,"showPageSizeOptions":true,"pageSizeOptions":[5,10,25,50,100],"paginationType":"numbers","showPageInfo":true,"minRows":1,"outlined":true,"borderless":true,"striped":true,"theme":{"highlightColor":"#f0f5f9","cellPadding":"8px 12px","style":{"fontFamily":"-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"}},"dataKey":"0f5457a00b2c6f9cf94a94f4d0d6178f","key":"0f5457a00b2c6f9cf94a94f4d0d6178f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>The above table could readily be exported to Excel and delivered to Leaders, Managers, Transition Teams, HRBP’s, etc., to help inform the delivery of personalised discussions with staff regarding proposed or upcoming changes. In addition, it could also help to inform the identification of voluntary flight risks, based on negative travel experiences associated with the move. Moreover, additional analyses could be performed on this data to help inform communication efforts (e.g., clustering to develop employee personas).</p>
+<h1 id="conclusion">Conclusion:</h1>
+<p>I often try to think of ways to prompt people to reach out to the People Analytics team for advice or assistance. One quick-fire way, based on this experience, is through automation. If colleagues are having to do things manually more than a dozen times (i.e., look up commute times on Google Maps), its likely the People Analytics Team can help. While automating work is not necessarily a core remit of People Analytics Team’s, it can be a highly useful approach for building both credibility and goodwill among business colleagues (i.e., low actual effort, high perceived value), which can in turn lead to bigger opportunities for both parties. In addition, this approach (and related activities) represent useful activities that can be performed in support of new site selection during a due diligence phase (i.e., pre-selecting venues).</p>
+<p>In this example we used a series of addresses to calculate travel distance and time between fictitious home and work addresses for different modes of transit. While using Google Maps programmatically is not without some learning required, I hope this example assists in making it more accessible to a broader range of users. Such functions can and should be used in advance of physical location changes to help proactively identify and mitigate distance-related challenges for all parties involved, both employees and consumers.</p>
+<p>Happy coding!</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

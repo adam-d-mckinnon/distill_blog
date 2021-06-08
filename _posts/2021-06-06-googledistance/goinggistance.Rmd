@@ -1,0 +1,415 @@
+---
+title: "Going the Distance!"
+description: |
+  A practical guide to measuring distance using Google Maps in R.
+author:
+  - name: Adam D McKinnon
+    url: https://adam-d-mckinnon.com/
+date: 06-06-2021
+categories:
+  - Google Maps
+  - googleway
+  - echarts4r
+  - R
+output: 
+  distill::distill_article:
+    df_print: paged
+    self_contained: false
+    date_prefix: true # adds date for sorting
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    highlight: rstudio
+    highlight_downlit: true
+    draft: false
+
+
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  out.width = "100%",
+  out.height = "100%",
+  dpi = 300,
+  code_folding = TRUE,
+  R.options = list(width = 70))
+
+my_api_key <- Sys.getenv("google_api_key")
+
+```
+
+
+
+```{r header, echo=FALSE, fig.cap="Photo by [Émile Séguin](https://unsplash.com/@emileseguin) on [Unsplash](https://unsplash.com/).", out.width = '100%'}
+knitr::include_graphics("goinggistance_files/emile-seguin-wf5ZJ2s-B7I-unsplash.jpg")
+
+```
+
+
+# Intro
+Two years ago I sat in an elevated office in Germany discussing with a colleague the value of knowing someone’s commute distance to inform their voluntary departure risk. When we worked on generating this variable neither of us could do it! Our flight risk model progressed without this variable. Months later a pandemic hit and the conversation has since (understandably) been firmly ensconced in remote and hybrid models of working. However, many sectors remain sensitive to the need to interact in person. Hospitality, Tourism and to a varying extent Retail, are indicative of this requirement. 
+
+It was therefore, interesting when two years later, a bit more experience under my belt (i.e., mistakes that I had learned from), I was again presented this challenge. The context was simple, a retail business was moving location and wanted to know which employees were likely to be adversely impacted. This information was to be used to inform communication efforts in advance of the move. 
+
+The following provides a practical guide to measuring distances using Google Maps in R. The process involves the following steps:
+
+1. Calling Google Maps,
+
+2. Unpacking the returned data,
+
+3. Generating insights.
+
+
+
+## 1.	Calling Google Maps
+
+To use Google Maps you will need three things:
+
+i.	**Address data.** We begin by loading some fictitious address data provided by the Victorian State Government – School addresses from 2015.
+
+ii.	**Workplace addresses**, both an old workplace address and a new workplace address. For this example, I am using the following two addresses from Victoria, Australia:
+
+
+> a. Old workplace address: 154 High St, Ashburton VIC 3147, Australia (Ashburton Public Library); and 
+
+> b. New workplace address: Spring St, East Melbourne VIC 3002, Australia (Victorian Parliament Building).
+
+
+iii.	**A Google Maps API key**, which can be set up on the [Google Maps Developer Site](https://developers.google.com/maps). The Google Maps service has a free usage quota. To access Google Maps we will use the googleway library in R.
+
+With all three pieces ready, we will then call Google Maps using the googleway::google_distance function. We will do this for two modes of transit:
+
+1.	Public Transport (called "Transit") &
+
+2.	Car.
+
+
+
+```{r calling_gmaps, code_folding=TRUE}
+
+# Libraries
+library(readxl)
+library(tidyverse)
+library(janitor)
+library(stringr)
+
+library(googleway)
+library(purrr)
+library(data.table)
+library(echarts4r)
+library(reactable)
+
+
+
+# # Set API key ----
+key = my_api_key # enter your API key here
+  
+# Import Data ----
+original_locations_tbl <- readr::read_csv(file =
+"http://www.education.vic.gov.au/Documents/about/research/datavic/dv165-allschoolslocationlist2015.csv") %>% 
+                          janitor::clean_names()
+
+
+
+# limit the address data to schools in the Greater Melbourne local government area's
+councils <- c("Bayside (C)", "Port Phillip (C)", "Stonnington (C)", "Casey (C)", "Melbourne (C)", 
+              "Frankston (C)", "Glen Eira (C)", "Monash (C)", "Yarra (C)", "Moonee Valley (C)")
+
+
+# create an address dataset
+addresses_tbl <- original_locations_tbl %>% 
+  
+  # create and format the home address field, and create the old and new workplace addresses
+  dplyr::mutate(
+    home_address = base::paste0(address_line_1, ", ", address_town, " ", address_state, " ",address_postcode),
+    old_work_address = "154 High St, Ashburton VIC 3147",
+    new_work_address = "Spring St, East Melbourne VIC 3002",
+    employee         = paste0("Employee ", row_number())  
+    ) %>% 
+  
+  # only include addresses from areas around Melbourne
+  dplyr::filter(lga_name %in% councils) %>% 
+  
+  # randomly select 100 records
+  dplyr::sample_n(100) %>% 
+  
+  dplyr::select(employee, home_address, old_work_address, new_work_address)
+  
+
+
+# check the dataset
+# head(addresses_tbl)
+
+
+# call Google Maps using googleway to calculate the distance and time for the old and new workplace locations
+# the calculations are repeated for both public transport and car modes of transport
+commute_tbl <- addresses_tbl %>%
+
+  dplyr::mutate(
+        old_transit_calculations = purrr::map2(.x = home_address,
+                                               .y = old_work_address,
+                                               .f = ~ googleway::google_distance(origins      = .x,
+                                                                                 destinations = .y,
+                                                                                 mode         = "transit",
+                                                                                 key          = key,
+                                                                                 simplify     = TRUE)),
+
+
+
+        new_transit_calculations = purrr::map2(.x = home_address,
+                                               .y = new_work_address,
+                                               .f = ~ googleway::google_distance(origins      = .x,
+                                                                                 destinations = .y,
+                                                                                 mode         = "transit",
+                                                                                 key          = key,
+                                                                                 simplify     = TRUE)),
+
+        old_car_calculations     = purrr::map2(.x = home_address,
+                                               .y = old_work_address,
+                                               .f = ~ googleway::google_distance(origins      = .x,
+                                                                                 destinations = .y,
+                                                                                 mode         = "driving",
+                                                                                 key          = key,
+                                                                                 simplify     = TRUE)),
+
+        new_car_calculations     = purrr::map2(.x = home_address,
+                                               .y = new_work_address,
+                                               .f = ~ googleway::google_distance(origins      = .x,
+                                                                                 destinations = .y,
+                                                                                 mode         = "driving",
+                                                                                 key          = key,
+                                                                                 simplify     = TRUE))
+
+    )
+
+
+
+```
+
+
+
+## 2. Unpacking the Data
+
+The data returned from the google_distance function is complicated! Consequently, it required some fiddling to unpack and format in a usable fashion. While the approach developed works, I strongly suspect it could be better. Searching online has yielded several alternatives. However, I decided to stay with my own and welcome suggested improvements. 
+
+
+
+
+```{r cleaning_results, code_folding=TRUE}
+
+# cleaning function for results
+results_cleaner <- function(data, old_or_new, car_or_transit){
+    # receive the data
+    data %>%
+        tidyr::unnest() %>%
+        tidyr::unnest() %>%
+        tidyr::unnest(elements) %>%
+        data.table::as.data.table() %>%
+        tibble::as_tibble() %>%
+        janitor::clean_names() %>%
+        dplyr::select(-1) %>% #drop the first columns, which is our original field that is now "NA"
+        dplyr::rename_all(~ paste0(old_or_new, "_", car_or_transit, "_", .x))
+}
+
+
+
+# clean the final results for the old commute by public transport
+old_transit_commute_tbl <- commute_tbl %>%
+    dplyr::select(old_transit_calculations) %>%
+    results_cleaner(old_or_new = "old", car_or_transit = "transit")
+
+
+# clean the final results for the new commute by public transport
+new_transit_commute_tbl <- commute_tbl %>%
+    dplyr::select(new_transit_calculations) %>%
+    results_cleaner(old_or_new = "new", car_or_transit = "transit")
+
+# clean the final results for the old commute by car
+old_car_commute_tbl <- commute_tbl %>%
+    dplyr::select(old_car_calculations) %>%
+    results_cleaner(old_or_new = "old", car_or_transit = "car")
+
+
+# clean the final results for the old commute by car
+new_car_commute_tbl <- commute_tbl %>%
+    dplyr::select(new_car_calculations) %>%
+    results_cleaner(old_or_new = "new", car_or_transit = "car")
+
+
+
+
+# connect the original data with the new clean distance and time results
+total_commute_tbl <- addresses_tbl %>%
+    dplyr::bind_cols(old_transit_commute_tbl) %>% # add the columns of the old commute by public transport
+    dplyr::bind_cols(new_transit_commute_tbl) %>% # add the columns of the new commute by public transport
+    dplyr::bind_cols(old_car_commute_tbl) %>% # add the columns of the old commute by car
+    dplyr::bind_cols(new_car_commute_tbl) %>% # add the columns of the new commute by car
+
+    # filter out any results that were not OK
+    dplyr::filter(old_transit_status == "OK" | 
+                  new_transit_status == "OK" | 
+                  old_car_status     == "OK" | 
+                  new_car_status     == "OK")
+  
+```
+
+
+## 3.	Creating Insights
+
+The data returned from googleway provides both the travel distance between the two points, and time required to complete the trip for the selected mode of transit. From here it is important to gauge the following:
+
+
+### 1. Are people generally better off travelling to the new office location? 
+
+This can be examined by both distance and time. However, in a city a short trip can still take considerable time. Therefore, examining the difference in time taken for the shortest option (i.e., car or public transport) appears more realistic / accurate. If the time decreased by more than 5 minutes, an improvement in commute is assumed.
+
+
+```{r generating_insights_1, code_folding=TRUE}
+
+# calculate value in Minutes (default results are in seconds)
+scale_mins <- function(x){
+  x <- x / 60 
+  round(x, digits = 0)
+} 
+
+# calculate value in Kilometres (default results are in metres)
+scale_kms <- function(x){
+  x <- x / 1000
+  round(x, digits = 1)
+} 
+
+
+final_commute_details_tbl <- total_commute_tbl %>% 
+  
+    # covert all duration variable values to minutes
+    dplyr::mutate_at(vars(ends_with("duration_value")), scale_mins) %>% 
+  
+    # covert all distance variable values to kilometres
+    dplyr::mutate_at(vars(ends_with("distance_value")), scale_kms) %>% 
+  
+    # calculate the difference in distance and time between the new and old locations
+    # NOTE: calculations are based on new - old. Therefore, negative numbers indicate less distance and time, 
+    # whereas positive numbers indicate an increase in distance and time
+    dplyr::mutate(
+        diff_transit_commute_distance = new_transit_distance_value - old_transit_distance_value,
+        diff_transit_commute_time     = new_transit_duration_value - old_transit_duration_value,
+        diff_car_commute_distance     = new_car_distance_value - old_car_distance_value,
+        diff_car_commute_time         = new_car_duration_value - old_car_duration_value,
+
+        # find the shortest time (i.e., transit or car) for both the old and new offices
+        old_office_min_mins = base::ifelse(old_transit_duration_value < old_car_duration_value, 
+                                           old_transit_duration_value, old_car_duration_value),
+        new_office_min_mins = base::ifelse(new_transit_duration_value < new_car_duration_value, 
+                                           new_transit_duration_value, new_car_duration_value),
+        
+        # find the differences in the best commute times between the two locations
+        new_office_best_commute_diff = new_office_min_mins - old_office_min_mins,
+        
+        # find which is the better commute for each person (new office, old office, or similar). This assumes 
+        # that a commute is better if the commute time is reduced by more than 5 minutes
+        preferred_commute_location   = dplyr::case_when((old_office_min_mins - new_office_min_mins) < -5 ~ "Old Office",
+                                                        (new_office_min_mins - old_office_min_mins) < -5 ~ "New Office",
+                                                        TRUE ~ "Similar Commute"),
+        
+        # determine the best mode of transport for the new location
+        preferred_mode_transport     = base::ifelse(new_transit_duration_value <= new_car_duration_value, "Public Transport", "Car")
+                                        
+        )
+
+
+# visually represent the impact of the new location to travel time
+final_commute_details_tbl %>% 
+  dplyr::count(preferred_commute_location) %>% 
+  echarts4r::e_chart(preferred_commute_location) %>% 
+  echarts4r::e_bar(n) %>% 
+  echarts4r::e_labels(position = "insideTop") %>% 
+  echarts4r::e_legend(show = FALSE) %>% 
+  echarts4r::e_title(text = "Preferred Office Location Based on Travel Time",
+                     "Preferred Location Is Defined by A Reduction In Travel Time Of More Than 5 Minutes",
+                     left = "10%") %>% 
+  echarts4r::e_tooltip() 
+
+```
+
+
+The visualisation above depicts how the location change will impact employee travel, and it appears the majority of individuals will be worse off when commuting to the new location.  
+
+### 2. Which individuals will have shorter or longer travel times?
+
+```{r generating_insights_2, code_folding=TRUE}
+
+final_commute_details_tbl %>% 
+  
+  # select the preferred variables
+  dplyr::select(employee, home_address, preferred_commute_location, new_office_best_commute_diff,preferred_mode_transport, 
+                new_transit_duration_value, diff_transit_commute_time, new_car_duration_value, 
+                diff_car_commute_time) %>% 
+  
+    dplyr::arrange(new_office_best_commute_diff) %>% 
+  
+  # rename the variables for more readable output
+  dplyr::rename(
+                Employee = employee,
+                `Home Address`= home_address,
+                `Preferred Office` = preferred_commute_location,
+                `Commute Change (Mins)` = new_office_best_commute_diff,
+                `Preferred Transport for New Office` = preferred_mode_transport,
+                `Time via Public Transport (Mins)` = new_transit_duration_value,
+                `Public Transport Time Saving (Mins)` = diff_transit_commute_time,
+                `Time via Car (Mins)` = new_car_duration_value,
+                `Car Time Saving (Mins)` = diff_car_commute_time) %>% 
+  
+  reactable::reactable(
+    # pagination and searching options
+    showPageSizeOptions = TRUE,
+    pageSizeOptions = c(5, 10, 25, 50, 100),
+    defaultPageSize = 5,
+    
+    # table formatting options
+    outlined = TRUE,
+    borderless = TRUE,
+    striped = TRUE,
+    resizable = TRUE,
+
+    # column width
+    columns = list(
+      Employee = reactable::colDef(minWidth = 150),
+      `Home Address` = reactable::colDef(minWidth = 175),
+      `Preferred Office` = reactable::colDef(minWidth = 150, align = "center"),
+      `Commute Change (Mins)` = reactable::colDef(minWidth = 150, align = "center"),
+      `Preferred Transport for New Office`  = reactable::colDef(minWidth = 150, align = "center"),
+      `Time via Public Transport (Mins)`  = reactable::colDef(minWidth = 150, align = "center"),
+      `Public Transport Time Saving (Mins)`  = reactable::colDef(minWidth = 150, align = "center"),
+      `Time via Car (Mins)` = reactable::colDef(minWidth = 150, align = "center"),
+      `Car Time Saving (Mins)`= reactable::colDef(minWidth = 150, align = "center")
+    ),
+    
+    # theming changes    
+    theme = reactable::reactableTheme(
+      highlightColor = "#f0f5f9",
+      cellPadding = "8px 12px",
+      style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"))
+  )
+  
+
+```
+
+The above table could readily be exported to Excel and delivered to Leaders, Managers, Transition Teams, HRBP's, etc., to help inform the delivery of personalised discussions with staff regarding proposed or upcoming changes. In addition, it could also help to inform the identification of voluntary flight risks, based on negative travel experiences associated with the move. Moreover, additional analyses could be performed on this data to help inform communication efforts (e.g., clustering to develop employee personas).
+
+
+# Conclusion:
+
+I often try to think of ways to prompt people to reach out to the People Analytics team for advice or assistance. One quick-fire way, based on this experience, is through automation. If colleagues are having to do things manually more than a dozen times (i.e., look up commute times on Google Maps), its likely the People Analytics Team can help. While automating work is not necessarily a core remit of People Analytics Team’s, it can be a highly useful approach for building both credibility and goodwill among business colleagues (i.e., low actual effort, high perceived value), which can in turn lead to bigger opportunities for both parties. In addition, this approach (and related activities) represent useful activities that can be performed in support of new site selection during a due diligence phase (i.e., pre-selecting venues). 
+
+In this example we used a series of addresses to calculate travel distance and time between fictitious home and work addresses for different modes of transit. While using Google Maps programmatically is not without some learning required, I hope this example assists in making it more accessible to a broader range of users. Such functions can and should be used in advance of physical location changes to help proactively identify and mitigate distance-related challenges for all parties involved, both employees and consumers. 
+
+Happy coding!
+
+
+
+

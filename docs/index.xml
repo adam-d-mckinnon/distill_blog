@@ -11,7 +11,20 @@
       <link>https://www.adam-d-mckinnon.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 12 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 06 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Going the Distance!</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2021-06-06-googledistance</link>
+      <description>A practical guide to measuring distance using Google Maps in R.</description>
+      <category>Google Maps</category>
+      <category>googleway</category>
+      <category>echarts4r</category>
+      <category>R</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2021-06-06-googledistance</guid>
+      <pubDate>Sun, 06 Jun 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2021-06-06-googledistance/goinggistance_files/emile-seguin-wf5ZJ2s-B7I-unsplash.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Measuring Impact in HR: A Practical Demonstration</title>
       <dc:creator>Adam D McKinnon</dc:creator>
