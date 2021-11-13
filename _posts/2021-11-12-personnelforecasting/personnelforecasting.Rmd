@@ -1,0 +1,553 @@
+---
+title: "Forecasting Future Personnel Requirements Using Machine Learning"
+description: |
+  A practical demonstration of using machine learning to predict personnel requirements based on customer volumes.
+author:
+  - name: Adam D McKinnon
+    url: https://adam-d-mckinnon.com/
+    affiliation_url: https://www.linkedin.com/in/adamdmckinnon/
+date: 11-13-2021
+categories:
+  - Modeltime
+  - Timetk
+  - Tidymodels
+  - echarts4r
+  - R
+output: 
+  distill::distill_article:
+    df_print: paged
+    self_contained: false
+    date_prefix: true # adds date for sorting
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    highlight: rstudio
+    highlight_downlit: true
+    draft: false
+    
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  out.width = "100%",
+  out.height = "100%",
+  dpi = 300,
+  code_folding = TRUE,
+  R.options = list(width = 70))
+
+```
+
+
+
+```{r header, echo=FALSE, fig.cap="Photo by [LYCS Architecture](https://unsplash.com/@lycs) on [Unsplash](https://unsplash.com/).", out.width = '100%'}
+
+knitr::include_graphics("personnelforecasting_files/lycs-architecture-U2BI3GMnSSE-unsplash.jpg")
+
+```
+
+# The goal is to know what's coming...
+Around this time last year I began immersing myself in Forecasting. My learning and professional experience since suggests to me that there are considerable opportunities to apply Forecasting methods in people related decision-making. I see Forecasting informing decisions such as:
+- retail rostering through the forecasting sales volumes, 
+- workloads for talent acquisition professionals through forecasting requisitions volumes,
+- job design by forecasting volumes of service delivery staff, 
+- Strategic Workforce Planning (SWP) through anticipation of skill demand, and
+- many more (I suspect imagination may be the limiting factor)!
+
+While the [last article](https://www.adam-d-mckinnon.com/posts/2020-10-10-forecastpeopleanalytics/) I wrote on Forecasting was fun, this article adopts a more pragmatic stance by providing a practical demonstration of forecasting customer contact volumes to manage staff rosters.
+
+
+## Business Context
+The Brisbane City Council (Australia) resolves hundreds of customer contact enquiries by residents each day. In a bid to ensure ongoing customer centricity, the council offers multiple channels through which residents can contact the council. It is expected that council staff will resolve a particular number of customer contact enquiries each day. The rate of resolution varies by channel and is measured as follows (these rates are fictitious): 
+
+1. Email: 175 / employee / day,
+2. Face to Face: 75 / employee / day,
+3. Mail: 75 / employee / day,
+4. Online (e.g., Twitter, LinkedIn, etc.): 150 / employee / day, 
+5. Voice: 200 / employee / day, and
+6. Web (e.g., council website contact forms): 150 / employee / day.
+
+    
+
+
+## Business Challenge
+The council would like to accurately roster sufficient staff to resolve contact volumes, while not "over rostering" staff to minimise costs. To do this we will train several Machine Learning Models using historic rates of contact for each of the various contact channels, and then forecast customer contact volumes by channel over the next month. With the forecasted volumes, we can then calculate the required number of staff based on expected resolution rates (see above).   
+
+
+## Workflow
+The workflow for addressing this business challenge is as follows:
+
+1. Setup & Data
+
+    - libraries
+    - ingest the data
+    - data wrangling / feature engineering & dataset creation
+
+2. Modeling
+
+    - data preprocessing
+    - create the ML models 
+    - evaluate model performance
+    - determine the best model for each customer contact channel
+
+3. Forecasting & Rostering
+
+    - generate future channel forecasts & determine staff requirements
+
+
+
+# 1. Setup & Data
+
+## Libraries
+We begin by bringing in the required libraries for the workflow. The most notable call-outs are the libraries related to the ModelTime ecosystem for time series analysis.
+
+```{r libraries}
+
+# data wrangling
+library(readxl)
+library(tidyverse)
+library(janitor)
+library(flipTime)
+library(tsibble)
+
+# ModelTime Ecosystem & Modeling
+library(timetk)
+library(modeltime)
+library(tidymodels)
+
+# graphing
+library(echarts4r)
+library(sknifedatar)
+library(xaringanExtra)
+
+```
+
+
+## Ingest Data
+
+The data comes from the following [site](https://www.data.brisbane.qld.gov.au/data/dataset/contact-centre-customer-enquiries). In preparation of this work I had joined the files beginning January 2020 through to March 2021. This joined file is read here, as are Queensland Public Holidays between 2020 to 2021 (from the tsibble package). I felt public holidays may influence contact enquiry volumes. In addition, we define our forecast window (28 days), and then visualise the data for each of the customer contact channels to see what we are working with. 
+
+
+```{r project_data}
+
+# ingest the customer contact time series
+customer_contact_ts_tbl <- readxl::read_excel(path = "personnelforecasting_files/contact_customer_enquiries_jan2020_mar2021.xlsx") %>% 
+                           janitor::clean_names() %>% 
+                           dplyr::rename(id = channel, value = volume) 
+
+
+# create a tibble of public holidays in QLD
+qld_public_holidays_tbl <- tsibble::holiday_aus(year = 2020:2021, state = "QLD")
+
+# define our forecast horizon
+forecast_horizon <- 28
+
+
+# plot the time series
+graphs_tbl <- customer_contact_ts_tbl %>% 
+    dplyr::group_by(id) %>% 
+    tidyr::nest() %>% 
+    dplyr::mutate(
+        .plot = purrr::map(data, ~ timetk::plot_time_series(
+                                                          .data = .x,
+                                                          .date_var = date,
+                                                          .value = value,
+                                                          .smooth = TRUE))
+                  ) %>% 
+    ungroup()
+
+
+xaringanExtra::use_panelset() 
+
+```
+
+
+`r sknifedatar::automagic_tabs(input_data = graphs_tbl, panel_name = "id", .output = ".plot", .layout="l-page", fig.height=2, fig.width = 3)`
+
+
+## Data Wrangling & Feature Engineering
+
+The process of creating the full dataset is comprehensive and will therefore be broken down into the following bullet-points:
+
+* We begin by ensuring that the dataset is complete and that there are no missing dates and customer contact volumes. Where dates are missing the date is added and a value of zero is included. 
+* The data is then transformed using a log transformation. Transformations help to minimise the influence of trends or cycles in the data, and enables the forecasting of what is left after these transformations. It is important to apply the inverse of the transformation to the final model forecasts in order get to back to the original scale (i.e., actual customer contact volumes). 
+* The data is joined with the Queensland public holiday data.
+* We extend the dataframe out by our forecast horizon of 28 days.
+* New features are created including Fourier Features, Lags and Rolling Means of our new Lag Features.
+* The timeseries is nested by the id (i.e., customer contact channel). and
+* The data for each channel is split into Training and Test datasets for modelling.
+
+
+
+```{r full_data}
+
+nested_data_tbl <- customer_contact_ts_tbl %>%
+
+    # pad out the date range and add zero's where needed
+    dplyr::group_by(id) %>%
+    timetk::pad_by_time(
+        .date_var = date,
+        .by = "day",
+        .pad_value = 0,
+        .start_date = "2020-01-01",
+        .end_date   = "2021-03-31"
+    ) %>%
+    
+    dplyr::ungroup() %>%
+    
+    # log transform the data
+    dplyr::mutate(value = log1p(value)) %>% 
+
+    # extend the timeseries for nested modelling
+    extend_timeseries(
+        .id_var        = id,
+        .date_var      = date,
+        .length_future = forecast_horizon
+    ) %>%
+
+    # add public holiday data - holidays may impact customer contact
+    dplyr::left_join(qld_public_holidays_tbl, by = c("date" = "date")) %>%
+    
+    # change the public holidays data to a numeric variable
+    dplyr::mutate(
+        holiday = ifelse(is.na(holiday), 0 , 1)
+    ) %>%
+
+    # add some new features based on the date and volume
+    dplyr::group_by(id) %>%
+    timetk::tk_augment_fourier(date, .periods = c(7, 14, 28)) %>%
+    timetk::tk_augment_lags(.value = value, .lags = 28) %>%
+    tk_augment_slidify(
+        .value = value_lag28,
+        .f = ~ mean(., na.rm = TRUE),
+        .period = c(7, 14, 28, 28*2),
+        .align = "center",
+        .partial = TRUE
+    ) %>%
+
+    dplyr::filter(!is.na(value_lag28)) %>%
+    dplyr::ungroup() %>%
+
+    # nest the timeseries data and then split the dataset by actual and future
+    nest_timeseries(
+        .id_var        = id,
+        .length_future = forecast_horizon
+    ) %>% 
+    
+    # split the nested timeseries data by channel (i.e., training and testing datasets)
+    split_nested_timeseries(
+        .length_test = forecast_horizon
+    )
+
+```
+
+
+# 2. Modeling
+
+## Data Preprocessing
+The data pre-processing involves use of the Recipes package. This recipe creates a number of new features based on the date variable, removes some unwanted features created, normalises some of the numeric features created so as to minimise undue influence on the models created, and then one-hot encodes all nominal variables. 
+
+
+```{r recipe}
+
+# define the recipe using the training data
+recipe_spec <- recipes::recipe(value ~ ., data = extract_nested_train_split(nested_data_tbl)) %>%
+    step_timeseries_signature(date) %>% # create date features
+    recipes::step_rm(matches("(.xts$)|(.iso$)|(hour)|(minute)|(second)|(am.pm)")) %>% # remove unwanted features
+    recipes::step_normalize(date_index.num, date_year) %>% # normalises two numeric variables
+    recipes::step_dummy(all_nominal(), one_hot = TRUE) # one hot encodes nominal variables
+
+
+```
+
+
+
+## Create the Machine Learning Models 
+
+In this section we will create seven models in total. Six will be used for forecasting (XGboost model, Boosted Prophet Time Series model, Random Forest model, Multivariate Adaptive Regression Spline (MARS) model, Neural Net model, and a Support Vector Machine model), while the seventh is used to prove how much better our models are than "guessing". This comparison involves generating what is called a "Naive" forecast. The Naive forecast simply carries the last known value forward as a forecast. The accuracy metrics associated with the Naive forecast can then be compared with the metrics from our more sophisticated models to validate their accuracy, and ultimately their utility. This was something I started doing earlier this year on the back of advice from a colleague. The intent is to ensure your models are good (a simple litmus test), and more importantly, are an excellent way of illustrating the practical utility of the models to non-technical audiences. 
+
+
+```{r forecasting_models}
+
+
+### Naive Model ----
+wkfl_fit_naive <- workflows::workflow() %>%
+    workflows::add_model(
+        modeltime::naive_reg() %>% 
+        parsnip::set_engine("naive")
+    ) %>%
+    workflows::add_recipe(recipe_spec)
+
+
+
+# XGboost
+wkfl_fit_xgboost <- workflows::workflow() %>%
+    workflows::add_model(
+        spec = boost_tree(mode = "regression") %>% 
+        parsnip::set_engine("xgboost")
+    ) %>%
+    workflows::add_recipe(recipe_spec %>% 
+                              recipes::update_role(date, new_role = "indicator")) 
+
+
+# * Prophet Boost ----
+wkfl_fit_prophet_boost <- workflows::workflow() %>%
+    workflows::add_model(
+        spec = prophet_boost(
+            seasonality_daily  = FALSE,
+            seasonality_weekly = FALSE,
+            seasonality_yearly = FALSE
+        ) %>%
+            parsnip::set_engine("prophet_xgboost")
+    ) %>%
+    workflows::add_recipe(recipe_spec)
+
+
+
+# Random Forest
+wkfl_fit_rf <- workflows::workflow() %>%
+    add_model(
+        spec = rand_forest() %>% 
+        parsnip::set_engine("ranger")
+    ) %>%
+    workflows::add_recipe(recipe_spec %>% 
+                              recipes::update_role(date, new_role = "indicator")) 
+
+
+
+# MARS
+wkfl_fit_mars <- workflows::workflow() %>%
+    workflows::add_model(
+        spec = mars(mode = "regression") %>%  
+        parsnip::set_engine("earth")) %>%
+    workflows::add_recipe(recipe_spec %>% 
+                   update_role(date, new_role = "indicator"))
+
+
+# Neural Net
+wkfl_fit_nnet <- workflows::workflow() %>%
+    workflows::add_model(
+        spec = mlp(mode = "regression") %>% 
+        parsnip::set_engine("nnet")
+    ) %>%
+    workflows::add_recipe(recipe_spec %>% 
+                              recipes::update_role(date, new_role = "indicator")) 
+
+
+# SVM
+wkfl_fit_svm <- workflows::workflow() %>%
+    workflows::add_model(
+        spec = svm_rbf(mode = "regression") %>% 
+        parsnip::set_engine("kernlab")
+    ) %>%
+    workflows::add_recipe(recipe_spec %>% 
+                   update_role(date, new_role = "indicator")) 
+
+
+```
+
+
+## Evaluate Model Performance
+
+After adding the ML models into a table, we determine their accuracy against the Test dataset. Below you can view a table indicating six accuracy metrics that come standard with the Modeltime package. With the exception of rsq the general rule of thumb is smaller numbers are better. It is important to keep in mind that we initially log transformed our customer contact volumes, which reduces their absolute value and the breadth of the range of values in the time series. Practically this means the accuracy metrics are artificially lower than if we had stayed with the actual volumes. That said, these default models are performing well, even without model tuning. This is further exemplified when comparing the models to the Naive Forecast. If we were to only rely on the rmse values and compare them (i.e., Naive forecast to six ML models) for each customer contact channel volume (e.g., web, face2face, etc.), we could say that our models are between three and five times more accurate than a Naive forecast.
+
+
+```{r model_table, echo=FALSE}
+
+# Modeltime Table
+nested_modeltime_tbl <- modeltime::modeltime_nested_fit(
+    # Nested data
+    nested_data = nested_data_tbl,
+
+   # Add workflows
+    model_list = list(
+        wkfl_fit_naive,
+        wkfl_fit_xgboost,
+        wkfl_fit_prophet_boost,
+        wkfl_fit_rf,
+        wkfl_fit_mars,
+        wkfl_fit_nnet,
+        wkfl_fit_svm
+        )
+)
+
+
+nested_modeltime_tbl %>%
+    modeltime::extract_nested_test_accuracy() %>%
+    modeltime::table_modeltime_accuracy(
+        .round_digits = 2,
+        .show_sortable = TRUE,
+        .interactive = TRUE,
+        defaultPageSize = 7,
+        bordered = TRUE,
+        striped = TRUE,
+        compact = TRUE,
+        defaultColDef = reactable::colDef(width = 69),
+        style = list(fontFamily = "Work Sans, sans-serif", fontSize = "13px"),
+        columns = list(
+            .model_id   = reactable::colDef(show = FALSE),
+            .type = reactable::colDef(show = FALSE),
+            .model_desc = reactable::colDef(width = 220)
+                       )
+    )
+
+
+test_forecasts_tbl <- nested_modeltime_tbl %>%
+    modeltime::extract_nested_test_forecast() %>%
+    dplyr::group_by(id) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(
+                .plot_forecast = purrr::map(data, ~modeltime::plot_modeltime_forecast(.data = .x,
+                                                                                      .conf_interval_show = FALSE,
+                                                                                      .legend_max_width = 15,
+                                                                                      .plotly_slider = TRUE
+                                                                                      ))
+                )%>%
+    dplyr::ungroup()
+
+xaringanExtra::use_panelset()
+
+```
+
+
+We can also visualise the forecasts from each of the models for each customer contact channel. The visualisations produced are interactive (you can zoom by using the slider at bottom of the visualisations and click on the legend to add/remove models from the visualisation) and we can visually inspect how well the models perform relative to one another and the actual data (i.e., the Test dataset). This is another great way of showing to business stakeholders how well our models perform, thereby creating greater confidence, and ideally use, of the model forecasts. 
+
+`r sknifedatar::automagic_tabs(input_data = test_forecasts_tbl, panel_name = "id", .output = ".plot_forecast", .layout="l-page", fig.height=2, fig.width = 3)`
+
+
+## Determine the Best Models
+We now determine which of our seven models is best for each of the customer contact channels. This is done using the Root Mean Square Error (RMSE) value. The lowest value is indicative of the least error, when compared to our Test dataset. 
+
+
+```{r best_models}
+
+best_nested_modeltime_tbl <- nested_modeltime_tbl %>%
+    modeltime::modeltime_nested_select_best(
+        metric                = "rmse",
+        minimize              = TRUE,
+        filter_test_forecasts = TRUE
+    )
+
+
+best_nested_modeltime_tbl %>%
+    modeltime::extract_nested_best_model_report() %>%
+    dplyr::mutate_if(is.double, ~ round(.x, digits = 2)) %>%
+    flextable::flextable()
+
+
+best_test_forecasts_tbl <- best_nested_modeltime_tbl %>%
+    modeltime::extract_nested_test_forecast() %>%
+    dplyr::group_by(id) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(
+                .plot_forecast = purrr::map(data, ~ modeltime::plot_modeltime_forecast(.data = .x,
+                                                                                       .conf_interval_show = FALSE,
+                                                                                       .legend_max_width = 15,
+                                                                                       .plotly_slider = TRUE
+                                                                                      ))
+                ) %>%
+    dplyr::ungroup()
+
+
+xaringanExtra::use_panelset()
+
+```
+
+
+To provide the best outcome we use the best model for each customer contact channel to make the future forecast. The best model, according to its performance on the Test dataset, is also visualised below for inspection.
+
+`r sknifedatar::automagic_tabs(input_data = best_test_forecasts_tbl, panel_name = "id", .output = ".plot_forecast", .layout="l-page", fig.height=2, fig.width = 3)`
+
+# 3. Forecasting & Rostering
+
+## Generate Future Channel Forecasts & Determine Staffing Requirements
+The final step is to take the best model for each of the customer contact channels to forecast 28-days into the future. Based on the forecasted volumes for each of the customer contact channels we can then determine the number of staff required to work on each day. To do this we simply take the forecasted daily volumes and divide by the number of contacts per day that an employee is expected to meet for each of the contact channels.
+
+```{r final_forecast, echo=FALSE}
+
+# refit our best models to all our historical data
+nested_modeltime_refit_tbl <- best_nested_modeltime_tbl %>%
+    modeltime::modeltime_nested_refit(
+        control = control_nested_refit(verbose = TRUE)
+    )
+
+
+staff_required <- function(channel, volume){
+
+      dplyr::case_when(
+        channel == "email"     ~ volume / 175,
+        channel == "face2face" ~ volume / 75,
+        channel == "mail"      ~ volume / 75,
+        channel == "online"    ~ volume / 150,
+        channel == "voice"     ~ volume / 200,
+        channel == "web"       ~ volume / 150
+      )
+}
+
+
+# final forecasts
+final_forecasted_volumes_tbl <- nested_modeltime_refit_tbl %>%
+    modeltime::extract_nested_future_forecast() %>%
+    dplyr::mutate(
+      .value         = expm1(.value),
+      known_staff    = map2_dbl(.x = id,
+                                .y = .value,
+                                .f = ~ staff_required(channel = .x, volume = .y)) %>% base::ceiling(),
+      known_staff    = if_else(.key == "actual", known_staff, NA_real_),
+
+      required_staff = map2_dbl(.x = id,
+                                .y = .value,
+                                .f = ~ staff_required(channel = .x, volume = .y)) %>% base::ceiling(),
+      required_staff = if_else(.key == "prediction", required_staff, NA_real_)
+      )
+
+
+# create a function to generate staff roster forecasts
+plot_staff_required <- function(df){
+
+    df %>%
+        echarts4r::e_charts(date) %>%
+        echarts4r::e_line(name = "Historical Roster", known_staff) %>%
+        echarts4r::e_line(name = "Predicted Roster", required_staff) %>%
+        echarts4r::e_tooltip() %>%
+        echarts4r::e_datazoom(type = "slider", start = 80)
+
+
+}
+
+
+staff_volumes_tbl <- final_forecasted_volumes_tbl %>%
+    dplyr::select(channel = id, date = .index, known_staff, required_staff) %>%
+    dplyr::group_by(channel) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(
+        .plot_personnel_forecast = purrr::map(data, ~ plot_staff_required(df = .x))
+    )%>%
+    dplyr::ungroup()
+
+
+```
+
+
+`r sknifedatar::automagic_tabs(input_data = staff_volumes_tbl, panel_name = "channel", .output = ".plot_personnel_forecast", .layout="l-page", fig.height=2, fig.width = 3)`
+
+# Conclusion
+
+And there we have it - a forecast of the number of staff required to meet future customer contact volumes. With this information in hand, managers of the customer contact centre at Brisbane City Council could accurately roster sufficient staff in advance, manage staff costs with greater accuracy, whilst also providing staff with predictabilty regarding their working hours.
+
+To practically evaluate the efficacy of the models we could:
+
+* Evaluate the accuracy of the rosters, pre and post forecasts, in their ability to meet customer contact demands,
+* Following on from the above point, quantify the accuracy of the rosters in terms of staff expenditure (both pre and post forecasts), and  
+* Monitor changes in customer feedback, volumes handled and resolved, and general feedback from staff regarding rosters.
+
+As mentioned at the outset, I see Forecasting informing people related decisions such as retail rostering, job design and just general anticipation of future volumes to inform service delivery. More on this in future 
+
+Happy forecasting!
+
+
