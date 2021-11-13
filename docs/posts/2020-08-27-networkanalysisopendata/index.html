@@ -475,7 +475,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1882,7 +1882,10 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2077,7 +2080,7 @@ gtag('config', 'G-0VSGNQ51CS');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"How HR can Apply Network Analysis to Open Data","description":"This article explores how Network Analysis can be applied to a variety of Open data sources to inform people-related decisions inside organisations. Practical use cases applying network analysis to open data are provided.","authors":[{"author":"Adam D McKinnon","authorURL":"https://adam-d-mckinnon.com/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""},{"author":"André Vermeij","authorURL":"https://www.kenelyze.com","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2020-08-27T00:00:00.000+00:00","citationText":"McKinnon & Vermeij, 2020"}
+{"title":"How HR can Apply Network Analysis to Open Data","description":"This article explores how Network Analysis can be applied to a variety of Open data sources to inform people-related decisions inside organisations. Practical use cases applying network analysis to open data are provided.","authors":[{"author":"Adam D McKinnon","authorURL":"https://adam-d-mckinnon.com/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""},{"author":"André Vermeij","authorURL":"https://www.kenelyze.com","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2020-08-27T00:00:00.000+10:00","citationText":"McKinnon & Vermeij, 2020"}
 </script>
 
 <!--/radix_placeholder_front_matter-->

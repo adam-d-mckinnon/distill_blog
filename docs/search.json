@@ -6,14 +6,14 @@
       "description": "Welcome to my People Analytics blog",
       "author": [],
       "contents": "\n\n\n\n\n\nThis is my personal blog, coming to you from Melbourne, Australia. I write about the evolving field of People Analytics, mostly through the application of the R language. On this blog site you can find my posts which provide both a philosophical perspective regarding advancements in people analytics, along with practical “How To” projects applying different methods (please learn from my mistakes!).\nContact\nWant to chat? Please reach out! Feel free to contact me on email or LinkedIn. I hope to hear from you!\n\n\n\n",
-      "last_modified": "2021-06-06T13:37:04+10:00"
+      "last_modified": "2021-11-13T11:10:49+11:00"
     },
     {
       "path": "index.html",
       "title": "People Analaytics Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-06-06T13:37:05+10:00"
+      "last_modified": "2021-11-13T11:10:50+11:00"
     }
   ],
   "collections": ["posts/posts.json"]
