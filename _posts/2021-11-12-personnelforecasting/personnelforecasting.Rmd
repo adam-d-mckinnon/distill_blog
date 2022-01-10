@@ -514,13 +514,18 @@ plot_staff_required <- function(df){
         echarts4r::e_charts(date) %>%
         echarts4r::e_line(name = "Historical Roster", known_staff) %>%
         echarts4r::e_line(name = "Predicted Roster", required_staff) %>%
-        echarts4r::e_tooltip() %>%
-        echarts4r::e_datazoom(type = "slider", start = 80)
-
+        echarts4r::e_datazoom(type = "slider", start = 90) %>% 
+        echarts4r::e_tooltip(formatter = htmlwidgets::JS("
+        function(params){
+            return('<b>Date: </b>' + params.value[0] + '<br/><b>Staff Required: </b>' + params.value[1])
+            }
+          ")
+        )
 
 }
 
 
+# visualise the staff roster forecasts
 staff_volumes_tbl <- final_forecasted_volumes_tbl %>%
     dplyr::select(channel = id, date = .index, known_staff, required_staff) %>%
     dplyr::group_by(channel) %>%
@@ -532,6 +537,7 @@ staff_volumes_tbl <- final_forecasted_volumes_tbl %>%
 
 
 ```
+
 
 
 `r sknifedatar::automagic_tabs(input_data = staff_volumes_tbl, panel_name = "channel", .output = ".plot_personnel_forecast", .layout="l-page", fig.height=2, fig.width = 3)`
