@@ -357,7 +357,7 @@ wkfl_fit_svm <- workflows::workflow() %>%
 After adding the ML models into a table, we determine their accuracy against the Test dataset. Below you can view a table indicating six accuracy metrics that come standard with the Modeltime package. With the exception of rsq the general rule of thumb is smaller numbers are better. It is important to keep in mind that we initially log transformed our customer contact volumes, which reduces their absolute value and the breadth of the range of values in the time series. Practically this means the accuracy metrics are artificially lower than if we had stayed with the actual volumes. That said, these default models are performing well, even without model tuning. This is further exemplified when comparing the models to the Naive Forecast. If we were to only rely on the rmse values and compare them (i.e., Naive forecast to six ML models) for each customer contact channel volume (e.g., web, face2face, etc.), we could say that our models are between three and five times more accurate than a Naive forecast.
 
 
-```{r model_table, echo=FALSE}
+```{r model_table}
 
 # Modeltime Table
 nested_modeltime_tbl <- modeltime::modeltime_nested_fit(
