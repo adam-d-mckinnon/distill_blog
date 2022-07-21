@@ -17,7 +17,7 @@
       <dc:creator>Martha Curioni</dc:creator>
       <dc:creator>Adam D McKinnon</dc:creator>
       <link>https://www.adam-d-mckinnon.com/posts/2022-07-22-isolationforests</link>
-      <description>In this article Martha Curioni and I propose an automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.</description>
+      <description>An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.</description>
       <category>Python</category>
       <category>H2o</category>
       <category>Isolation Forests</category>

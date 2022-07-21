@@ -1,7 +1,7 @@
 ---
 title: "Automated assessment of employee data quality using machine learning"
 description: |
-  In this article Martha Curioni and I propose an automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.
+  An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.
 author:
   - name: Martha Curioni
     url: https://www.linkedin.com/in/marthacurioni/
