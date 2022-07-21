@@ -468,7 +468,7 @@ To provide the best outcome we use the best model for each customer contact chan
 ## Generate Future Channel Forecasts & Determine Staffing Requirements
 The final step is to take the best model for each of the customer contact channels to forecast 28-days into the future. Based on the forecasted volumes for each of the customer contact channels we can then determine the number of staff required to work on each day. To do this we simply take the forecasted daily volumes and divide by the number of contacts per day that an employee is expected to meet for each of the contact channels.
 
-```{r final_forecast, echo=FALSE}
+```{r final_forecast}
 
 # refit our best models to all our historical data
 nested_modeltime_refit_tbl <- best_nested_modeltime_tbl %>%
