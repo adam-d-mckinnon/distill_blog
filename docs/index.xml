@@ -17,7 +17,7 @@
       <dc:creator>Martha Curioni</dc:creator>
       <dc:creator>Adam D McKinnon</dc:creator>
       <link>https://www.adam-d-mckinnon.com/posts/2022-07-22-isolationforests</link>
-      <description>HR data quality is like that of I.T. services generally… you only ever hear about it when there’s a problem! At the same time, monitoring data quality in HR can be time consuming, expensive, simplistic, repetitive, and utterly devoid of ANY professional enjoyment! In this article Martha Curioni and I propose an automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.</description>
+      <description>In this article Martha Curioni and I propose an automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.</description>
       <category>Python</category>
       <category>H2o</category>
       <category>Isolation Forests</category>
