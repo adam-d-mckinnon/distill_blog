@@ -23,7 +23,7 @@ output:
     toc_float: true
     highlight: rstudio
     highlight_downlit: true
-    draft: true
+    draft: false
 
 ---
 
@@ -87,7 +87,7 @@ knitr::include_graphics("table_image.png")
 
 
 
-# Conclusion:
+# Conclusion
 
 Unsupervised Machine Learning algorithms such as Isolation Forests can be an excellent way of automating and scaling the review of data to monitor for quality concerns. The approach lends itself to those datasets that have a reasonable level of data quality and that are looking to make further improvements.
 
