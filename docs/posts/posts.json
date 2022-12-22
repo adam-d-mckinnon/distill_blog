@@ -1,5 +1,26 @@
 [
   {
+    "path": "posts/2022-12-30-promotion_prediction/",
+    "title": "Prediction Promotions",
+    "description": "Building an XGBoost model in the Tidymodels ecosystem that predicts which employees should be promoted.",
+    "author": [
+      {
+        "name": "Adam D McKinnon",
+        "url": "https://adam-d-mckinnon.com/"
+      }
+    ],
+    "date": "2022-12-22",
+    "categories": [
+      "Tidymodels",
+      "XGBoost",
+      "R"
+    ],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill for R Markdown at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-12-22T16:26:35+11:00",
+    "input_file": "promotion_prediction.knit.md"
+  },
+  {
     "path": "posts/2022-07-22-isolationforests/",
     "title": "Automated assessment of employee data quality using machine learning",
     "description": "An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.",
