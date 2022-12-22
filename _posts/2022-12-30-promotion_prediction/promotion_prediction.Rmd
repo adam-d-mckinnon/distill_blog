@@ -1,0 +1,40 @@
+---
+title: "Prediction Promotions"
+description: |
+  Building an XGBoost model in the Tidymodels ecosystem that predicts which employees should be promoted.
+author:
+  - name: Adam D McKinnon
+    url: https://adam-d-mckinnon.com/
+date: "`r Sys.Date()`"
+categories:
+  - Tidymodels
+  - XGBoost
+  - R
+output: 
+  distill::distill_article:
+    df_print: paged
+    code_folding: true
+    self_contained: false
+    date_prefix: true # adds date for sorting
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    highlight: rstudio
+    highlight_downlit: true
+    draft: true
+
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web. 
+
+Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+
+
+
+
