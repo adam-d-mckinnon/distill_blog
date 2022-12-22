@@ -49,6 +49,90 @@ knitr::include_graphics("shorter_stairs.jpg")
 ```
 
 
+# Libraries
+```{r loading_libraries}
+
+# data manipulation
+library(readxl)
+library(tidyverse)
+library(janitor)
+
+# modelling
+library(tidymodels)
+
+# Processing power
+library(doParallel)
+library(parallelly)
+
+
+# 0. Set-up ----
+tidymodels_prefer()
+
+```
+
+# Data
+```{r loading_data}
+
+# Load Data ----
+promotions_tbl <- readxl::read_excel(path = "00_data/2022_12_15_promotions.xlsx")
+
+
+promotions_tbl <- promotions_tbl %>% 
+    mutate(
+        promoted  = forcats::as_factor(promoted) %>% forcats::fct_relevel("promoted", "not promoted")
+    ) %>% 
+    mutate_at(.vars = c("gender", "work_site", "management_level"), .funs = ~ forcats::as_factor(.))
+
+
+
+```
+
+
+
+
+## Spending the data wisely
+```{r}
+
+# Spending the dataset ----
+
+set.seed(836)
+promotion_split     <- initial_split(promotions_tbl, strata = promoted)
+promotion_train_tbl <- training(promotion_split)
+promotion_test_tbl  <- testing(promotion_split)
+
+
+set.seed(234)
+promotion_folds <- bootstraps(promotion_train_tbl, 
+                              times = 25, # default
+                              strata = promoted)
+promotion_folds
+
+
+
+```
+
+
+
+
+# Preprocessing the data
+```{r data_preprocessing}
+
+# Data Pre-processing ----
+xgboost_recipe <- 
+    recipe(formula = promoted ~ ., data = promotion_train_tbl) %>% 
+    recipes::update_role(name, new_role = "id") %>% 
+    step_dummy(all_nominal_predictors(), one_hot = TRUE) %>% 
+    step_zv(all_predictors()) 
+
+
+```
+
+
+
+# Tuning the Model
+
+# Finalise and Predict
+
 
 
 
