@@ -27,12 +27,28 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  out.width = "100%",
+  out.height = "100%",
+  dpi = 300,
+  code_folding = TRUE,
+  R.options = list(width = 70))
+
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web. 
 
-Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+```{r header, echo=FALSE, code_folding = FALSE, fig.cap="Photo by [Possessed Photography](https://unsplash.com/@possessedphotography) on [Unsplash](https://unsplash.com/).", out.width = '100%'}
+knitr::include_graphics("shorter_stairs.jpg")
+
+```
+
+
 
 
 
