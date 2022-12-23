@@ -54,6 +54,7 @@ library(janitor)
 
 # modelling
 library(tidymodels)
+library(finetune)
 
 # Processing power
 library(doParallel)
@@ -98,7 +99,7 @@ promotion_test_tbl  <- testing(promotion_split)
 
 set.seed(234)
 promotion_folds <- bootstraps(promotion_train_tbl, 
-                              times = 25, # default
+                              times = 75, # default is 25 - inflated to accommodate racing method of tuning 
                               strata = promoted)
 
 # check the promotion_folds 
@@ -144,26 +145,8 @@ xgboost_spec <-
 
 ```
 
-### 4. Establish the model tuning grid
 
-```{r model_tuning_spec}
-
-# Create the model tuning grid
-xgboost_grid <- grid_latin_hypercube(
-    tree_depth(),
-    min_n(),
-    loss_reduction(),
-    sample_size = sample_prop(),
-    finalize(mtry(), promotion_train_tbl),
-    learn_rate(),
-    size = 50
-)
-
-# xgboost_grid
-
-```
-
-### 5. Workflow setup
+### 4. Workflow setup
 
 ```{r workflow_setup}
 
@@ -180,39 +163,47 @@ xgboost_workflow <-
 
 ```
 
-### 6. Tuning the model
+### 5. Tuning the model
 
 ```{r model_tuning}
 
 # specify the metrics of interest
-promotion_metrics <- metric_set(mn_log_loss, roc_auc, accuracy, sensitivity, specificity)
+promotion_metrics <- metric_set(
+                            mn_log_loss, 
+                            roc_auc, 
+                            accuracy, 
+                            sensitivity, 
+                            specificity
+                            )
 
 
-# check the number of available cores
-# if available cores is greater than 5 default to 5 as diminishing  returns after this point
-# https://www.tmwr.org/resampling.html#parallel 
-
-# cores <- ifelse(parallelly::availableCores()>5, 5, parallelly::availableCores())
-# doParallel::registerDoParallel(cores = cores)
-
+# establish parallel processing based on the number of available cores
+# doParallel::registerDoParallel(cores = parallelly::availableCores())
 
 # set.seed(826)
-# xgboost_resamples <- tune_grid(
+# racing_resamples <- finetune::tune_race_anova(
 #     xgboost_workflow,
 #     resamples = promotion_folds,
-#     grid = xgboost_grid,
+#     grid = 100, # cast a wide grid to optimise the results - 
+#                 # works best with many resamples - set earlier to 75
 #     metrics = promotion_metrics,
-#     control = control_grid(save_pred = TRUE)
+#     control = control_race(
+#         verbose_elim = TRUE,
+#         save_pred    = TRUE
+#         )
 # )
 
 
-# xgboost_resamples
+# racing_resamples
 
 ```
 
-### 7. Assess model performance
+### 6. Assess model performance
 
 ```{r assess_model}
+
+collect_metrics(racing_resamples)
+plotly_build(plot_race(racing_resamples))
 
 ```
 
