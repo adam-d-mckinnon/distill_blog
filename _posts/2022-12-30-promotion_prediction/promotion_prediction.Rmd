@@ -168,8 +168,8 @@ xgboost_workflow <-
 ```{r model_tuning}
 
 # specify the metrics of interest
+# NOTE: The first metric listed will be used for tuning
 promotion_metrics <- metric_set(
-                            mn_log_loss, 
                             roc_auc, 
                             accuracy, 
                             sensitivity, 
@@ -202,19 +202,41 @@ promotion_metrics <- metric_set(
 
 ```{r assess_model}
 
-collect_metrics(racing_resamples)
-plotly_build(plot_race(racing_resamples))
+# collect_metrics(racing_resamples)
+# plotly_build(plot_race(racing_resamples))
 
 ```
 
-### 8. Finalise the workflow
+### 7. Finalise the workflow
 
 ```{r finalise_workflow}
+# 
+# final_xgboost <- xgboost_workflow %>% 
+#     finalize_workflow(select_best(racing_resamples, "roc_auc")) %>% 
+#     last_fit(promotion_split)
+# 
+# 
+# final_xgboost
+# 
+# # test the fit
+# collect_metrics(final_xgboost)
 
 ```
 
-# Make some predictions
+# 8. Re-assess model performance
 
 ```{r predictions}
+
+# 9. Extract the model for further testing
+final_fitted_model <- final_xgboost$.workflow[[1]]
+
+# test the model
+predict(final_fitted_model, promotion_test_tbl[1:20,])
+pred_test <- final_fitted_model %>% predict(promotion_test_tbl) %>% 
+    bind_cols(promotion_test_tbl)
+
+# Visualise the performance using a confusion matrix
+conf_mat(pred_test, promoted, .pred_class)
+
 
 ```
