@@ -13,10 +13,10 @@
     <generator>Distill</generator>
     <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Prediction Promotions</title>
+      <title>Predicting Promotions Through Machine Learning</title>
       <dc:creator>Adam D McKinnon</dc:creator>
       <link>https://www.adam-d-mckinnon.com/posts/2022-12-30-promotion_prediction</link>
-      <description>Building an XGBoost model in the Tidymodels ecosystem that predicts which employees should be promoted.</description>
+      <description>Building an XGBoost model in the Tidymodels ecosystem that predicts whether an employee should be promoted.</description>
       <category>Tidymodels</category>
       <category>XGBoost</category>
       <category>R</category>

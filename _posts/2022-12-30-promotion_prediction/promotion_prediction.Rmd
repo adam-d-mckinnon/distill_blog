@@ -1,7 +1,7 @@
 ---
-title: "Prediction Promotions"
+title: "Predicting Promotions Through Machine Learning"
 description: |
-  Building an XGBoost model in the Tidymodels ecosystem that predicts which employees should be promoted.
+  Building an XGBoost model in the Tidymodels ecosystem that predicts whether an employee should be promoted.
 author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
@@ -18,12 +18,9 @@ output:
     date_prefix: true # adds date for sorting
     toc: true
     toc_depth: 3
-    toc_float: true
     highlight: rstudio
     highlight_downlit: true
     draft: true
-
-
 ---
 
 ```{r setup, include=FALSE}
@@ -41,15 +38,13 @@ knitr::opts_chunk$set(
 
 ```
 
-
-
 ```{r header, echo=FALSE, code_folding = FALSE, fig.cap="Photo by [Possessed Photography](https://unsplash.com/@possessedphotography) on [Unsplash](https://unsplash.com/).", out.width = '100%'}
 knitr::include_graphics("shorter_stairs.jpg")
 
 ```
 
-
 # Libraries
+
 ```{r loading_libraries}
 
 # data manipulation
@@ -70,6 +65,7 @@ tidymodels_prefer()
 ```
 
 # Data
+
 ```{r loading_data}
 
 # Load Data ----
@@ -86,10 +82,10 @@ promotions_tbl <- promotions_tbl %>%
 
 ```
 
+# Building an ML Model
 
+### 1. Splitting the data
 
-
-## Spending the data wisely
 ```{r}
 
 # Spending the dataset ----
@@ -105,16 +101,15 @@ promotion_folds <- bootstraps(promotion_train_tbl,
                               times = 25, # default
                               strata = promoted)
 
+# check the promotion_folds 
 # promotion_folds
 
 
 
 ```
 
+### 2. Pre-processing the data
 
-
-
-# Preprocessing the data
 ```{r data_preprocessing}
 
 # Data Pre-processing ----
@@ -125,15 +120,16 @@ xgboost_recipe <-
     step_zv(all_predictors()) 
 
 
+# check the recipe
+# xgboost_recipe
+
 ```
 
+### 3. Create a model specification
 
-
-
-# 
 ```{r model_spec}
 
-# 3. Model Set-up ----
+# Model Set-up ----
 xgboost_spec <- 
     boost_tree(trees = 1000, 
                tree_depth = tune(), min_n = tune(), 
@@ -143,13 +139,16 @@ xgboost_spec <-
     set_engine("xgboost") %>% 
     set_mode("classification")
 
-xgboost_spec
+# check the model specification
+# xgboost_spec
 
 ```
 
+### 4. Establish the model tuning grid
+
 ```{r model_tuning_spec}
 
-# 4. Model Grid ----
+# Create the model tuning grid
 xgboost_grid <- grid_latin_hypercube(
     tree_depth(),
     min_n(),
@@ -160,38 +159,39 @@ xgboost_grid <- grid_latin_hypercube(
     size = 50
 )
 
-xgboost_grid
+# xgboost_grid
 
 ```
 
-
-# Workflow
+### 5. Workflow setup
 
 ```{r workflow_setup}
 
 
-# Workflow ----
+# Workflow setup
 xgboost_workflow <- 
     workflow() %>% 
     add_recipe(xgboost_recipe) %>% 
     add_model(xgboost_spec) 
 
-xgboost_workflow
+# Check the workflow
+# xgboost_workflow
 
-
-# define the metrics of interest
-promotion_metrics <- metric_set(mn_log_loss, roc_auc, accuracy, sensitivity, specificity)
 
 ```
 
-# Tuning the Model
+### 6. Tuning the model
+
 ```{r model_tuning}
 
-# 6. Tune the grid ----
-# check the number of available cores
-# if available cores is greater than 5 default to 5 as diminishing  returns after this point (https://www.tmwr.org/resampling.html#parallel )
-
+# specify the metrics of interest
 promotion_metrics <- metric_set(mn_log_loss, roc_auc, accuracy, sensitivity, specificity)
+
+
+# check the number of available cores
+# if available cores is greater than 5 default to 5 as diminishing  returns after this point
+# https://www.tmwr.org/resampling.html#parallel 
+
 # cores <- ifelse(parallelly::availableCores()>5, 5, parallelly::availableCores())
 # doParallel::registerDoParallel(cores = cores)
 
@@ -210,20 +210,20 @@ promotion_metrics <- metric_set(mn_log_loss, roc_auc, accuracy, sensitivity, spe
 
 ```
 
-# Assess Model Performance
+### 7. Assess model performance
 
 ```{r assess_model}
 
 ```
 
+### 8. Finalise the workflow
 
-# Finalise and Predict
 ```{r finalise_workflow}
 
 ```
 
+# Make some predictions
 
+```{r predictions}
 
-
-
-
+```
