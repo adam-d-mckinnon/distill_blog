@@ -55,6 +55,8 @@ library(janitor)
 # modelling
 library(tidymodels)
 library(finetune)
+library(bundle)
+library(plotly)
 
 # Processing power
 library(doParallel)
@@ -87,7 +89,7 @@ promotions_tbl <- promotions_tbl %>%
 
 ### 1. Splitting the data
 
-```{r}
+```{r splitting_data}
 
 # Spending the dataset ----
 
@@ -140,6 +142,7 @@ xgboost_spec <-
     set_engine("xgboost") %>% 
     set_mode("classification")
 
+
 # check the model specification
 # xgboost_spec
 
@@ -178,20 +181,20 @@ promotion_metrics <- metric_set(
 
 
 # establish parallel processing based on the number of available cores
-# doParallel::registerDoParallel(cores = parallelly::availableCores())
+doParallel::registerDoParallel(cores = parallelly::availableCores())
 
-# set.seed(826)
-# racing_resamples <- finetune::tune_race_anova(
-#     xgboost_workflow,
-#     resamples = promotion_folds,
-#     grid = 100, # cast a wide grid to optimise the results - 
-#                 # works best with many resamples - set earlier to 75
-#     metrics = promotion_metrics,
-#     control = control_race(
-#         verbose_elim = TRUE,
-#         save_pred    = TRUE
-#         )
-# )
+set.seed(826)
+racing_resamples <- finetune::tune_race_anova(
+    xgboost_workflow,
+    resamples = promotion_folds,
+    grid = 100, # cast a wide grid to optimise the results -
+                # works best with many resamples - set earlier to 75
+    metrics = promotion_metrics,
+    control = control_race(
+        verbose_elim = TRUE,
+        save_pred    = TRUE
+        )
+)
 
 
 # racing_resamples
@@ -202,37 +205,39 @@ promotion_metrics <- metric_set(
 
 ```{r assess_model}
 
-# collect_metrics(racing_resamples)
-# plotly_build(plot_race(racing_resamples))
+collect_metrics(racing_resamples)
+plotly_build(plot_race(racing_resamples))
 
 ```
 
 ### 7. Finalise the workflow
 
 ```{r finalise_workflow}
-# 
-# final_xgboost <- xgboost_workflow %>% 
-#     finalize_workflow(select_best(racing_resamples, "roc_auc")) %>% 
-#     last_fit(promotion_split)
-# 
-# 
-# final_xgboost
-# 
-# # test the fit
-# collect_metrics(final_xgboost)
+
+last_fit_xgboost_workflow <- xgboost_workflow %>%
+    finalize_workflow(select_best(racing_resamples, "roc_auc")) %>%
+    last_fit(promotion_split)
+
+
+# last_fit_xgboost_workflow
+
+# test the fit
+collect_metrics(last_fit_xgboost_workflow)
+
+# extract the model workflow for further testing & saving
+final_model_workflow <- last_fit_xgboost_workflow %>% 
+    extract_workflow()
+
 
 ```
 
-# 8. Re-assess model performance
+### 8. Re-assess model performance
 
 ```{r predictions}
 
-# 9. Extract the model for further testing
-final_fitted_model <- final_xgboost$.workflow[[1]]
-
 # test the model
-predict(final_fitted_model, promotion_test_tbl[1:20,])
-pred_test <- final_fitted_model %>% predict(promotion_test_tbl) %>% 
+predict(final_model_workflow, promotion_test_tbl[1:20,])
+pred_test <- final_model_workflow %>% predict(promotion_test_tbl) %>% 
     bind_cols(promotion_test_tbl)
 
 # Visualise the performance using a confusion matrix
@@ -240,3 +245,15 @@ conf_mat(pred_test, promoted, .pred_class)
 
 
 ```
+
+# Save the model
+
+```{r save_model}
+
+model_bundle <- bundle::bundle(final_model_workflow)
+readr::write_rds(model_bundle, file = "promotion_prediction_files/model_bundle.rds")
+
+
+```
+
+
