@@ -9,15 +9,15 @@
         "url": "https://adam-d-mckinnon.com/"
       }
     ],
-    "date": "2022-12-22",
+    "date": "2022-12-23",
     "categories": [
       "Tidymodels",
       "XGBoost",
       "R"
     ],
-    "contents": "\n\n\n\nFigure 1: Photo by Possessed Photography on Unsplash.\n\n\n\n\n\n\n",
+    "contents": "\n\nContents\nLibraries\nData\nSpending the data wisely\n\nPreprocessing the data\nTuning the Model\nFinalise and Predict\n\n\n\n\nFigure 1: Photo by Possessed Photography on Unsplash.\n\n\n\nLibraries\n\n\nShow code\n\n# data manipulation\nlibrary(readxl)\nlibrary(tidyverse)\nlibrary(janitor)\n\n# modelling\nlibrary(tidymodels)\n\n# Processing power\nlibrary(doParallel)\nlibrary(parallelly)\n\n\ntidymodels_prefer()\n\n\nData\n\n\nShow code\n\n# Load Data ----\npromotions_tbl <- readxl::read_excel(path = \"promotion_prediction_files/2022_12_15_promotions.xlsx\")\n\n\npromotions_tbl <- promotions_tbl %>% \n    mutate(\n        promoted  = forcats::as_factor(promoted) %>% forcats::fct_relevel(\"promoted\", \"not promoted\")\n    ) %>% \n    mutate_at(.vars = c(\"gender\", \"work_site\", \"management_level\"), .funs = ~ forcats::as_factor(.))\n\n\nSpending the data wisely\n\n\nShow code\n\n# Spending the dataset ----\n\nset.seed(836)\npromotion_split     <- initial_split(promotions_tbl, strata = promoted)\npromotion_train_tbl <- training(promotion_split)\npromotion_test_tbl  <- testing(promotion_split)\n\n\nset.seed(234)\npromotion_folds <- bootstraps(promotion_train_tbl, \n                              times = 25, # default\n                              strata = promoted)\npromotion_folds\n\n## # Bootstrap sampling using stratification \n## # A tibble: 25 × 2\n##    splits            id         \n##    <list>            <chr>      \n##  1 <split [660/248]> Bootstrap01\n##  2 <split [660/253]> Bootstrap02\n##  3 <split [660/236]> Bootstrap03\n##  4 <split [660/234]> Bootstrap04\n##  5 <split [660/234]> Bootstrap05\n##  6 <split [660/240]> Bootstrap06\n##  7 <split [660/248]> Bootstrap07\n##  8 <split [660/231]> Bootstrap08\n##  9 <split [660/246]> Bootstrap09\n## 10 <split [660/240]> Bootstrap10\n## # … with 15 more rows\n## # ℹ Use `print(n = ...)` to see more rows\n\nPreprocessing the data\n\n\nShow code\n\n# Data Pre-processing ----\nxgboost_recipe <- \n    recipe(formula = promoted ~ ., data = promotion_train_tbl) %>% \n    recipes::update_role(employee_id, new_role = \"id\") %>% \n    step_dummy(all_nominal_predictors(), one_hot = TRUE) %>% \n    step_zv(all_predictors()) \n\n\nTuning the Model\nFinalise and Predict\n\n\n\n",
     "preview": "posts/2022-12-30-promotion_prediction/shorter_stairs.jpg",
-    "last_modified": "2022-12-22T17:00:13+11:00",
+    "last_modified": "2022-12-23T12:03:43+11:00",
     "input_file": "promotion_prediction.knit.md"
   },
   {

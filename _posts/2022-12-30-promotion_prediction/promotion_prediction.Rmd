@@ -65,7 +65,6 @@ library(doParallel)
 library(parallelly)
 
 
-# 0. Set-up ----
 tidymodels_prefer()
 
 ```
@@ -74,7 +73,7 @@ tidymodels_prefer()
 ```{r loading_data}
 
 # Load Data ----
-promotions_tbl <- readxl::read_excel(path = "00_data/2022_12_15_promotions.xlsx")
+promotions_tbl <- readxl::read_excel(path = "promotion_prediction_files/2022_12_15_promotions.xlsx")
 
 
 promotions_tbl <- promotions_tbl %>% 
@@ -105,7 +104,8 @@ set.seed(234)
 promotion_folds <- bootstraps(promotion_train_tbl, 
                               times = 25, # default
                               strata = promoted)
-promotion_folds
+
+# promotion_folds
 
 
 
@@ -120,7 +120,7 @@ promotion_folds
 # Data Pre-processing ----
 xgboost_recipe <- 
     recipe(formula = promoted ~ ., data = promotion_train_tbl) %>% 
-    recipes::update_role(name, new_role = "id") %>% 
+    recipes::update_role(employee_id, new_role = "id") %>% 
     step_dummy(all_nominal_predictors(), one_hot = TRUE) %>% 
     step_zv(all_predictors()) 
 
@@ -129,9 +129,98 @@ xgboost_recipe <-
 
 
 
+
+# 
+```{r model_spec}
+
+# 3. Model Set-up ----
+xgboost_spec <- 
+    boost_tree(trees = 1000, 
+               tree_depth = tune(), min_n = tune(), 
+               loss_reduction = tune(), 
+               sample_size = tune(), mtry = tune(),
+               learn_rate = tune()) %>% 
+    set_engine("xgboost") %>% 
+    set_mode("classification")
+
+xgboost_spec
+
+```
+
+```{r model_tuning_spec}
+
+# 4. Model Grid ----
+xgboost_grid <- grid_latin_hypercube(
+    tree_depth(),
+    min_n(),
+    loss_reduction(),
+    sample_size = sample_prop(),
+    finalize(mtry(), promotion_train_tbl),
+    learn_rate(),
+    size = 50
+)
+
+xgboost_grid
+
+```
+
+
+# Workflow
+
+```{r workflow_setup}
+
+
+# Workflow ----
+xgboost_workflow <- 
+    workflow() %>% 
+    add_recipe(xgboost_recipe) %>% 
+    add_model(xgboost_spec) 
+
+xgboost_workflow
+
+
+# define the metrics of interest
+promotion_metrics <- metric_set(mn_log_loss, roc_auc, accuracy, sensitivity, specificity)
+
+```
+
 # Tuning the Model
+```{r model_tuning}
+
+# 6. Tune the grid ----
+# check the number of available cores
+# if available cores is greater than 5 default to 5 as diminishing  returns after this point (https://www.tmwr.org/resampling.html#parallel )
+
+promotion_metrics <- metric_set(mn_log_loss, roc_auc, accuracy, sensitivity, specificity)
+# cores <- ifelse(parallelly::availableCores()>5, 5, parallelly::availableCores())
+# doParallel::registerDoParallel(cores = cores)
+
+
+# set.seed(826)
+# xgboost_resamples <- tune_grid(
+#     xgboost_workflow,
+#     resamples = promotion_folds,
+#     grid = xgboost_grid,
+#     metrics = promotion_metrics,
+#     control = control_grid(save_pred = TRUE)
+# )
+
+
+# xgboost_resamples
+
+```
+
+# Assess Model Performance
+
+```{r assess_model}
+
+```
+
 
 # Finalise and Predict
+```{r finalise_workflow}
+
+```
 
 
 
