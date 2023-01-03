@@ -23,7 +23,7 @@ output:
     toc_depth: 3
     highlight: rstudio
     highlight_downlit: true
-    draft: false
+    draft: true
 ---
 
 
