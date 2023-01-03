@@ -21,7 +21,7 @@ output:
     toc_depth: 3
     highlight: rstudio
     highlight_downlit: true
-    draft: true
+    draft: false
 ---
 
 ```{r setup, include=FALSE}
@@ -283,7 +283,8 @@ pred_test <- final_model_workflow %>%
 
 # Visualise the performance using a confusion matrix
 cm <- conf_mat(pred_test, promoted, .pred_class)
-autoplot(cm, type = "heatmap") %>% plotly::plotly_build()
+autoplot(cm, type = "heatmap") %>% 
+    plotly::plotly_build()
 
 ```
 
