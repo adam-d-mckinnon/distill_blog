@@ -11,7 +11,7 @@
       <link>https://www.adam-d-mckinnon.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Jan 2023 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Predicting Promotions Through Machine Learning</title>
       <dc:creator>Adam D McKinnon</dc:creator>
@@ -20,8 +20,9 @@
       <category>Tidymodels</category>
       <category>XGBoost</category>
       <category>R</category>
+      <category>Promotion</category>
       <guid>https://www.adam-d-mckinnon.com/posts/2022-12-30-promotion_prediction</guid>
-      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Jan 2023 00:00:00 +0000</pubDate>
       <media:content url="https://www.adam-d-mckinnon.com/posts/2022-12-30-promotion_prediction/shorter_stairs.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>

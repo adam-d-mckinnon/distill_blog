@@ -10,6 +10,7 @@ categories:
   - Tidymodels
   - XGBoost
   - R
+  - Promotion
 output: 
   distill::distill_article:
     df_print: paged
@@ -34,7 +35,7 @@ knitr::opts_chunk$set(
   out.height = "100%",
   dpi = 300,
   code_folding = TRUE,
-  R.options = list(width = 70))
+  R.options = list(width = 100))
 
 ```
 
@@ -183,6 +184,7 @@ promotion_metrics <- metric_set(
 # establish parallel processing based on the number of available cores
 doParallel::registerDoParallel(cores = parallelly::availableCores())
 
+
 set.seed(826)
 racing_resamples <- finetune::tune_race_anova(
     xgboost_workflow,
@@ -199,16 +201,55 @@ racing_resamples <- finetune::tune_race_anova(
 
 # racing_resamples
 
+
+
 ```
+
 
 ### 6. Assess model performance
 
 ```{r assess_model}
 
-collect_metrics(racing_resamples)
-plotly_build(plot_race(racing_resamples))
+first_model_metrics_tbl <- collect_metrics(racing_resamples)
+tuning_plot <- plotly_build(plot_race(racing_resamples))
+
+xaringanExtra::use_panelset()
 
 ```
+
+
+
+::::: {.panelset}
+
+::: {.panel}
+[Promotion Metrics]{.panel-name}
+
+
+```{r echo=FALSE, code_folding = FALSE}
+
+first_model_metrics_tbl %>% gt::gt()
+
+```
+
+
+:::
+
+::: {.panel}
+[Model Tuning Visualisation]{.panel-name}
+
+
+```{r echo=FALSE, code_folding = FALSE}
+
+tuning_plot
+
+```
+
+:::
+
+:::::
+
+
+
 
 ### 7. Finalise the workflow
 
@@ -222,10 +263,10 @@ last_fit_xgboost_workflow <- xgboost_workflow %>%
 # last_fit_xgboost_workflow
 
 # test the fit
-collect_metrics(last_fit_xgboost_workflow)
+collect_metrics(last_fit_xgboost_workflow) %>% gt::gt()
 
 # extract the model workflow for further testing & saving
-final_model_workflow <- last_fit_xgboost_workflow %>% 
+final_model_workflow <- last_fit_xgboost_workflow %>%
     extract_workflow()
 
 
@@ -236,13 +277,13 @@ final_model_workflow <- last_fit_xgboost_workflow %>%
 ```{r predictions}
 
 # test the model
-predict(final_model_workflow, promotion_test_tbl[1:20,])
-pred_test <- final_model_workflow %>% predict(promotion_test_tbl) %>% 
+pred_test <- final_model_workflow %>% 
+    predict(promotion_test_tbl) %>%
     bind_cols(promotion_test_tbl)
 
 # Visualise the performance using a confusion matrix
-conf_mat(pred_test, promoted, .pred_class)
-
+cm <- conf_mat(pred_test, promoted, .pred_class)
+autoplot(cm, type = "heatmap") %>% plotly::plotly_build()
 
 ```
 
@@ -250,6 +291,7 @@ conf_mat(pred_test, promoted, .pred_class)
 
 ```{r save_model}
 
+# save the model for future use 
 model_bundle <- bundle::bundle(final_model_workflow)
 readr::write_rds(model_bundle, file = "promotion_prediction_files/model_bundle.rds")
 
