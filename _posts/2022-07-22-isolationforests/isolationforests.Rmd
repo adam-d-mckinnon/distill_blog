@@ -8,7 +8,7 @@ author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/
     affiliation_url: https://www.linkedin.com/in/adamdmckinnon/
-date: "`r Sys.Date()`"
+date: 06-06-2021
 categories:
   - Python
   - H2o

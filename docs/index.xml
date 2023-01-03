@@ -11,7 +11,20 @@
       <link>https://www.adam-d-mckinnon.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 03 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Expediting Exploratory Data Analysis for Machine Learning</title>
+      <dc:creator>Adam D McKinnon</dc:creator>
+      <link>https://www.adam-d-mckinnon.com/posts/2023-01-03-ppsr</link>
+      <description>Experimenting with different methods to rapidly explore relationships within datasets prior to performing machine learning tasks.</description>
+      <category>PPSR</category>
+      <category>Correlation Funnel</category>
+      <category>DataExplorer</category>
+      <category>R</category>
+      <guid>https://www.adam-d-mckinnon.com/posts/2023-01-03-ppsr</guid>
+      <pubDate>Tue, 28 Feb 2023 00:00:00 +0000</pubDate>
+      <media:content url="https://www.adam-d-mckinnon.com/posts/2023-01-03-ppsr/example_ppsr_plot.png" medium="image" type="image/png" width="800" height="494"/>
+    </item>
     <item>
       <title>Predicting Promotions Through Machine Learning</title>
       <dc:creator>Adam D McKinnon</dc:creator>
@@ -40,7 +53,7 @@
       <category>Machine Learning</category>
       <category>Data Quality</category>
       <guid>https://www.adam-d-mckinnon.com/posts/2022-07-22-isolationforests</guid>
-      <pubDate>Mon, 02 Jan 2023 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 03 Jan 2023 00:00:00 +0000</pubDate>
       <media:content url="https://www.adam-d-mckinnon.com/posts/2022-07-22-isolationforests/../2022-07-22-isolationforests/mika-baumeister-Wpnoqo2plFA-unsplash.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
