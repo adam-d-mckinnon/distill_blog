@@ -90,8 +90,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-07-21"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-07-21"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-01-03"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-01-03"/>
   <meta name="article:author" content="Martha Curioni"/>
   <meta name="article:author" content="Adam D McKinnon"/>
 
@@ -110,7 +110,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["Automated assessment of employee data quality using machine learning"]},{"type":"character","attributes":{},"value":["An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Martha Curioni"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/marthacurioni/"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Adam D McKinnon"]},{"type":"character","attributes":{},"value":["https://adam-d-mckinnon.com/"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/adamdmckinnon/"]}]}]},{"type":"character","attributes":{},"value":["2022-07-21"]},{"type":"character","attributes":{},"value":["Python","H2o","Isolation Forests"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["df_print","self_contained","date_prefix","toc","toc_depth","toc_float","highlight","highlight_downlit","draft"]}},"value":[{"type":"character","attributes":{},"value":["paged"]},{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[1]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["rstudio"]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["Automated assessment of employee data quality using machine learning"]},{"type":"character","attributes":{},"value":["An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Martha Curioni"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/marthacurioni/"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Adam D McKinnon"]},{"type":"character","attributes":{},"value":["https://adam-d-mckinnon.com/"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/adamdmckinnon/"]}]}]},{"type":"character","attributes":{},"value":["2023-01-03"]},{"type":"character","attributes":{},"value":["Python","H2o","Isolation Forests","HR","Machine Learning","Data Quality"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["df_print","self_contained","date_prefix","toc","toc_depth","toc_float","highlight","highlight_downlit","draft"]}},"value":[{"type":"character","attributes":{},"value":["paged"]},{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[1]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["rstudio"]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -186,6 +186,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1258,15 +1259,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1465,7 +1472,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="isolationforests_files/header-attrs-2.14/header-attrs.js"></script>
+  <script src="isolationforests_files/header-attrs-2.19/header-attrs.js"></script>
   <script src="isolationforests_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="isolationforests_files/popper-2.6.0/popper.min.js"></script>
   <link href="isolationforests_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1486,7 +1493,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Automated assessment of employee data quality using machine learning","description":"An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.","authors":[{"author":"Martha Curioni","authorURL":"https://www.linkedin.com/in/marthacurioni/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""},{"author":"Adam D McKinnon","authorURL":"https://adam-d-mckinnon.com/","affiliation":"https://www.linkedin.com/in/adamdmckinnon/","affiliationURL":"https://www.linkedin.com/in/adamdmckinnon/","orcidID":""}],"publishedDate":"2022-07-21T00:00:00.000+10:00","citationText":"Curioni & McKinnon, 2022"}
+{"title":"Automated assessment of employee data quality using machine learning","description":"An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.","authors":[{"author":"Martha Curioni","authorURL":"https://www.linkedin.com/in/marthacurioni/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""},{"author":"Adam D McKinnon","authorURL":"https://adam-d-mckinnon.com/","affiliation":"https://www.linkedin.com/in/adamdmckinnon/","affiliationURL":"https://www.linkedin.com/in/adamdmckinnon/","orcidID":""}],"publishedDate":"2023-01-03T00:00:00.000+11:00","citationText":"Curioni & McKinnon, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1502,21 +1509,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="dt-tag">Python</div>
 <div class="dt-tag">H2o</div>
 <div class="dt-tag">Isolation Forests</div>
+<div class="dt-tag">HR</div>
+<div class="dt-tag">Machine Learning</div>
+<div class="dt-tag">Data Quality</div>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>An automated, multi-dimensional and scalable approach to
-monitoring employee data quality using unsupervised machine
-learning.</p></p>
+<p><p>An automated, multi-dimensional and scalable approach to monitoring employee data quality using unsupervised machine learning.</p></p>
 </div>
 
 <div class="d-byline">
-  Martha Curioni <a href="https://www.linkedin.com/in/marthacurioni/"
-class="uri">https://www.linkedin.com/in/marthacurioni/</a> 
+  Martha Curioni <a href="https://www.linkedin.com/in/marthacurioni/" class="uri">https://www.linkedin.com/in/marthacurioni/</a> 
   
-,   Adam D McKinnon <a href="https://adam-d-mckinnon.com/"
-class="uri">https://adam-d-mckinnon.com/</a> 
+,   Adam D McKinnon <a href="https://adam-d-mckinnon.com/" class="uri">https://adam-d-mckinnon.com/</a> 
   
-<br/>2022-07-21
+<br/>2023-01-03
 </div>
 
 <div class="d-article">
@@ -1524,9 +1530,9 @@ class="uri">https://adam-d-mckinnon.com/</a>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#the-process">The Process</a></li>
-<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#the-process" id="toc-the-process">The Process</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
 </ul>
 </nav>
 </div>
@@ -1534,89 +1540,28 @@ class="uri">https://adam-d-mckinnon.com/</a>
 <div class="figure"><span style="display:block;" id="fig:header"></span>
 <img src="../2022-07-22-isolationforests/mika-baumeister-Wpnoqo2plFA-unsplash.jpg" alt="Photo by [Mika Baumeister](https://unsplash.com/@mbaumi) on [Unsplash](https://unsplash.com/)." width="100%" height="100%" />
 <p class="caption">
-Figure 1: Photo by <a href="https://unsplash.com/@mbaumi">Mika
-Baumeister</a> on <a href="https://unsplash.com/">Unsplash</a>.
+Figure 1: Photo by <a href="https://unsplash.com/@mbaumi">Mika Baumeister</a> on <a href="https://unsplash.com/">Unsplash</a>.
 </p>
 </div>
 </div>
 <h1 id="introduction">Introduction</h1>
-<p>The topic of data quality is like that of I.T. services generally…
-you only ever hear about it when there’s a problem! There’s an implicit
-assumption among stakeholders receiving the findings of people analytics
-initiatives that your data is “good”. Failure to observe this assumption
-of high data quality can significantly (and rapidly) undermine the
-credibility of findings, irrespective of how small the data quality
-deviation!</p>
-<p>From an analytical perspective, the quality of your insights can
-potentially be limited by flawed data. As the saying goes “garbage in,
-garbage out”. Coupled with stakeholder expectations, it becomes
-increasingly important that organisations invest time and energy in the
-ongoing assessment and curation of quality data to maximise the
-influence of data driven decision making in organisations.</p>
-<p>At the same time, monitoring data quality in HR can be immensely time
-consuming, expensive, simplistic in execution (i.e., simple evaluation
-criteria such as age ranges), highly repetitive, and utterly devoid of
-ANY professional enjoyment! To overcome these shortcomings, we have
-developed an automated, multi-dimensional and scalable approach to data
-quality evaluation using unsupervised machine learning—Isolation
-Forests.</p>
+<p>The topic of data quality is like that of I.T. services generally… you only ever hear about it when there’s a problem! There’s an implicit assumption among stakeholders receiving the findings of people analytics initiatives that your data is “good”. Failure to observe this assumption of high data quality can significantly (and rapidly) undermine the credibility of findings, irrespective of how small the data quality deviation!</p>
+<p>From an analytical perspective, the quality of your insights can potentially be limited by flawed data. As the saying goes “garbage in, garbage out”. Coupled with stakeholder expectations, it becomes increasingly important that organisations invest time and energy in the ongoing assessment and curation of quality data to maximise the influence of data driven decision making in organisations.</p>
+<p>At the same time, monitoring data quality in HR can be immensely time consuming, expensive, simplistic in execution (i.e., simple evaluation criteria such as age ranges), highly repetitive, and utterly devoid of ANY professional enjoyment! To overcome these shortcomings, we have developed an automated, multi-dimensional and scalable approach to data quality evaluation using unsupervised machine learning—Isolation Forests.</p>
 <h1 id="the-process">The Process</h1>
-<p>We used Isolation Forests, an <a
-href="https://www.adam-d-mckinnon.com/posts/2020-06-19-a-beginners-guide-to-machine-learning-for-hr-practitioners/">unsupervised
-machine learning</a> approach to scan employee data for potentially
-anomalous[1] records.</p>
-<p>Our code can be viewed at <a
-href="https://github.com/MarthaC-SBP/IsolationForrest_HR_data_anomalies">this
-GitHub account</a>, which followed the following process steps:</p>
+<p>We used Isolation Forests, an <a href="https://www.adam-d-mckinnon.com/posts/2020-06-19-a-beginners-guide-to-machine-learning-for-hr-practitioners/">unsupervised machine learning</a> approach to scan employee data for potentially anomalous[1] records.</p>
+<p>Our code can be viewed at <a href="https://github.com/MarthaC-SBP/IsolationForrest_HR_data_anomalies">this GitHub account</a>, which followed the following process steps:</p>
 <ol type="1">
-<li><p>Ingested personnel data and loaded the appropriate libraries. In
-our example, we used the IBM HR Attrition dataset, then installed the
-H2o and Pandas libraries.</p></li>
-<li><p>Defined the dataset columns to include in the data quality
-assessment. Trained an Isolation Forest algorithm on the data. The
-Isolation Forest algorithm partitioned data through a forest of decision
-trees. Each split of the data was made randomly and the number of splits
-required to isolate a record indicated whether or not the record was
-considered anomalous. When a forest of random trees collectively
-produced shorter path lengths for particular records, they were highly
-likely to be considered anomalies.</p></li>
-<li><p>Using the trained Isolation Forest model, we then predicted which
-records we believed to be anomalous. Of those records predicted to have
-data quality issues we then narrowed down to those with the highest
-likelihood of being anomalous using characteristics from the trained
-model.</p></li>
+<li><p>Ingested personnel data and loaded the appropriate libraries. In our example, we used the IBM HR Attrition dataset, then installed the H2o and Pandas libraries.</p></li>
+<li><p>Defined the dataset columns to include in the data quality assessment. Trained an Isolation Forest algorithm on the data. The Isolation Forest algorithm partitioned data through a forest of decision trees. Each split of the data was made randomly and the number of splits required to isolate a record indicated whether or not the record was considered anomalous. When a forest of random trees collectively produced shorter path lengths for particular records, they were highly likely to be considered anomalies.</p></li>
+<li><p>Using the trained Isolation Forest model, we then predicted which records we believed to be anomalous. Of those records predicted to have data quality issues we then narrowed down to those with the highest likelihood of being anomalous using characteristics from the trained model.</p></li>
 <li><p>The model has two levels of output interpretation:</p>
 <ol type="i">
-<li>Global – which dataset columns are most often related to data
-quality errors. At best this is interesting in identifying potentially
-systemic errors, which may be a catalyst for more controlled data entry
-parameters.</li>
-<li>Local – for any given record why is it deemed an anomaly. It is this
-level that is most valuable in directly resolving data quality issues,
-and therefore, was the focus of our approach.</li>
+<li>Global – which dataset columns are most often related to data quality errors. At best this is interesting in identifying potentially systemic errors, which may be a catalyst for more controlled data entry parameters.</li>
+<li>Local – for any given record why is it deemed an anomaly. It is this level that is most valuable in directly resolving data quality issues, and therefore, was the focus of our approach.</li>
 </ol></li>
-<li><p>For those records deemed highly anomalous (our subset), we then
-trained a simple Random Forest model to predict the anomaly flag(s).
-This process was repeated multiple times for each record to increase our
-certainty in identifying those variables contributing to its anomaly
-status. Note: We kept the model simple to make identification (and
-interpretation) of the combination of variables contributing to each
-records anomaly status easy to perform. In short, we wanted the output
-interpretable by a wide audience, not just those familiar with machine
-learning outputs.</p></li>
-<li><p>The generated output (see excerpt of output in image below) has
-two fields: 1. A unique identifier, and 2. A list of variables
-contributing to each records anomaly status. The unique identifier, in
-our case the unique Employee Number taken from the original dataset, is
-critical to enabling identification and access to the original record
-that requires review. The second column has a ranked list (ranked from
-most important to least) showing the variables “collectively”
-contributing to the anomaly status. For example, when inspecting
-EmployeeNumber 58’s record we see a Monthly Income only four times their
-DailyRate (possibly incorrect), and that the individual has been with
-the company 2 years, had their last promotion 2 years ago, and has 2
-years in their current role, which collectively cannot all be
-correct–the algorithm suggests reviewing YearsInCurrentRole.</p></li>
+<li><p>For those records deemed highly anomalous (our subset), we then trained a simple Random Forest model to predict the anomaly flag(s). This process was repeated multiple times for each record to increase our certainty in identifying those variables contributing to its anomaly status. Note: We kept the model simple to make identification (and interpretation) of the combination of variables contributing to each records anomaly status easy to perform. In short, we wanted the output interpretable by a wide audience, not just those familiar with machine learning outputs.</p></li>
+<li><p>The generated output (see excerpt of output in image below) has two fields: 1. A unique identifier, and 2. A list of variables contributing to each records anomaly status. The unique identifier, in our case the unique Employee Number taken from the original dataset, is critical to enabling identification and access to the original record that requires review. The second column has a ranked list (ranked from most important to least) showing the variables “collectively” contributing to the anomaly status. For example, when inspecting EmployeeNumber 58’s record we see a Monthly Income only four times their DailyRate (possibly incorrect), and that the individual has been with the company 2 years, had their last promotion 2 years ago, and has 2 years in their current role, which collectively cannot all be correct–the algorithm suggests reviewing YearsInCurrentRole.</p></li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:costs"></span>
@@ -1627,27 +1572,10 @@ Figure 2: Example Output.
 </div>
 </div>
 <h1 id="conclusion">Conclusion</h1>
-<p>Unsupervised Machine Learning algorithms such as Isolation Forests
-can be an excellent way of automating and scaling the review of data to
-monitor for quality concerns. The approach lends itself to those
-datasets that have a reasonable level of data quality and that are
-looking to make further improvements.</p>
-<p>The major advantage of this approach is that the Isolation Forest can
-identify a record as anomalous, despite no one variable in the record
-being out of acceptable limits. Instead, the algorithm assesses the
-combination of multiple variables to determine if the combination makes
-it seem anomalous. This is like having human intelligence review each
-record quickly, at scale, and without destroying anyone’s job
-satisfaction!</p>
-<p>We propose that this approach has the potential to significantly
-reduce time spent on direct data quality evaluations, which has
-considerable direct benefits (i.e., better quality data, more
-representative analyses and interpretation, etc.) as well as indirect
-benefits (i.e., time can be spent on other value-add initiatives that
-can only be done by humans!). This is particularly true for smaller
-teams, where the need to do more with less is greatest.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Unsupervised Machine Learning algorithms such as Isolation Forests can be an excellent way of automating and scaling the review of data to monitor for quality concerns. The approach lends itself to those datasets that have a reasonable level of data quality and that are looking to make further improvements.</p>
+<p>The major advantage of this approach is that the Isolation Forest can identify a record as anomalous, despite no one variable in the record being out of acceptable limits. Instead, the algorithm assesses the combination of multiple variables to determine if the combination makes it seem anomalous. This is like having human intelligence review each record quickly, at scale, and without destroying anyone’s job satisfaction!</p>
+<p>We propose that this approach has the potential to significantly reduce time spent on direct data quality evaluations, which has considerable direct benefits (i.e., better quality data, more representative analyses and interpretation, etc.) as well as indirect benefits (i.e., time can be spent on other value-add initiatives that can only be done by humans!). This is particularly true for smaller teams, where the need to do more with less is greatest.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

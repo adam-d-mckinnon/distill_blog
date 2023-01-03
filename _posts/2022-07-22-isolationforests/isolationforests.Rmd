@@ -13,6 +13,9 @@ categories:
   - Python
   - H2o
   - Isolation Forests
+  - HR
+  - Machine Learning
+  - Data Quality
 output: 
   distill::distill_article:
     df_print: paged

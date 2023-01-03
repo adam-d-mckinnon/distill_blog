@@ -11,7 +11,7 @@
       <link>https://www.adam-d-mckinnon.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 02 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Jan 2023 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Predicting Promotions Through Machine Learning</title>
       <dc:creator>Adam D McKinnon</dc:creator>
@@ -24,7 +24,7 @@
       <category>Machine Learning</category>
       <category>Employee Promotions</category>
       <guid>https://www.adam-d-mckinnon.com/posts/2022-12-30-promotion_prediction</guid>
-      <pubDate>Mon, 02 Jan 2023 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 03 Jan 2023 00:00:00 +0000</pubDate>
       <media:content url="https://www.adam-d-mckinnon.com/posts/2022-12-30-promotion_prediction/shorter_stairs.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
@@ -36,8 +36,11 @@
       <category>Python</category>
       <category>H2o</category>
       <category>Isolation Forests</category>
+      <category>HR</category>
+      <category>Machine Learning</category>
+      <category>Data Quality</category>
       <guid>https://www.adam-d-mckinnon.com/posts/2022-07-22-isolationforests</guid>
-      <pubDate>Thu, 21 Jul 2022 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Jan 2023 00:00:00 +0000</pubDate>
       <media:content url="https://www.adam-d-mckinnon.com/posts/2022-07-22-isolationforests/../2022-07-22-isolationforests/mika-baumeister-Wpnoqo2plFA-unsplash.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
