@@ -1,8 +1,8 @@
 [
   {
     "path": "posts/2023-01-03-ppsr/",
-    "title": "Expediting Exploratory Data Analysis for Machine Learning",
-    "description": "Experimenting with different methods to rapidly explore relationships within datasets prior to performing machine learning tasks.",
+    "title": "Expediting Exploratory Data Analysis",
+    "description": "Experimenting with different methods to rapidly explore relationships within datasets prior to performing other analytic activities.",
     "author": [
       {
         "name": "Adam D McKinnon",
@@ -18,7 +18,7 @@
     ],
     "contents": "\n\nContents\n1. Predictive Power Score\n2. Correlation Funnel\n3. DataExplorer\n\n\n\n\nFigure 1: Example PPSR matrix using mtcars dataset\n\n\n\n1. Predictive Power Score\n\n\nShow code\n\ncleaned_promotions_tbl %>%\n    select(-employee_id) %>%\n    visualize_pps(y = 'is_promoted', do_parallel = TRUE)\n\n\n\n2. Correlation Funnel\n\n\nShow code\n\ncleaned_promotions_tbl %>% \n    select(-employee_id) %>% \n    binarize() %>% \n    correlate(target = is_promoted__Yes) %>% \n    plot_correlation_funnel(interactive = TRUE) %>% \n    plotly::config(displayModeBar = FALSE)\n\n\n\n3. DataExplorer\n\n\nDefault Heatmap\n\n\nShow code\n\ncorr_plot <- cleaned_promotions_tbl %>% \n    select(-employee_id) %>% \n    DataExplorer::plot_correlation(\n        theme_config = list(\n            legend.position = \"none\",\n            axis.text.x     = element_text(angle = 90)\n                )\n    )\n\n\n\n\n\nInteractive Heatmap\n\n\nShow code\n\ncorr_plot$data$value <- round(corr_plot$data$value, digits = 2)\n\nplotly::plotly_build(corr_plot) %>% \n    plotly::layout(width = 700, height = 700) %>% \n    plotly::config(displayModeBar = FALSE)\n\n\n\n\n\n\n\n\n",
     "preview": "posts/2023-01-03-ppsr/example_ppsr_plot.png",
-    "last_modified": "2023-01-03T15:06:08+11:00",
+    "last_modified": "2023-01-03T15:17:29+11:00",
     "input_file": "predictive_power_score.knit.md",
     "preview_width": 800,
     "preview_height": 494

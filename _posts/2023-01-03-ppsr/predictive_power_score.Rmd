@@ -1,7 +1,7 @@
 ---
-title: "Expediting Exploratory Data Analysis for Machine Learning"
+title: "Expediting Exploratory Data Analysis"
 description: |
-  Experimenting with different methods to rapidly explore relationships within datasets prior to performing machine learning tasks.
+  Experimenting with different methods to rapidly explore relationships within datasets prior to performing other analytic activities.
 author:
   - name: Adam D McKinnon
     url: https://adam-d-mckinnon.com/

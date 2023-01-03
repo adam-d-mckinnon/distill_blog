@@ -13,10 +13,10 @@
     <generator>Distill</generator>
     <lastBuildDate>Tue, 28 Feb 2023 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Expediting Exploratory Data Analysis for Machine Learning</title>
+      <title>Expediting Exploratory Data Analysis</title>
       <dc:creator>Adam D McKinnon</dc:creator>
       <link>https://www.adam-d-mckinnon.com/posts/2023-01-03-ppsr</link>
-      <description>Experimenting with different methods to rapidly explore relationships within datasets prior to performing machine learning tasks.</description>
+      <description>Experimenting with different methods to rapidly explore relationships within datasets prior to performing other analytic activities.</description>
       <category>PPSR</category>
       <category>Correlation Funnel</category>
       <category>DataExplorer</category>
