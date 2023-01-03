@@ -56,18 +56,16 @@ library(tidyverse)
 # modelling
 library(tidymodels)
 library(tidyclust)
+library(embed)
+
+# visualising
+library(Rtsne)
+library(plotly)
 
 
 data("managers", package = "peopleanalyticsdata")
 
-
-managers %>% 
-    tibble::as_tibble() %>% 
-    dplyr::mutate(employee_id = as.character(employee_id)) %>% 
-    tibble::column_to_rownames(employee_id)
-
 rownames(managers) <- managers$employee_id
-    select(-employee_id)
 
 managers_df <- managers %>% 
     dplyr::select(-employee_id)
@@ -78,11 +76,10 @@ managers_df <- managers %>%
 ```{r}
 
 managers_rec <- recipe(~ ., data = managers_df) %>% 
-    #update_role(employee_id, new_role = "id") %>% 
     step_dummy(all_nominal_predictors()) %>% 
     step_zv(all_predictors()) %>% 
     step_normalize(all_numeric_predictors()) %>% 
-    step_pca(all_numeric_predictors(), threshold = 0.8)
+    step_pca(all_numeric_predictors(), threshold = 0.9)
 
 managers_rec
 
@@ -120,7 +117,7 @@ clust_num_grid <- grid_regular(num_clusters(),
 ```{r}
 
 set.seed(519)
-manager_bootstraps <- bootstraps(managers, times = 25)
+manager_bootstraps <- bootstraps(managers, times = 10)
 
 tune_res <- tune_cluster(
     kmeans_wf,
@@ -137,48 +134,80 @@ tune_res
 
 ```{r}
 
-collect_metrics(tune_res)
+res_metrics <- collect_metrics(tune_res)
+
+
+
+# not necessary, but interesting to note
+res_metrics %>%
+  filter(.metric == "sse_within_total") %>%
+  ggplot(aes(x = num_clusters, y = mean)) +
+  geom_point() +
+  geom_line() +
+  theme_minimal() +
+  ylab("mean WSS/TSS ratio, over 5 folds") +
+  xlab("Number of clusters") +
+  scale_x_continuous(breaks = 1:10)
+
+
+
 num_clusters <- select_best(tune_res) %>% pull(num_clusters)
 
 
+```
 
-final_kmeans_spec <- k_means(num_clusters = num_clusters) %>%
+
+
+```{r}
+
+
+final_kmeans_spec <- k_means(num_clusters = 7) %>%
   set_engine("ClusterR")
 
 final_kmeans_wf <- workflow(managers_rec, final_kmeans_spec)
 final_kmeans_fit <- fit(final_kmeans_wf, data = managers)
 
 
-personas_tbl <- 
-    managers_tbl %>% 
+personas_df <- 
+    managers_df %>% 
     bind_cols(extract_cluster_assignment(final_kmeans_fit))
     
 
-cluster_assignment_tbl <- extract_cluster_assignment(final_kmeans_fit)
-persona_coordinates <- bake((managers_rec %>% prep()), new_data = NULL) 
-
-
+persona_coordinates_tbl <- bake((managers_rec %>% prep()), new_data = NULL) 
 
 
 ```
 
-```{r}
 
 
-library(Rtsne)
+```{r visualise_clusters}
 
 tsne_obj <- Rtsne::Rtsne(persona_coordinates_tbl)
 
 
-managers_tbl %>% glimpse()
-
-managers_tbl <- managers_tbl %>% 
+personas_df <- personas_df %>% 
+    rename(Cluster = ".cluster")
     mutate(
-        description = stringr::str_glue("Performance Group: {performance_group}
+        description = stringr::str_glue("{Cluster}
+        
+                                        Performance Group: {performance_group}
                                         Tenure: {yrs_employed} years
-                                        Test Score: {test_score}")
+                                        Test Score: {test_score}
+                                        Group Size: {group_size}
+                                        
+                                        Flight Risk: {concern_flag}
+                                        Burnout Risk: {high_hours_flag}
+                                        Reduced Schedule: {reduced_schedule}
+                                        
+                                        Mobile: {mobile_flag}
+                                        No. of Costumers: {customers}
+                                        No. Of Transfers: {transfers}
+                                        
+                                        Location: {city}")
         
         )
+    
+    
 
 
 
@@ -186,14 +215,12 @@ managers_tbl <- managers_tbl %>%
 tsne_tbl <- tsne_obj$Y %>% 
     tibble::as_tibble() %>% 
     dplyr::rename("X" = V1, "Y" = V2) %>% 
-    dplyr::bind_cols(managers_tbl) %>% 
-    dplyr::bind_cols(cluster_assignment_tbl)
+    dplyr::bind_cols(personas_df) 
 
-tsne_tbl %>% glimpse()
 
 
 g <- tsne_tbl %>%
-    ggplot2::ggplot(aes(x = X, y = Y, colour = .cluster, text = description)) +
+    ggplot2::ggplot(aes(x = X, y = Y, colour = Cluster, text = description)) +
     geom_point()
 
 
